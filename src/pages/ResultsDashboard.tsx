@@ -12,7 +12,7 @@ const ResultsDashboard: React.FC = () => {
     confidence: 75
   });
 
-  // Mock data for the aggregated votes - updated with more realistic values
+  // Mock data for the aggregated votes - using more realistic values
   const [aggregatedData] = useState({
     directions: [
       { name: 'cut', count: 45, percentage: 45 },
@@ -21,20 +21,20 @@ const ResultsDashboard: React.FC = () => {
     ],
     averageRate: 5.31,
     projections: {
-      // More realistic Fed projections around 4-5% range
+      // Fixed projections to be within the visible 0-5% range
       '2025': [0.0425, 0.0450, 0.0475, 0.0425, 0.0450, 0.0425, 0.0400, 0.0475],
       '2026': [0.0350, 0.0375, 0.0375, 0.0400, 0.0350, 0.0325, 0.0425],
       '2027': [0.0300, 0.0325, 0.0275, 0.0325, 0.0300, 0.0250],
       'Long Run': [0.0250, 0.0225, 0.0275, 0.0250, 0.0225, 0.0275]
     },
-    // User's own projections - more realistic values
+    // Fixed user's own projections to be within range
     userProjections: {
       '2025': 0.0450,
       '2026': 0.0375,
       '2027': 0.0300,
       'Long Run': 0.0250
     },
-    // Median projections - more realistic values
+    // Fixed median projections to be within range
     medians: {
       '2025': 0.0450,
       '2026': 0.0375,
