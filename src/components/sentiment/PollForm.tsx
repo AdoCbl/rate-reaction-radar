@@ -75,18 +75,16 @@ export const PollForm: React.FC = () => {
 
   return (
     <motion.div 
-      className="relative rounded-2xl p-5 shadow-2xl w-full max-w-5xl mx-auto 
-                backdrop-blur-lg bg-gradient-to-b from-slate-900/90 to-slate-800/70 
-                border border-slate-700/60 overflow-hidden"
+      className="relative w-full max-w-5xl mx-auto backdrop-blur-lg bg-transparent py-4 px-3"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <form onSubmit={handleSubmit} className="space-y-5"> 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="space-y-3"> 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Left column: FOMC Decision - Top Priority */}
           <div>
-            <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">
+            <h2 className="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">
               Your FOMC Outlook
             </h2>
             <FomcOutlookSection 
@@ -100,7 +98,7 @@ export const PollForm: React.FC = () => {
           
           {/* Right column: Dot Plot - Second Priority */}
           <div>
-            <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">
+            <h2 className="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">
               Rate Projections
             </h2>
             <DotPlotProjection 
@@ -110,7 +108,7 @@ export const PollForm: React.FC = () => {
           </div>
         </div>
         
-        <div className="border-t border-slate-700/40 my-4 pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="border-t border-slate-700/40 mt-2 pt-2 grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Comments Box - Last Priority */}
           <div className="md:col-span-2">
             <CommentSection 

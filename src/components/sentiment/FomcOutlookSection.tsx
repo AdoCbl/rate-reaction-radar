@@ -22,13 +22,13 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
 }) => {
   return (
     <motion.div 
-      className="space-y-5"
+      className="space-y-3"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.1, duration: 0.4 }}
     >
       {/* Direction Buttons */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-2">
         <DirectionButton 
           direction="cut" 
           selected={direction === 'cut'} 
@@ -53,7 +53,7 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
         transition={{ duration: 0.3 }}
       >
         <div className="flex items-center">
-          <p className="text-base font-medium text-slate-300">Current target rate: 
+          <p className="text-sm font-medium text-slate-300">Current target rate: 
             <span className="ml-1 px-2 py-0.5 bg-slate-700/70 rounded-md text-white font-semibold">
               {currentRate.toFixed(2)}%
             </span>
@@ -66,7 +66,6 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.1 }}
-        className="mt-1"
       >
         <ConfidenceSlider value={confidence} onChange={onConfidenceChange} />
       </motion.div>

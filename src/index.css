@@ -4,48 +4,8 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light mode - refined, professional color palette */
-  :root {
-    --background: 210 45% 98%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 221.2 83% 53.3%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 24 94% 69%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83% 53.3%;
-    
-    --sidebar-background: 210 40% 98%;
-    --sidebar-foreground: 222.2 84% 4.9%;
-    --sidebar-primary: 221.2 83% 53.3%;
-    --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 24 94% 69%;
-    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
-    --sidebar-border: 214.3 31.8% 91.4%;
-    --sidebar-ring: 221.2 83% 53.3%;
-  }
-
   /* Dark mode - refined navy/indigo palette */
-  .dark {
+  :root {
     --background: 224 71% 4%;
     --foreground: 213 31% 91%;
 
@@ -91,13 +51,13 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-indigo-50 to-blue-100 dark:from-slate-900 dark:to-indigo-950 text-foreground font-sans;
+    @apply bg-gradient-to-br from-slate-900 to-indigo-950 text-foreground font-sans;
   }
 }
 
 @layer components {
   .direction-button {
-    @apply flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] w-full font-medium;
+    @apply flex flex-col items-center justify-center p-3 rounded-lg border-2 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] w-full font-medium;
   }
   
   .confidence-text {
@@ -105,7 +65,7 @@
   }
 
   .glass-card {
-    @apply bg-white/95 dark:bg-slate-800/90 backdrop-blur-sm border border-white/70 dark:border-white/10 shadow-xl;
+    @apply bg-slate-800/90 backdrop-blur-sm border border-white/10 shadow-xl;
   }
 }
 
@@ -123,12 +83,12 @@
 }
 
 /* Card styles for both themes */
-.card-light {
-  @apply bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700 shadow-md;
+.card-dark {
+  @apply bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 shadow-md;
 }
 
 .card-accent {
-  @apply bg-gradient-to-br from-slate-50 to-indigo-50 dark:from-slate-800 dark:to-indigo-950 border border-indigo-100 dark:border-indigo-900;
+  @apply bg-gradient-to-br from-slate-800 to-indigo-950 border border-indigo-900;
 }
 
 /* Direction color variables */

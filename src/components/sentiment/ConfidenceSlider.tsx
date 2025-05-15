@@ -43,14 +43,14 @@ export const ConfidenceSlider: React.FC<ConfidenceSliderProps> = ({ value, onCha
   };
   
   return (
-    <div className="w-full space-y-2">
-      <div className="flex justify-between items-center">
+    <div className="w-full space-y-1">
+      <div className="flex justify-between items-center mb-1">
         <span className="text-base font-medium text-slate-300">Confidence</span>
         <motion.div
           key={value}
           initial={{ opacity: 0, scale: 0.9, y: -5 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          className={`text-base font-semibold ${getConfidenceColor()} px-3 py-1 rounded-full 
+          className={`text-base font-semibold ${getConfidenceColor()} px-2 py-0.5 rounded-full 
                      bg-gradient-to-br ${getThumbColor()} shadow-lg`}
           style={{
             boxShadow: isDragging ? `0 0 15px 3px rgba(255, 255, 255, 0.15)` : 'none'
@@ -60,8 +60,8 @@ export const ConfidenceSlider: React.FC<ConfidenceSliderProps> = ({ value, onCha
         </motion.div>
       </div>
       
-      <div className="relative pt-1 pb-2">
-        <div className={`h-3 w-full rounded-full ${getTrackBackground()} absolute top-3`}></div>
+      <div className="relative pt-1 pb-1">
+        <div className={`h-2 w-full rounded-full ${getTrackBackground()} absolute top-2`}></div>
         <Slider
           min={0}
           max={100}
@@ -70,14 +70,13 @@ export const ConfidenceSlider: React.FC<ConfidenceSliderProps> = ({ value, onCha
           onValueChange={handleSliderChange}
           onValueCommit={() => setIsDragging(false)}
           onDrag={() => setIsDragging(true)}
-          className="py-3"
-          classNameThumb={getThumbColor() + " shadow-lg hover:scale-110 transition-transform"}
+          className="py-1"
+          // Fix: Apply styling directly through standard className
         />
         
-        {/* Slider Track Labels */}
-        <div className="flex justify-between text-xs text-slate-500 mt-1 px-1">
+        {/* Simplified labels - just start and end */}
+        <div className="flex justify-between text-xs text-slate-500 mt-0.5 px-1">
           <span>0%</span>
-          <span>50%</span>
           <span>100%</span>
         </div>
       </div>

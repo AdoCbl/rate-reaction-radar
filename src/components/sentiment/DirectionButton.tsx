@@ -18,11 +18,11 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
   const getIcon = () => {
     switch (direction) {
       case 'hike':
-        return <ArrowUp size={28} strokeWidth={2.5} />;
+        return <ArrowUp size={24} strokeWidth={2.5} />;
       case 'hold':
-        return <ArrowRight size={28} strokeWidth={2.5} />;
+        return <ArrowRight size={24} strokeWidth={2.5} />;
       case 'cut':
-        return <ArrowDown size={28} strokeWidth={2.5} />;
+        return <ArrowDown size={24} strokeWidth={2.5} />;
       default:
         return null;
     }
@@ -45,15 +45,15 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
     switch (direction) {
       case 'hike':
         return selected
-          ? 'from-emerald-600/80 to-emerald-800/80'
+          ? 'from-emerald-600/90 to-emerald-800/90'
           : 'from-slate-700/70 to-slate-800/70 hover:from-emerald-800/30 hover:to-emerald-900/30';
       case 'hold':
         return selected
-          ? 'from-sky-600/80 to-sky-800/80'
+          ? 'from-sky-600/90 to-sky-800/90'
           : 'from-slate-700/70 to-slate-800/70 hover:from-sky-800/30 hover:to-sky-900/30';
       case 'cut':
         return selected
-          ? 'from-rose-600/80 to-rose-800/80'
+          ? 'from-rose-600/90 to-rose-800/90'
           : 'from-slate-700/70 to-slate-800/70 hover:from-rose-800/30 hover:to-rose-900/30';
       default:
         return '';
@@ -95,7 +95,7 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
   return (
     <motion.button
       className={`
-        flex flex-col items-center justify-center py-4 px-3 rounded-xl 
+        flex flex-col items-center justify-center py-2 px-2 rounded-xl 
         border-2 transition-all duration-300 w-full font-medium
         bg-gradient-to-br ${getGradient()} ${getBorderColor()} ${getTextColor()}
         ${selected ? 'shadow-lg' : ''}
@@ -114,7 +114,7 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
       transition={{ duration: 0.2 }}
     >
       <motion.div 
-        className={`mb-3 ${selected ? 'pulse-glow' : ''}`}
+        className={`mb-1 ${selected ? 'pulse-glow' : ''}`}
         animate={{ 
           scale: selected ? [1, 1.05, 1] : 1 
         }}
@@ -126,7 +126,7 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
       >
         {getIcon()}
       </motion.div>
-      <span className="text-base font-semibold">{getLabel()}</span>
+      <span className="text-sm font-semibold">{getLabel()}</span>
     </motion.button>
   );
 };

@@ -32,7 +32,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({ submitted, disabled 
     >
       <Button 
         type="submit" 
-        className={`w-full h-full py-6 font-medium rounded-xl transition-all duration-300 shadow-lg text-lg
+        className={`w-full py-3 font-medium rounded-xl transition-all duration-300 shadow-lg text-base
           ${submitted 
             ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20' 
             : disabled 
