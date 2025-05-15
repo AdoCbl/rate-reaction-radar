@@ -5,7 +5,7 @@ import { FomcRateOutlook } from '@/components/results/FomcRateOutlook';
 import { AggregatedDotPlot } from '@/components/results/AggregatedDotPlot';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { GameController } from 'lucide-react';
+import { Gamepad } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const ResultsDashboard: React.FC = () => {
@@ -106,7 +106,7 @@ const ResultsDashboard: React.FC = () => {
           className="bg-sky-600 hover:bg-sky-500 text-white shadow-lg flex items-center gap-2 px-4 py-6 rounded-full"
           size="lg"
         >
-          <GameController className="h-5 w-5" />
+          <Gamepad className="h-5 w-5" />
           <span>Try the Rate Reaction Game</span>
         </Button>
       </motion.div>
