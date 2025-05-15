@@ -54,14 +54,14 @@ const RateReactionGame: React.FC = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto">
-      <Card className="border-gray-800 bg-gray-900/80 backdrop-blur-sm shadow-xl overflow-hidden">
+    <div className="h-[calc(100vh-170px)] flex items-center justify-center">
+      <Card className="border-gray-800 bg-gray-900/80 backdrop-blur-sm shadow-xl overflow-hidden w-full max-w-md">
         {!showResult ? (
           <>
             <CardHeader className="pb-2 border-b border-gray-800">
               <ScenarioDisplay />
             </CardHeader>
-            <CardContent className="space-y-6 py-6">
+            <CardContent className="space-y-4 py-4">
               <GameForm 
                 direction={direction}
                 yieldEstimate={yieldEstimate}
@@ -75,7 +75,7 @@ const RateReactionGame: React.FC = () => {
             </CardContent>
           </>
         ) : (
-          <CardContent className="py-6">
+          <CardContent className="py-4">
             <GameResultDisplay 
               direction={direction}
               yieldEstimate={yieldEstimate}

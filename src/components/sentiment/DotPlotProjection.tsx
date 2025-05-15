@@ -69,19 +69,19 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   
   return (
     <motion.div 
-      className="w-full space-y-3" 
+      className="w-full space-y-2" 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
     >
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-xl font-semibold text-white">Rate Projections</h3>
-          <p className="text-sm text-gray-400">Forecast future interest rates</p>
+          <h3 className="text-lg font-semibold text-white">Rate Projections</h3>
+          <p className="text-xs text-gray-400">Forecast future interest rates</p>
         </div>
         
         <div className="flex items-center space-x-2">
-          <span className="text-xs text-gray-400">SEP medians</span>
+          <span className="text-xs text-gray-400">SEP</span>
           <Switch 
             checked={showMedians}
             onCheckedChange={setShowMedians}
@@ -89,10 +89,10 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
         </div>
       </div>
       
-      <div className="mt-4">
+      <div className="mt-2">
         <div className="flex space-x-1 justify-between relative">
           {/* Y-axis labels column */}
-          <div className="flex flex-col justify-between h-[200px] pr-2 w-10 relative">
+          <div className="flex flex-col justify-between h-[200px] pr-2 w-8 relative">
             {renderYAxisLabels()}
           </div>
           
@@ -128,9 +128,9 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs font-medium text-gray-400 hover:text-white transition-colors px-3 py-1 rounded-md hover:bg-gray-800/50"
+          className="text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-gray-800/50"
         >
-          Reset Projections
+          Reset
         </button>
       </div>
     </motion.div>

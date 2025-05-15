@@ -15,7 +15,6 @@ export const PollForm: React.FC = () => {
   
   // State for the form
   const [direction, setDirection] = useState<Direction | null>(null);
-  const [selectedRate, setSelectedRate] = useState<number | null>(null);
   const [confidence, setConfidence] = useState<number>(50);
   const [comment, setComment] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -31,23 +30,14 @@ export const PollForm: React.FC = () => {
   // Handle direction button click
   const handleDirectionClick = (newDirection: Direction) => {
     setDirection(newDirection);
-    
-    // Set default rate based on direction
-    if (newDirection === 'hold') {
-      setSelectedRate(currentRate);
-    } else if (newDirection === 'hike') {
-      setSelectedRate(currentRate + 0.25);
-    } else if (newDirection === 'cut') {
-      setSelectedRate(currentRate - 0.25);
-    }
   };
 
   // Handle form submission
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     
-    if (!direction || selectedRate === null) {
-      toast.error("Please select a direction and rate.");
+    if (!direction) {
+      toast.error("Please select a direction.");
       return;
     }
     
@@ -62,7 +52,6 @@ export const PollForm: React.FC = () => {
     console.log({
       forecast: {
         direction,
-        rate: selectedRate,
         confidence,
         comment: comment.trim(),
       },
@@ -78,7 +67,6 @@ export const PollForm: React.FC = () => {
     // For demo purposes, reset the form after a delay
     setTimeout(() => {
       setDirection(null);
-      setSelectedRate(null);
       setConfidence(50);
       setComment('');
       setDotPlotValues(dotPlotValues.map(item => ({ ...item, value: null })));
@@ -95,21 +83,19 @@ export const PollForm: React.FC = () => {
     >
       <FormHeader />
       
-      <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6"> 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+      <form onSubmit={handleSubmit} className="space-y-3"> 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Left column: FOMC Decision */}
           <FomcOutlookSection 
             direction={direction}
-            selectedRate={selectedRate}
             confidence={confidence}
             currentRate={currentRate}
             onDirectionClick={handleDirectionClick}
-            onRateChange={setSelectedRate}
             onConfidenceChange={setConfidence}
           />
           
           {/* Right column: Dot Plot */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div id="dotplot-section">
               <DotPlotProjection 
                 values={dotPlotValues}
@@ -131,7 +117,7 @@ export const PollForm: React.FC = () => {
         {/* Submit Button */}
         <SubmitButton 
           submitted={submitted}
-          disabled={!direction || selectedRate === null}
+          disabled={!direction}
         />
       </form>
     </motion.div>

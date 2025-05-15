@@ -1,27 +1,23 @@
+
 import React from 'react';
 import { DirectionButton } from '@/components/sentiment/DirectionButton';
-import { RateSelect } from '@/components/sentiment/RateSelect';
 import { ConfidenceSlider } from '@/components/sentiment/ConfidenceSlider';
 import { motion } from 'framer-motion';
 import { Direction } from './types';
 
 type FomcOutlookSectionProps = {
   direction: Direction | null;
-  selectedRate: number | null;
   confidence: number;
   currentRate: number;
   onDirectionClick: (direction: Direction) => void;
-  onRateChange: (rate: number) => void;
   onConfidenceChange: (value: number) => void;
 };
 
 export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
   direction,
-  selectedRate,
   confidence,
   currentRate,
   onDirectionClick,
-  onRateChange,
   onConfidenceChange
 }) => {
   return (
@@ -68,7 +64,7 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
         />
       </motion.div>
       
-      {/* Rate Select */}
+      {/* Current Rate Display */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -76,14 +72,7 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
         transition={{ duration: 0.3 }}
       >
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-300">Expected target rate:</label>
-          <RateSelect 
-            currentRate={currentRate}
-            selectedRate={selectedRate || currentRate}
-            onChange={onRateChange}
-            direction={direction || 'hold'}
-          />
-          <p className="text-xs text-gray-500 mt-1">Current: {currentRate.toFixed(2)}%</p>
+          <p className="text-sm font-medium text-gray-300">Current target rate: <span className="text-white">{currentRate.toFixed(2)}%</span></p>
         </div>
       </motion.div>
       
