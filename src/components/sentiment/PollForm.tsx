@@ -74,17 +74,12 @@ export const PollForm: React.FC = () => {
   };
 
   return (
-    <motion.div 
-      className="relative w-full max-w-5xl mx-auto backdrop-blur-lg bg-transparent py-4 px-3"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-    >
-      <form onSubmit={handleSubmit} className="space-y-3"> 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="p-5 md:p-6">
+      <form onSubmit={handleSubmit} className="space-y-5"> 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
           {/* Left column: FOMC Decision - Top Priority */}
-          <div>
-            <h2 className="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">
+          <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+            <h2 className="text-xl font-bold mb-3 text-white">
               Your FOMC Outlook
             </h2>
             <FomcOutlookSection 
@@ -97,8 +92,8 @@ export const PollForm: React.FC = () => {
           </div>
           
           {/* Right column: Dot Plot - Second Priority */}
-          <div>
-            <h2 className="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">
+          <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+            <h2 className="text-xl font-bold mb-3 text-white">
               Rate Projections
             </h2>
             <DotPlotProjection 
@@ -108,9 +103,9 @@ export const PollForm: React.FC = () => {
           </div>
         </div>
         
-        <div className="border-t border-slate-700/40 mt-2 pt-2 grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
           {/* Comments Box - Last Priority */}
-          <div className="md:col-span-2">
+          <div className="mb-4">
             <CommentSection 
               comment={comment}
               setComment={setComment}
@@ -119,7 +114,7 @@ export const PollForm: React.FC = () => {
           </div>
           
           {/* Submit Button - Always Visible */}
-          <div className="flex items-end">
+          <div>
             <SubmitButton 
               submitted={submitted}
               disabled={!direction}
@@ -127,6 +122,6 @@ export const PollForm: React.FC = () => {
           </div>
         </div>
       </form>
-    </motion.div>
+    </div>
   );
 };

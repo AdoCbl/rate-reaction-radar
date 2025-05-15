@@ -29,15 +29,16 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({ submitted, disabled 
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
       className="w-full h-full"
+      whileHover={!disabled && !submitted ? { scale: 1.02, y: -2 } : {}}
     >
       <Button 
         type="submit" 
-        className={`w-full py-3 font-medium rounded-xl transition-all duration-300 shadow-lg text-base
+        className={`w-full py-2 font-medium rounded-lg transition-all duration-300 shadow-lg text-base
           ${submitted 
             ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20' 
             : disabled 
               ? 'bg-slate-700 text-slate-300 cursor-not-allowed opacity-70' 
-              : 'bg-gradient-to-br from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white hover:shadow-sky-500/20 hover:shadow-xl hover:-translate-y-1'
+              : 'bg-gradient-to-br from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white hover:shadow-sky-500/20 hover:shadow-xl'
           }`}
         disabled={submitted || disabled}
       >

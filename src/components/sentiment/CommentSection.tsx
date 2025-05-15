@@ -39,9 +39,9 @@ export const CommentSection: React.FC<CommentSectionProps> = ({
             setComment(e.target.value);
           }
         }}
-        rows={1}
+        rows={2}
         className="resize-none bg-slate-800/50 border-slate-700/50 focus:border-sky-600 
-                  focus:ring-sky-600/20 text-sm py-1 px-3 w-full rounded-lg shadow-inner transition-all 
+                  focus:ring-sky-600/20 text-sm py-2 px-3 w-full rounded-md shadow-inner transition-all 
                   duration-200 focus:shadow-sky-500/10 placeholder:text-slate-500"
         maxLength={200}
       />

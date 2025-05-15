@@ -77,7 +77,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
     >      
-      <div className="flex items-center justify-between space-x-2 mb-1 text-sm">
+      <div className="flex items-center justify-between space-x-2 mb-2 text-sm">
         <span className="text-xs font-medium text-sky-400">Click to set your projections</span>
         <div className="flex items-center gap-1">
           <span className="text-xs text-slate-400">SEP Medians</span>
@@ -100,7 +100,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
         </div>
       </div>
       
-      <div className="bg-slate-800/40 p-2 rounded-lg">
+      <div className="bg-slate-800/60 p-2 rounded-md shadow-inner">
         <div className="flex space-x-1 justify-between relative">
           {/* Y-axis labels column */}
           <div className="flex flex-col justify-between h-[140px] pr-1 w-5 relative">

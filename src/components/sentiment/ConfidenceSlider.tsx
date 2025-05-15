@@ -48,8 +48,8 @@ export const ConfidenceSlider: React.FC<ConfidenceSliderProps> = ({ value, onCha
         <span className="text-base font-medium text-slate-300">Confidence</span>
         <motion.div
           key={value}
-          initial={{ opacity: 0, scale: 0.9, y: -5 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
           className={`text-base font-semibold ${getConfidenceColor()} px-2 py-0.5 rounded-full 
                      bg-gradient-to-br ${getThumbColor()} shadow-lg`}
           style={{
@@ -60,7 +60,7 @@ export const ConfidenceSlider: React.FC<ConfidenceSliderProps> = ({ value, onCha
         </motion.div>
       </div>
       
-      <div className="relative pt-1 pb-1">
+      <div className="relative pt-1">
         <div className={`h-2 w-full rounded-full ${getTrackBackground()} absolute top-2`}></div>
         <Slider
           min={0}
@@ -71,7 +71,6 @@ export const ConfidenceSlider: React.FC<ConfidenceSliderProps> = ({ value, onCha
           onValueCommit={() => setIsDragging(false)}
           onDrag={() => setIsDragging(true)}
           className="py-1"
-          // Fix: Apply styling directly through standard className
         />
         
         {/* Simplified labels - just start and end */}

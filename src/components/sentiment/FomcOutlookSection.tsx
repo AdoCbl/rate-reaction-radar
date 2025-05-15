@@ -22,7 +22,7 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
 }) => {
   return (
     <motion.div 
-      className="space-y-3"
+      className="space-y-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.1, duration: 0.4 }}

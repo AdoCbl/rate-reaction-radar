@@ -95,7 +95,7 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
   return (
     <motion.button
       className={`
-        flex flex-col items-center justify-center py-2 px-2 rounded-xl 
+        flex flex-col items-center justify-center py-2 px-2 rounded-lg 
         border-2 transition-all duration-300 w-full font-medium
         bg-gradient-to-br ${getGradient()} ${getBorderColor()} ${getTextColor()}
         ${selected ? 'shadow-lg' : ''}
