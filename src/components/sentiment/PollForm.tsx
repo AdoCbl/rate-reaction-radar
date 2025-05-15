@@ -150,13 +150,10 @@ export const PollForm: React.FC = () => {
             
             {/* Rate Select */}
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ 
-                opacity: direction ? 1 : 0,
-                height: direction ? 'auto' : 0
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: direction ? 1 : 0 }}
+              className={`mt-4 ${direction ? 'block' : 'hidden'}`}
               transition={{ duration: 0.3 }}
-              className="overflow-hidden mt-4"
             >
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-300">Expected target rate:</label>
@@ -172,16 +169,20 @@ export const PollForm: React.FC = () => {
             
             {/* Confidence Slider */}
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ 
-                opacity: direction ? 1 : 0,
-                height: direction ? 'auto' : 0
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: direction ? 1 : 0 }}
+              className={`mt-4 ${direction ? 'block' : 'hidden'}`}
               transition={{ duration: 0.3, delay: 0.1 }}
-              className="overflow-hidden mt-4"
             >
               <ConfidenceSlider value={confidence} onChange={setConfidence} />
             </motion.div>
+            
+            {/* Comments Box - Show it always */}
+            <CommentSection 
+              comment={comment}
+              setComment={setComment}
+              direction={direction}
+            />
           </div>
           
           {/* Right column: Dot Plot */}
@@ -194,13 +195,6 @@ export const PollForm: React.FC = () => {
             </div>
           </div>
         </div>
-        
-        {/* Comments Box - Full Width */}
-        <CommentSection 
-          comment={comment}
-          setComment={setComment}
-          direction={direction}
-        />
         
         {/* Submit Button */}
         <SubmitButton 

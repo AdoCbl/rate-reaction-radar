@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const SentimentPoll: React.FC = () => {
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto py-8">
       <PollForm />
     </div>
   );

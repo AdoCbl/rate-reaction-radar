@@ -138,11 +138,11 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
         )}
       </div>
       
-      {/* Show selected value below */}
-      <div className="mt-2 h-6">
+      {/* Show selected value below with more space */}
+      <div className="mt-2 h-6 text-center">
         {value !== null && (
           <motion.span 
-            className="text-sm font-medium text-sky-400"
+            className="text-xs font-medium text-sky-400 inline-block"
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             key={value}

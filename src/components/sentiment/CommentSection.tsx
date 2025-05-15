@@ -18,14 +18,11 @@ export const CommentSection: React.FC<CommentSectionProps> = ({
   return (
     <motion.div 
       className="space-y-2 mt-6"
-      initial={{ opacity: 0, height: 0 }}
-      animate={{ 
-        opacity: direction ? 1 : 0,
-        height: direction ? 'auto' : 0
-      }}
-      transition={{ duration: 0.3, delay: 0.2 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
     >
-      <label className="block text-base font-medium text-gray-300">Comments (optional):</label>
+      <label className="block text-base font-medium text-gray-300">Comments:</label>
       <Textarea 
         placeholder="Your thoughts on the future rate path..."
         value={comment}

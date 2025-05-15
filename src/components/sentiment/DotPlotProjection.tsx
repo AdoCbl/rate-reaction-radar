@@ -80,8 +80,8 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
     >
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-base font-semibold text-white">Rate Projections</h3>
-          <p className="text-xs text-gray-400">Forecast future interest rates</p>
+          <h3 className="text-xl font-semibold text-white">Rate Projections</h3>
+          <p className="text-sm text-gray-400">Forecast future interest rates</p>
         </div>
         
         <div className="flex items-center space-x-2">
@@ -95,11 +95,6 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       
       <div className="mt-4">
         <div className="flex space-x-1 justify-between relative">
-          {/* Y-axis header - now positioned better */}
-          <div className="absolute -top-7 left-0 text-xs text-gray-400">
-            Interest Rate
-          </div>
-          
           {/* Y-axis labels column */}
           <div className="flex flex-col justify-between h-[200px] pr-2 w-10 relative">
             {renderYAxisLabels()}
