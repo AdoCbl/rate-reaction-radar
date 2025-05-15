@@ -18,6 +18,7 @@ export const NavBar = () => {
           <NavItem to="/results" icon={<Activity size={20} />} label="Results" />
           <NavItem to="/trends" icon={<LineChart size={20} />} label="Trends" />
           <NavItem to="/game" icon={<Award size={20} />} label="Game" />
+          <NavItem to="/leaderboard" icon={<BarChart3 size={20} />} label="Leaderboard" />
           <NavItem to="/profile" icon={<UserCircle size={20} />} label="Profile" />
         </ul>
       </div>

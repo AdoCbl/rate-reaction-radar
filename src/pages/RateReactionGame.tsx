@@ -144,7 +144,11 @@ const RateReactionGame: React.FC = () => {
           <Button onClick={handleReset} variant="outline" className="w-full">
             New Scenario
           </Button>
-          <Button variant="default" className="w-full" onClick={() => window.location.href = '/leaderboard'}>
+          <Button 
+            variant="default" 
+            className="w-full" 
+            onClick={() => window.location.href = '/leaderboard'}
+          >
             <BarChart3 className="mr-2 h-4 w-4" />
             Leaderboard
           </Button>
