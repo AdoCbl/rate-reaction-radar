@@ -111,15 +111,15 @@
 
 @keyframes pulseGlow {
   0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0));
+    filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0));
   }
   50% {
-    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
+    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.6));
   }
 }
 
 .pulse-glow {
-  animation: pulseGlow 2s ease-in-out infinite;
+  animation: pulseGlow 2.5s ease-in-out infinite;
 }
 
 /* Card styles for both themes */

@@ -10,6 +10,8 @@ type DotPlotYearProps = {
   maxRate: number;
   stepSize: number;
   sepMedian: number | null;
+  isHovered?: boolean;
+  onHover?: (hovered: boolean) => void;
 };
 
 export const DotPlotYear: React.FC<DotPlotYearProps> = ({
@@ -19,7 +21,9 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   minRate = 0, // 0%
   maxRate = 0.05, // 5%
   stepSize = 0.00125, // 0.125%
-  sepMedian
+  sepMedian,
+  isHovered = false,
+  onHover
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   
@@ -62,7 +66,12 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   const handleGridClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const posY = e.clientY - rect.top;
-    onChange(positionToValue(posY));
+    const newValue = positionToValue(posY);
+    
+    // Add a small animation delay
+    setTimeout(() => {
+      onChange(newValue);
+    }, 50);
   };
   
   // Format rate values as percentages
@@ -79,30 +88,102 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
       const isHalfPercent = Math.abs(Math.round(value * 100 * 2) / 2 - value * 100) < 0.01;
       const isQuarterPercent = Math.abs(Math.round(value * 100 * 4) / 4 - value * 100) < 0.01;
       
+      // Only render lines that matter for clarity
+      if (!isFullPercent && !isHalfPercent && !isQuarterPercent && index % 4 !== 0) {
+        return null;
+      }
+      
       return (
-        <div 
+        <motion.div 
           key={index}
-          className={`absolute w-full border-t ${isFullPercent ? 'border-gray-700' : isHalfPercent ? 'border-gray-800' : isQuarterPercent ? 'border-gray-900/60' : 'border-gray-900/30'} flex items-center`}
+          className={`absolute w-full border-t ${
+            isFullPercent 
+              ? 'border-slate-600' 
+              : isHalfPercent 
+                ? 'border-slate-700' 
+                : 'border-slate-800'
+          } flex items-center`}
+          animate={{
+            borderColor: isHovered
+              ? isFullPercent 
+                ? 'rgb(100 116 139)' // slate-500
+                : isHalfPercent 
+                  ? 'rgb(71 85 105)' // slate-600
+                  : 'rgb(51 65 85)' // slate-700
+              : undefined
+          }}
           style={{ top: index * cellHeight }}
-        >
-          {/* Show labels for full percents and half percents */}
-          {(isFullPercent || (isHalfPercent && index % 4 === 0)) && (
-            <span className={`text-xs ${isFullPercent ? 'text-gray-400' : 'text-gray-600'} absolute -left-8 hidden`}>
-              {formatRateValue(value)}
-            </span>
-          )}
-        </div>
+        />
       );
-    });
+    }).filter(Boolean);
+  };
+
+  // Generate placeholder dots to hint at interactivity
+  const renderPlaceholderDots = () => {
+    if (value !== null) return null;
+    
+    const placeholders = [];
+    const numDots = 5; // Number of placeholder dots
+    const interval = totalHeight / (numDots + 1);
+    
+    for (let i = 1; i <= numDots; i++) {
+      const position = interval * i;
+      const rateValue = positionToValue(position);
+      
+      // Only show placeholder dots at whole or half percentages
+      const percentValue = rateValue * 100;
+      if (percentValue % 0.5 !== 0) continue;
+      
+      placeholders.push(
+        <motion.div
+          key={`placeholder-${i}`}
+          className="absolute left-1/2 w-3 h-3 rounded-full bg-slate-700/30 border border-slate-600/30"
+          style={{ 
+            top: position,
+            x: '-50%', 
+            y: '-50%' 
+          }}
+          animate={{
+            opacity: isHovered ? 0.8 : 0.3,
+            scale: isHovered ? [1, 1.1, 1] : 1
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
+        />
+      );
+    }
+    
+    return placeholders;
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <span className="text-sm font-medium text-gray-300 mb-1">{year}</span>
+    <div 
+      className="flex flex-col items-center"
+      onMouseEnter={() => onHover?.(true)}
+      onMouseLeave={() => onHover?.(false)}
+    >
+      <motion.span 
+        className={`text-base font-medium ${isHovered ? 'text-white' : 'text-slate-300'} mb-1 transition-colors`}
+        animate={{ scale: isHovered ? 1.05 : 1 }}
+      >
+        {year}
+      </motion.span>
       
-      <div className="relative h-[200px] w-10 bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden">
+      <motion.div 
+        className="relative h-[200px] w-14 bg-slate-900/80 border border-slate-800 rounded-lg overflow-hidden transition-colors"
+        animate={{ 
+          borderColor: isHovered ? 'rgb(71 85 105)' : undefined,
+          backgroundColor: isHovered ? 'rgba(15, 23, 42, 0.9)' : undefined
+        }}
+      >
         {/* Grid lines */}
         {renderGridLines()}
+        
+        {/* Placeholder dots to suggest interactivity */}
+        {renderPlaceholderDots()}
         
         {/* Interactive area for clicking/dragging */}
         <div 
@@ -110,17 +191,17 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
           onClick={handleGridClick}
         />
         
-        {/* SEP median dot (dimmed) */}
+        {/* SEP median dot */}
         {sepMedian !== null && (
           <motion.div
-            className="absolute left-1/2 w-3 h-3 bg-purple-400/50 rounded-full"
+            className="absolute left-1/2 w-3 h-3 bg-purple-400/70 ring-2 ring-purple-300/30 rounded-full"
             style={{ 
               top: valueToPosition(sepMedian), 
               x: '-50%', 
               y: '-50%' 
             }}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.4 }}
           />
         )}
@@ -128,7 +209,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
         {/* User's dot marker */}
         {value !== null && (
           <motion.div
-            className="absolute left-1/2 w-4 h-4 bg-sky-500 rounded-full shadow-lg shadow-sky-500/20 cursor-grab active:cursor-grabbing"
+            className="absolute left-1/2 w-5 h-5 bg-blue-500 rounded-full shadow-lg shadow-blue-500/20 cursor-grab active:cursor-grabbing z-10"
             style={{ 
               top: valueToPosition(value), 
               x: '-50%', 
@@ -137,7 +218,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
             initial={{ scale: 0 }}
             animate={{ 
               scale: 1,
-              boxShadow: isDragging ? '0 0 0 4px rgba(56, 189, 248, 0.3)' : '0 0 0 0px rgba(56, 189, 248, 0)'
+              boxShadow: isDragging ? '0 0 0 6px rgba(59, 130, 246, 0.2)' : '0 0 0 0px rgba(59,, 130, 246, 0)'
             }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -152,18 +233,25 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
             }}
           />
         )}
-      </div>
+      </motion.div>
       
       {/* Show selected value below with more spacing to prevent overlap */}
-      <div className="mt-1 h-6 text-center">
-        {value !== null && (
+      <div className="mt-2 h-6 text-center">
+        {value !== null ? (
           <motion.span 
-            className="text-xs font-medium text-sky-400 inline-block"
+            className="text-sm font-medium text-blue-400 inline-block px-2 py-0.5 bg-blue-900/30 rounded border border-blue-800/50"
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             key={value}
           >
             {formatRateValue(value)}
+          </motion.span>
+        ) : (
+          <motion.span 
+            className={`text-xs text-slate-500 ${isHovered ? 'text-slate-400' : ''} transition-colors`}
+            animate={{ opacity: isHovered ? 0.9 : 0.7 }}
+          >
+            Click to set
           </motion.span>
         )}
       </div>

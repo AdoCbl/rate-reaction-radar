@@ -76,15 +76,18 @@ export const PollForm: React.FC = () => {
 
   return (
     <motion.div 
-      className="glass-card rounded-xl p-4 md:p-5 shadow-xl w-full max-w-4xl mx-auto" 
+      className="relative glass-card rounded-2xl p-6 md:p-8 shadow-2xl w-full max-w-5xl mx-auto backdrop-blur-lg bg-gradient-to-b from-slate-900/90 to-slate-800/90 border border-slate-700/50 overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
+      {/* Radial gradient background effect */}
+      <div className="absolute inset-0 bg-gradient-to-b from-indigo-600/5 via-transparent to-transparent pointer-events-none" />
+      
       <FormHeader />
       
       <form onSubmit={handleSubmit}> 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left column: FOMC Decision */}
           <FomcOutlookSection 
             direction={direction}
@@ -95,7 +98,7 @@ export const PollForm: React.FC = () => {
           />
           
           {/* Right column: Dot Plot */}
-          <div>
+          <div className="bg-slate-800/60 rounded-xl p-5 border border-slate-700/50 shadow-lg">
             <div id="dotplot-section">
               <DotPlotProjection 
                 values={dotPlotValues}
@@ -106,7 +109,7 @@ export const PollForm: React.FC = () => {
         </div>
         
         {/* Comments Box - Full width across both columns */}
-        <div className="col-span-full mt-2">
+        <div className="col-span-full mt-8">
           <CommentSection 
             comment={comment}
             setComment={setComment}
@@ -115,7 +118,7 @@ export const PollForm: React.FC = () => {
         </div>
         
         {/* Submit Button */}
-        <div className="mt-3">
+        <div className="mt-8 sticky bottom-0">
           <SubmitButton 
             submitted={submitted}
             disabled={!direction}
