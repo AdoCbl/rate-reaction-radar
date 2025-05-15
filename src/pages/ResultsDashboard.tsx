@@ -4,8 +4,13 @@ import { Card } from '@/components/ui/card';
 import { FomcRateOutlook } from '@/components/results/FomcRateOutlook';
 import { AggregatedDotPlot } from '@/components/results/AggregatedDotPlot';
 import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Gamepad } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ResultsDashboard: React.FC = () => {
+  const navigate = useNavigate();
+  
   // Mock data for the current user's vote
   const [userVote] = useState({
     direction: 'hold',
@@ -44,27 +49,27 @@ const ResultsDashboard: React.FC = () => {
   });
 
   return (
-    <div className="space-y-6 animate-fade-in max-w-5xl mx-auto">
+    <div className="space-y-8 animate-fade-in max-w-5xl mx-auto px-4">
       <motion.div 
-        className="text-center mb-6"
+        className="text-center mb-8"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-2xl font-semibold text-blue-800 dark:text-blue-300">Market Sentiment Results</h1>
-        <p className="text-gray-700 dark:text-gray-400 mt-2 text-sm">
+        <h1 className="text-3xl font-bold text-indigo-800 dark:text-indigo-300">Market Sentiment Results</h1>
+        <p className="text-slate-600 dark:text-slate-400 mt-2">
           Compare your forecast with aggregated client expectations and the SEP median projections.
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left Panel: FOMC Rate Outlook Summary */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <Card className="p-4 card-light h-full shadow-md">
+          <Card className="p-6 overflow-hidden bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-md rounded-xl h-full">
             <FomcRateOutlook 
               aggregatedData={aggregatedData.directions}
               userVote={userVote.direction}
@@ -77,9 +82,9 @@ const ResultsDashboard: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Card className="p-4 card-accent h-full shadow-md">
+          <Card className="p-6 overflow-hidden bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-md rounded-xl h-full">
             <AggregatedDotPlot 
               projections={aggregatedData.projections}
               userProjections={aggregatedData.userProjections}
@@ -88,6 +93,23 @@ const ResultsDashboard: React.FC = () => {
           </Card>
         </motion.div>
       </div>
+      
+      {/* Floating CTA button */}
+      <motion.div
+        className="fixed bottom-8 right-8 z-10"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.8, type: "spring" }}
+      >
+        <Button 
+          onClick={() => navigate('/game')}
+          className="bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 dark:from-indigo-500/90 dark:to-indigo-700/90 text-white shadow-lg flex items-center gap-2 px-4 py-6 rounded-full transition-all duration-300 hover:shadow-indigo-500/20 hover:shadow-xl"
+          size="lg"
+        >
+          <Gamepad className="h-5 w-5" />
+          <span>Try the Rate Reaction Game</span>
+        </Button>
+      </motion.div>
     </div>
   );
 };

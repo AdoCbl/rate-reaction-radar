@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Switch } from '@/components/ui/switch';
 
 type AggregatedDotPlotProps = {
@@ -47,11 +47,11 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-xl font-semibold text-white text-left">Client Rate Path Projections</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-bold text-indigo-800 dark:text-indigo-300 tracking-tight">Client Rate Path Projections</h2>
         
         <div className="flex items-center space-x-2">
-          <span className="text-xs text-gray-400">SEP</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400">SEP</span>
           <Switch 
             checked={showSepMedians}
             onCheckedChange={setShowSepMedians}
@@ -60,7 +60,7 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
       </div>
       
       <div className="flex-grow relative">
-        <div className="flex justify-between h-[400px] mt-6 relative">
+        <div className="flex justify-between h-[380px] mt-6 relative">
           {/* Y-axis labels - more detailed with 0.25% increments */}
           <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between pointer-events-none">
             {[6, 5.5, 5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5, 0].map((value) => (
@@ -74,21 +74,21 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                   transform: 'translateY(-50%)' 
                 }}
               >
-                <span className="text-xs text-gray-500 w-8 text-right pr-2">
+                <span className="text-xs text-slate-500 w-8 text-right pr-2">
                   {value}%
                 </span>
-                <div className="absolute w-full border-t border-gray-800" style={{left: '14px', width: 'calc(100vw - 28px)'}}></div>
+                <div className="absolute w-full border-t border-slate-200 dark:border-slate-700" style={{left: '14px', width: 'calc(100vw - 28px)'}}></div>
               </div>
             ))}
           </div>
           
           {/* Dot plots for each year */}
-          <div className="flex justify-between w-full pl-10">
+          <div className="flex justify-between w-full pl-10 space-x-3">
             {years.map((year) => (
               <div key={year} className="flex flex-col items-center flex-1">
-                <span className="text-sm font-medium text-gray-300 mb-1">{year}</span>
+                <span className="text-sm font-medium text-slate-600 dark:text-slate-300 mb-1">{year}</span>
                 
-                <div className="relative h-[400px] w-full max-w-16 bg-gray-900/40 border border-gray-800 rounded-lg">
+                <div className="relative h-[380px] w-full max-w-16 bg-slate-100/50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
                   {/* Client dots */}
                   {projections[year].map((value, index) => {
                     const position = getPositionFromRate(value);
@@ -99,8 +99,8 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                       <motion.div
                         key={`${year}-${index}-${value}`}
                         className={`absolute rounded-full ${isUserDot ? 
-                          'w-4 h-4 bg-sky-500 shadow-lg shadow-sky-500/50 z-10 pulse-glow' : 
-                          'w-2 h-2 bg-blue-400/70'
+                          'w-4 h-4 bg-indigo-500 shadow-lg shadow-indigo-500/30 z-10 pulse-glow' : 
+                          'w-2 h-2 bg-sky-400/70'
                         }`}
                         style={{ 
                           left: `calc(50% + ${jitterX}px)`,
@@ -119,23 +119,26 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                   })}
                   
                   {/* SEP median line */}
-                  {showSepMedians && sepMedians[year as keyof typeof sepMedians] && (
-                    <motion.div
-                      className="absolute w-10 h-0.5 bg-purple-400/70 left-1/2 transform -translate-x-1/2"
-                      style={{ 
-                        top: `${getPositionFromRate(sepMedians[year as keyof typeof sepMedians])}%`
-                      }}
-                      initial={{ scaleX: 0, opacity: 0 }}
-                      animate={{ scaleX: 1, opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                      title={`SEP Median: ${formatRateValue(sepMedians[year as keyof typeof sepMedians])}`}
-                    />
-                  )}
+                  <AnimatePresence>
+                    {showSepMedians && sepMedians[year as keyof typeof sepMedians] && (
+                      <motion.div
+                        className="absolute w-10 h-[1px] bg-indigo-400/50 left-1/2 transform -translate-x-1/2"
+                        style={{ 
+                          top: `${getPositionFromRate(sepMedians[year as keyof typeof sepMedians])}%`
+                        }}
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        animate={{ scaleX: 1, opacity: 0.7 }}
+                        exit={{ scaleX: 0, opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                        title={`SEP Median: ${formatRateValue(sepMedians[year as keyof typeof sepMedians])}`}
+                      />
+                    )}
+                  </AnimatePresence>
                 </div>
                 
                 {/* Year median value */}
                 <div className="mt-2 text-center">
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
                     Median: {formatRateValue(medians[year])}
                   </span>
                 </div>
@@ -146,19 +149,19 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
       </div>
       
       {/* Info text */}
-      <div className="h-8 mt-2">
+      <AnimatePresence>
         {showSepMedians && (
           <motion.div 
-            className="text-xs text-gray-400 bg-gray-800/50 p-2 rounded-md border border-gray-700"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            className="text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/70 p-2 rounded-md border border-slate-200 dark:border-slate-700 mt-2"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
             <p>Latest FOMC SEP median values shown in purple.</p>
           </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 };

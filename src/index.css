@@ -4,15 +4,15 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light mode - more vibrant and colorful */
+  /* Light mode - refined, professional color palette */
   :root {
-    --background: 210 40% 98%;
+    --background: 210 45% 98%;
     --foreground: 222.2 84% 4.9%;
 
-    --card: 210 40% 98%;
+    --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 210 40% 98%;
+    --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
     --primary: 221.2 83% 53.3%;
@@ -27,7 +27,7 @@
     --accent: 24 94% 69%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
@@ -44,7 +44,7 @@
     --sidebar-ring: 221.2 83% 53.3%;
   }
 
-  /* Dark mode - keep existing colors */
+  /* Dark mode - refined navy/indigo palette */
   .dark {
     --background: 224 71% 4%;
     --foreground: 213 31% 91%;
@@ -67,7 +67,7 @@
     --accent: 43 96% 64%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 63% 31%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 216 34% 17%;
@@ -91,7 +91,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-slate-900 dark:to-indigo-950 text-foreground font-sans;
+    @apply bg-gradient-to-br from-indigo-50 to-blue-100 dark:from-slate-900 dark:to-indigo-950 text-foreground font-sans;
   }
 }
 
@@ -111,10 +111,10 @@
 
 @keyframes pulseGlow {
   0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0));
+    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0));
   }
   50% {
-    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
+    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
   }
 }
 
@@ -122,38 +122,18 @@
   animation: pulseGlow 2s ease-in-out infinite;
 }
 
-/* Colorful gradients for cards - Light theme */
-.gradient-card-primary {
-  @apply bg-gradient-to-br from-blue-500/95 to-indigo-600/95 text-white dark:from-blue-600/95 dark:to-indigo-700/95;
+/* Card styles for both themes */
+.card-light {
+  @apply bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700 shadow-md;
 }
 
-.gradient-card-secondary {
-  @apply bg-gradient-to-br from-amber-400/95 to-orange-500/95 text-white dark:from-amber-500/95 dark:to-orange-600/95;
+.card-accent {
+  @apply bg-gradient-to-br from-slate-50 to-indigo-50 dark:from-slate-800 dark:to-indigo-950 border border-indigo-100 dark:border-indigo-900;
 }
 
-.gradient-card-tertiary {
-  @apply bg-gradient-to-tr from-emerald-400/95 to-teal-500/95 text-white dark:from-emerald-500/95 dark:to-teal-600/95;
-}
-
-/* Accent borders for highlights */
-.accent-border {
-  @apply border-2 border-accent;
-}
-
-/* Light mode card styles */
-.light .card-light {
-  @apply bg-gradient-to-br from-white to-blue-50 border border-blue-100 shadow-md;
-}
-
-.light .card-accent {
-  @apply bg-gradient-to-br from-blue-50 to-indigo-100 border border-indigo-200;
-}
-
-/* Dark mode card styles */
-.dark .card-light {
-  @apply bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 shadow-md;
-}
-
-.dark .card-accent {
-  @apply bg-gradient-to-br from-slate-800 to-indigo-950 border border-indigo-900;
+/* Direction color variables */
+:root {
+  --cut-color: #f43f5e;    /* Rose-500 for cut */
+  --hold-color: #0ea5e9;   /* Sky-500 for hold */
+  --hike-color: #10b981;   /* Emerald-500 for hike */
 }

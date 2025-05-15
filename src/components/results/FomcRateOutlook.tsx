@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ChevronDown, ChevronRight, ChevronUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Bar, BarChart, ResponsiveContainer, XAxis } from 'recharts';
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 type DirectionData = {
   name: string;
@@ -27,11 +27,11 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
   const getDirectionIcon = (direction: string) => {
     switch(direction) {
       case 'cut':
-        return <ChevronDown className="text-direction-down" />;
+        return <ChevronDown className="text-rose-500" />;
       case 'hold':
-        return <ChevronRight className="text-direction-neutral" />;
+        return <ChevronRight className="text-sky-500" />;
       case 'hike':
-        return <ChevronUp className="text-direction-up" />;
+        return <ChevronUp className="text-emerald-500" />;
       default:
         return null;
     }
@@ -41,13 +41,13 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
   const getDirectionColor = (direction: string) => {
     switch(direction) {
       case 'cut':
-        return "#e11d48"; // More vibrant red
+        return "#f43f5e"; // Rose-500
       case 'hold':
-        return "#3b82f6"; // Blue
+        return "#0ea5e9"; // Sky-500
       case 'hike':
-        return "#16a34a"; // Green
+        return "#10b981"; // Emerald-500
       default:
-        return "#64748b"; // Gray
+        return "#64748b"; // Slate-500
     }
   };
 
@@ -66,28 +66,49 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      <h2 className="text-xl font-semibold text-blue-800 mb-2 text-left">Clients' Predictions for the Next Fed Move</h2>
+      <h2 className="text-xl font-bold text-indigo-800 dark:text-indigo-300 mb-4 tracking-tight">Clients' Predictions for the Next Fed Move</h2>
       
       <div className="flex-grow mt-4">
         <ChartContainer
-          className="w-full aspect-video h-64"
+          className="w-full h-64"
           config={{
-            cut: { theme: { dark: "#e11d48", light: "#e11d48" } },
-            hold: { theme: { dark: "#3b82f6", light: "#3b82f6" } }, 
-            hike: { theme: { dark: "#16a34a", light: "#16a34a" } },
+            cut: { theme: { dark: "#f43f5e", light: "#f43f5e" } },
+            hold: { theme: { dark: "#0ea5e9", light: "#0ea5e9" } }, 
+            hike: { theme: { dark: "#10b981", light: "#10b981" } },
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
-              <XAxis dataKey="name" axisLine={false} tickLine={false} />
+              <XAxis
+                dataKey="name"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: '#64748b', fontSize: 12 }}
+              />
+              <YAxis 
+                hide={false} 
+                tick={{ fill: '#94a3b8', fontSize: 11 }}
+                tickLine={false}
+                axisLine={false}
+                label={{ value: '%', angle: -90, position: 'insideLeft', fill: '#94a3b8', fontSize: 12 }}
+              />
               <Bar
                 dataKey="value"
                 radius={[4, 4, 0, 0]}
                 fill="fill"
-                label={{ position: 'top', fill: '#1e40af', fontSize: 12, fontWeight: 'bold' }}
+                label={{
+                  position: 'top',
+                  fill: '#64748b',
+                  fontSize: 12,
+                  fontWeight: 'bold',
+                }}
                 isAnimationActive={true}
+                animationBegin={200}
+                animationDuration={1200}
+                animationEasing="ease-out"
               />
               <ChartTooltip
+                cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
                 content={
                   <ChartTooltipContent
                     formatter={(value: number, name: string) => [
@@ -103,23 +124,29 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
       </div>
 
       <div className="mt-6 space-y-3">
-        <div className="flex items-center justify-center space-x-2">
-          <span className="text-gray-600">You predicted:</span>
-          <Badge 
-            className={`flex items-center space-x-1 ${
-              userVote === 'cut' ? 'bg-rose-500 hover:bg-rose-600' : 
-              userVote === 'hold' ? 'bg-blue-500 hover:bg-blue-600' : 
-              'bg-emerald-500 hover:bg-emerald-600'
-            } text-white font-medium shadow-sm`}
+        <div className="flex flex-col items-center justify-center space-y-2">
+          <span className="text-slate-500 dark:text-slate-400 text-sm">You predicted:</span>
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.3 }}
           >
-            {getDirectionIcon(userVote)}
-            <span>{formatDirection(userVote)}</span>
-          </Badge>
+            <Badge 
+              className={`flex items-center space-x-1 py-2 px-4 text-base ${
+                userVote === 'cut' ? 'bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700' : 
+                userVote === 'hold' ? 'bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700' : 
+                'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700'
+              } text-white font-medium shadow-lg`}
+            >
+              {getDirectionIcon(userVote)}
+              <span>{formatDirection(userVote)}</span>
+            </Badge>
+          </motion.div>
         </div>
         
-        <div className="text-center text-sm">
-          <span className="text-gray-600">Client average expected target rate:</span>{" "}
-          <span className="text-blue-800 font-medium">{averageRate.toFixed(2)}%</span>
+        <div className="text-center mt-4">
+          <span className="text-slate-500 dark:text-slate-400 text-sm">Client average expected target rate:</span>{" "}
+          <span className="text-indigo-700 dark:text-indigo-300 font-semibold">{averageRate.toFixed(2)}%</span>
         </div>
       </div>
     </div>
