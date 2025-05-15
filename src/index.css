@@ -4,12 +4,12 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light mode */
+  /* Light mode - more vibrant and colorful */
   :root {
     --background: 210 40% 98%;
     --foreground: 222.2 84% 4.9%;
 
-    --card: 210 30% 96%;
+    --card: 210 40% 98%;
     --card-foreground: 222.2 84% 4.9%;
 
     --popover: 210 40% 98%;
@@ -44,7 +44,7 @@
     --sidebar-ring: 221.2 83% 53.3%;
   }
 
-  /* Dark mode */
+  /* Dark mode - keep existing colors */
   .dark {
     --background: 224 71% 4%;
     --foreground: 213 31% 91%;
@@ -91,7 +91,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-indigo-950 text-foreground font-sans;
+    @apply bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-slate-900 dark:to-indigo-950 text-foreground font-sans;
   }
 }
 
@@ -105,7 +105,7 @@
   }
 
   .glass-card {
-    @apply bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-white/50 dark:border-white/10 shadow-xl;
+    @apply bg-white/95 dark:bg-slate-800/90 backdrop-blur-sm border border-white/70 dark:border-white/10 shadow-xl;
   }
 }
 
@@ -124,15 +124,15 @@
 
 /* Colorful gradients for cards - Light theme */
 .gradient-card-primary {
-  @apply bg-gradient-to-br from-blue-500/90 to-indigo-600/90 text-white dark:from-blue-600/90 dark:to-indigo-700/90;
+  @apply bg-gradient-to-br from-blue-500/95 to-indigo-600/95 text-white dark:from-blue-600/95 dark:to-indigo-700/95;
 }
 
 .gradient-card-secondary {
-  @apply bg-gradient-to-br from-amber-400/90 to-orange-500/90 text-white dark:from-amber-500/90 dark:to-orange-600/90;
+  @apply bg-gradient-to-br from-amber-400/95 to-orange-500/95 text-white dark:from-amber-500/95 dark:to-orange-600/95;
 }
 
 .gradient-card-tertiary {
-  @apply bg-gradient-to-tr from-emerald-400/90 to-teal-500/90 text-white dark:from-emerald-500/90 dark:to-teal-600/90;
+  @apply bg-gradient-to-tr from-emerald-400/95 to-teal-500/95 text-white dark:from-emerald-500/95 dark:to-teal-600/95;
 }
 
 /* Accent borders for highlights */
