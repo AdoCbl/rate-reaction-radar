@@ -1,7 +1,8 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavBar } from './NavBar';
 import { useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 type AppLayoutProps = {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
   const [pageTitle, setPageTitle] = useState('Interest Rate Sentiment');
 
   // Update page title based on the current route
-  React.useEffect(() => {
+  useEffect(() => {
     switch (location.pathname) {
       case '/':
         setPageTitle('Weekly Sentiment Poll');
@@ -38,15 +39,31 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <header className="border-b border-gray-200">
+    <div className="min-h-screen flex flex-col bg-gray-900 text-white">
+      <header className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-20">
         <div className="container max-w-5xl mx-auto px-4 py-4">
-          <h1 className="text-2xl font-semibold text-finance-navy">{pageTitle}</h1>
+          <motion.h1 
+            className="text-2xl font-semibold text-white"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            key={pageTitle}
+            transition={{ duration: 0.3 }}
+          >
+            {pageTitle}
+          </motion.h1>
         </div>
       </header>
       
-      <main className="flex-grow container max-w-5xl mx-auto px-4 py-6">
-        {children}
+      <main className="flex-grow container max-w-5xl mx-auto px-4 py-6 pb-20">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          key={location.pathname}
+          className="h-full"
+        >
+          {children}
+        </motion.div>
       </main>
       
       <NavBar />

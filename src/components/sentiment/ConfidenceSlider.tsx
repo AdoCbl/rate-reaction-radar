@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Slider } from "@/components/ui/slider";
+import { motion } from 'framer-motion';
 
 type ConfidenceSliderProps = {
   value: number;
@@ -13,20 +14,22 @@ export const ConfidenceSlider: React.FC<ConfidenceSliderProps> = ({ value, onCha
     onChange(newValue[0]);
   };
   
-  // Get confidence text based on value
-  const getConfidenceText = () => {
-    if (value < 20) return 'Very Low Confidence';
-    if (value < 40) return 'Low Confidence';
-    if (value < 60) return 'Moderate Confidence';
-    if (value < 80) return 'High Confidence';
-    return 'Very High Confidence';
+  // Get confidence text and color based on value
+  const getConfidenceInfo = () => {
+    if (value < 20) return { text: 'Very Low Confidence', color: 'text-red-400' };
+    if (value < 40) return { text: 'Low Confidence', color: 'text-orange-400' };
+    if (value < 60) return { text: 'Moderate Confidence', color: 'text-yellow-400' };
+    if (value < 80) return { text: 'High Confidence', color: 'text-sky-400' };
+    return { text: 'Very High Confidence', color: 'text-emerald-400' };
   };
+  
+  const confidenceInfo = getConfidenceInfo();
   
   return (
     <div className="w-full space-y-4">
       <div className="flex justify-between">
-        <span className="confidence-text">How confident are you in this forecast?</span>
-        <span className="confidence-text font-semibold">{value}%</span>
+        <span className="text-sm font-medium text-gray-300">How confident are you in this forecast?</span>
+        <span className="text-sm font-semibold text-white">{value}%</span>
       </div>
       
       <Slider
@@ -39,7 +42,15 @@ export const ConfidenceSlider: React.FC<ConfidenceSliderProps> = ({ value, onCha
       />
       
       <div className="text-center">
-        <span className="confidence-text font-medium text-primary">{getConfidenceText()}</span>
+        <motion.span 
+          className={`text-sm font-medium ${confidenceInfo.color}`}
+          key={value}
+          initial={{ opacity: 0.7, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {confidenceInfo.text}
+        </motion.span>
       </div>
     </div>
   );
