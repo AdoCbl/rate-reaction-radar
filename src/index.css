@@ -4,6 +4,7 @@
 @tailwind utilities;
 
 @layer base {
+  /* Light mode */
   :root {
     --background: 210 40% 98%;
     --foreground: 222.2 84% 4.9%;
@@ -42,6 +43,46 @@
     --sidebar-border: 214.3 31.8% 91.4%;
     --sidebar-ring: 221.2 83% 53.3%;
   }
+
+  /* Dark mode */
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --primary: 210 100% 52%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 43 96% 64%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 224 76% 48%;
+
+    --sidebar-background: 224 71% 4%;
+    --sidebar-foreground: 213 31% 91%;
+    --sidebar-primary: 210 100% 52%;
+    --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+    --sidebar-accent: 43 96% 64%;
+    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
+    --sidebar-border: 216 34% 17%;
+    --sidebar-ring: 224 76% 48%;
+  }
 }
 
 @layer base {
@@ -50,7 +91,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-blue-50 to-indigo-100 text-foreground font-sans;
+    @apply bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-indigo-950 text-foreground font-sans;
   }
 }
 
@@ -64,7 +105,7 @@
   }
 
   .glass-card {
-    @apply bg-white/90 backdrop-blur-sm border border-white/50 shadow-xl;
+    @apply bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-white/50 dark:border-white/10 shadow-xl;
   }
 }
 
@@ -81,20 +122,38 @@
   animation: pulseGlow 2s ease-in-out infinite;
 }
 
-/* Colorful gradients for cards */
+/* Colorful gradients for cards - Light theme */
 .gradient-card-primary {
-  @apply bg-gradient-to-br from-blue-500/90 to-indigo-600/90 text-white;
+  @apply bg-gradient-to-br from-blue-500/90 to-indigo-600/90 text-white dark:from-blue-600/90 dark:to-indigo-700/90;
 }
 
 .gradient-card-secondary {
-  @apply bg-gradient-to-br from-amber-400/90 to-orange-500/90 text-white;
+  @apply bg-gradient-to-br from-amber-400/90 to-orange-500/90 text-white dark:from-amber-500/90 dark:to-orange-600/90;
 }
 
 .gradient-card-tertiary {
-  @apply bg-gradient-to-tr from-emerald-400/90 to-teal-500/90 text-white;
+  @apply bg-gradient-to-tr from-emerald-400/90 to-teal-500/90 text-white dark:from-emerald-500/90 dark:to-teal-600/90;
 }
 
 /* Accent borders for highlights */
 .accent-border {
   @apply border-2 border-accent;
+}
+
+/* Light mode card styles */
+.light .card-light {
+  @apply bg-gradient-to-br from-white to-blue-50 border border-blue-100 shadow-md;
+}
+
+.light .card-accent {
+  @apply bg-gradient-to-br from-blue-50 to-indigo-100 border border-indigo-200;
+}
+
+/* Dark mode card styles */
+.dark .card-light {
+  @apply bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 shadow-md;
+}
+
+.dark .card-accent {
+  @apply bg-gradient-to-br from-slate-800 to-indigo-950 border border-indigo-900;
 }
