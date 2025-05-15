@@ -94,14 +94,14 @@ const SentimentPoll: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto">
       <motion.div 
-        className="glass-card rounded-xl p-4 shadow-xl" 
+        className="glass-card rounded-xl p-6 shadow-xl" 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="mb-3 text-center">
+        <div className="mb-6 text-center">
           <motion.h1 
-            className="text-xl md:text-2xl font-semibold mb-1 text-white"
+            className="text-2xl md:text-3xl font-semibold mb-2 text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1, duration: 0.4 }}
@@ -110,7 +110,7 @@ const SentimentPoll: React.FC = () => {
           </motion.h1>
           
           <motion.p 
-            className="text-xs md:text-sm text-gray-400"
+            className="text-sm md:text-base text-gray-400"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.4 }}
@@ -119,13 +119,13 @@ const SentimentPoll: React.FC = () => {
           </motion.p>
         </div>
         
-        <form onSubmit={handleSubmit} className="space-y-3"> 
+        <form onSubmit={handleSubmit} className="space-y-6"> 
           {/* Two column layout for better balance */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {/* Left column: FOMC Decision */}
-            <div className="space-y-2">
+            <div className="space-y-4">
               <motion.h2 
-                className="text-lg font-semibold mb-1 text-white"
+                className="text-xl font-semibold text-white"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1, duration: 0.4 }}
@@ -134,7 +134,7 @@ const SentimentPoll: React.FC = () => {
               </motion.h2>
               
               <motion.p 
-                className="text-xs text-gray-400 mb-2"
+                className="text-sm text-gray-400 mb-3"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.4 }}
@@ -144,7 +144,7 @@ const SentimentPoll: React.FC = () => {
               
               {/* Direction Buttons */}
               <motion.div 
-                className="grid grid-cols-3 gap-2"
+                className="grid grid-cols-3 gap-3"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.4 }}
@@ -174,10 +174,10 @@ const SentimentPoll: React.FC = () => {
                   height: direction ? 'auto' : 0
                 }}
                 transition={{ duration: 0.3 }}
-                className="overflow-hidden mt-2"
+                className="overflow-hidden mt-4"
               >
-                <div className="space-y-1">
-                  <label className="block text-xs font-medium text-gray-300">Expected target rate:</label>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-300">Expected target rate:</label>
                   <RateSelect 
                     currentRate={currentRate}
                     selectedRate={selectedRate}
@@ -196,14 +196,14 @@ const SentimentPoll: React.FC = () => {
                   height: direction ? 'auto' : 0
                 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
-                className="overflow-hidden mt-2"
+                className="overflow-hidden mt-4"
               >
                 <ConfidenceSlider value={confidence} onChange={setConfidence} />
               </motion.div>
             </div>
             
             {/* Right column: Dot Plot */}
-            <div className="space-y-2">
+            <div className="space-y-4">
               <div id="dotplot-section">
                 <DotPlotProjection 
                   values={dotPlotValues}
@@ -215,7 +215,7 @@ const SentimentPoll: React.FC = () => {
           
           {/* Comments Box - Full Width */}
           <motion.div 
-            className="space-y-1 mt-4"
+            className="space-y-2 mt-6"
             initial={{ opacity: 0, height: 0 }}
             animate={{ 
               opacity: direction ? 1 : 0,
@@ -223,7 +223,7 @@ const SentimentPoll: React.FC = () => {
             }}
             transition={{ duration: 0.3, delay: 0.2 }}
           >
-            <label className="block text-sm font-medium text-gray-300">Comments (optional):</label>
+            <label className="block text-base font-medium text-gray-300">Comments (optional):</label>
             <Textarea 
               placeholder="Your thoughts on the future rate path..."
               value={comment}
@@ -232,12 +232,12 @@ const SentimentPoll: React.FC = () => {
                   setComment(e.target.value);
                 }
               }}
-              rows={2}
-              className="resize-none bg-gray-800/50 border-gray-700 focus:border-sky-600 focus:ring-sky-600/20 text-sm py-2 w-full"
+              rows={3}
+              className="resize-none bg-gray-800/50 border-gray-700 focus:border-sky-600 focus:ring-sky-600/20 text-base py-3 w-full"
               maxLength={200}
             />
             <div className="flex justify-end">
-              <span className="text-xs text-gray-500">{comment.length}/200</span>
+              <span className="text-sm text-gray-500">{comment.length}/200</span>
             </div>
           </motion.div>
           
@@ -246,11 +246,11 @@ const SentimentPoll: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="mt-6"
+            className="mt-8"
           >
             <Button 
               type="submit" 
-              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 font-medium rounded-lg transition-all duration-200 flex items-center justify-center"
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 font-medium rounded-lg transition-all duration-200 flex items-center justify-center text-base"
               disabled={submitted || !direction || selectedRate === null}
             >
               {submitted ? "Submitted!" : "Submit Your Forecast"}

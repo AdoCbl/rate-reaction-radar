@@ -82,7 +82,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
 
   return (
     <div className="flex flex-col items-center">
-      <span className="text-xs font-medium text-gray-300 mb-1">{year}</span>
+      <span className="text-sm font-medium text-gray-300 mb-1">{year}</span>
       
       <div className="relative h-[200px] w-14 bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden">
         {/* Grid lines */}
@@ -139,10 +139,10 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
       </div>
       
       {/* Show selected value below */}
-      <div className="mt-1 h-5">
+      <div className="mt-2 h-6">
         {value !== null && (
           <motion.span 
-            className="text-xs font-medium text-sky-400"
+            className="text-sm font-medium text-sky-400"
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             key={value}

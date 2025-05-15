@@ -73,19 +73,19 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   
   return (
     <motion.div 
-      className="w-full space-y-2" 
+      className="w-full space-y-3" 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
     >
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-semibold text-white">Rate Projections</h3>
+          <h3 className="text-base font-semibold text-white">Rate Projections</h3>
           <p className="text-xs text-gray-400">Forecast future interest rates</p>
         </div>
         
-        <div className="flex items-center space-x-2 text-xs">
-          <span className="text-gray-400">SEP medians</span>
+        <div className="flex items-center space-x-2">
+          <span className="text-xs text-gray-400">SEP medians</span>
           <Switch 
             checked={showMedians}
             onCheckedChange={setShowMedians}
@@ -93,11 +93,11 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
         </div>
       </div>
       
-      <div className="mt-2">
+      <div className="mt-4">
         <div className="flex space-x-1 justify-between relative">
-          {/* Y-axis label row at the top */}
-          <div className="absolute -top-6 left-12 text-xs text-gray-500 font-medium">
-            Interest Rate (%)
+          {/* Y-axis header - now positioned better */}
+          <div className="absolute -top-7 left-0 text-xs text-gray-400">
+            Interest Rate
           </div>
           
           {/* Y-axis labels column */}
@@ -133,7 +133,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
         </motion.div>
       )}
       
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-1">
         <button
           type="button"
           onClick={handleReset}
