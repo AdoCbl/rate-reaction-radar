@@ -121,7 +121,7 @@ const SentimentPoll: React.FC = () => {
         
         <form onSubmit={handleSubmit} className="space-y-3"> 
           {/* Two column layout for better balance */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {/* Left column: FOMC Decision */}
             <div className="space-y-2">
               <motion.h2 
@@ -200,34 +200,6 @@ const SentimentPoll: React.FC = () => {
               >
                 <ConfidenceSlider value={confidence} onChange={setConfidence} />
               </motion.div>
-              
-              {/* Comment Box */}
-              <motion.div 
-                className="space-y-1 mt-2"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ 
-                  opacity: direction ? 1 : 0,
-                  height: direction ? 'auto' : 0
-                }}
-                transition={{ duration: 0.3, delay: 0.2 }}
-              >
-                <label className="block text-xs font-medium text-gray-300">Comments (optional):</label>
-                <Textarea 
-                  placeholder="Your thoughts..."
-                  value={comment}
-                  onChange={(e) => {
-                    if (e.target.value.length <= 200) {
-                      setComment(e.target.value);
-                    }
-                  }}
-                  rows={1}
-                  className="resize-none bg-gray-800/50 border-gray-700 focus:border-sky-600 focus:ring-sky-600/20 text-xs py-1"
-                  maxLength={200}
-                />
-                <div className="flex justify-end">
-                  <span className="text-xs text-gray-500">{comment.length}/200</span>
-                </div>
-              </motion.div>
             </div>
             
             {/* Right column: Dot Plot */}
@@ -241,12 +213,40 @@ const SentimentPoll: React.FC = () => {
             </div>
           </div>
           
+          {/* Comments Box - Full Width */}
+          <motion.div 
+            className="space-y-1 mt-4"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ 
+              opacity: direction ? 1 : 0,
+              height: direction ? 'auto' : 0
+            }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            <label className="block text-sm font-medium text-gray-300">Comments (optional):</label>
+            <Textarea 
+              placeholder="Your thoughts on the future rate path..."
+              value={comment}
+              onChange={(e) => {
+                if (e.target.value.length <= 200) {
+                  setComment(e.target.value);
+                }
+              }}
+              rows={2}
+              className="resize-none bg-gray-800/50 border-gray-700 focus:border-sky-600 focus:ring-sky-600/20 text-sm py-2 w-full"
+              maxLength={200}
+            />
+            <div className="flex justify-end">
+              <span className="text-xs text-gray-500">{comment.length}/200</span>
+            </div>
+          </motion.div>
+          
           {/* Submit Button (full width below both columns) */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="mt-3"
+            className="mt-6"
           >
             <Button 
               type="submit" 

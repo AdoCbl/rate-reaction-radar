@@ -94,7 +94,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       </div>
       
       <div className="mt-2">
-        <div className="flex space-x-3 justify-between relative">
+        <div className="flex space-x-1 justify-between relative">
           {/* Y-axis label column with explicit labels */}
           <div className="flex flex-col justify-between h-[200px] pr-2 w-10 relative">
             <div className="text-xs text-gray-500 rotate-[-90deg] origin-center absolute left-[-8px] top-[50%] font-medium">
