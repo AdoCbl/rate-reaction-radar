@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import { FomcRateOutlook } from '@/components/results/FomcRateOutlook';
 import { AggregatedDotPlot } from '@/components/results/AggregatedDotPlot';
 import { Button } from '@/components/ui/button';
-import { GameController } from 'lucide-react';
+import { Gamepad2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
@@ -103,8 +103,8 @@ const ResultsDashboard: React.FC = () => {
           className="bg-blue-600 hover:bg-blue-700 px-6"
           onClick={() => navigate('/game')}
         >
-          <GameController size={18} />
-          Try the Rate Reaction Game
+          <Gamepad2 size={18} />
+          <span className="ml-2">Try the Rate Reaction Game</span>
         </Button>
       </motion.div>
     </div>
