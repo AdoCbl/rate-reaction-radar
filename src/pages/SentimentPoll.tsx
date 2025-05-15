@@ -48,23 +48,6 @@ const SentimentPoll: React.FC = () => {
     }
   };
 
-  // Handle advancing to the dot plot section
-  const handleContinueToDotPlot = () => {
-    if (!direction || selectedRate === null) {
-      toast.error("Please select a direction and rate.");
-      return;
-    }
-    
-    setActiveSection('dotplot');
-    // Smooth scroll to the dot plot section
-    setTimeout(() => {
-      window.scrollTo({
-        top: document.getElementById('dotplot-section')?.offsetTop || 0,
-        behavior: 'smooth'
-      });
-    }, 100);
-  };
-
   // Handle form submission
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -113,17 +96,16 @@ const SentimentPoll: React.FC = () => {
   return (
     <div className="max-w-lg mx-auto">
       <motion.div 
-        className="glass-card rounded-xl p-6 shadow-xl"
+        className="glass-card rounded-xl p-4 shadow-xl" // Reduced padding from p-6 to p-4
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        {/* Reduced from space-y-8 */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3"> {/* Reduced from space-y-4 to space-y-3 */}
           {/* Section 1: Rate Forecast */}
           <div id="forecast-section">
             <motion.h2 
-              className="text-2xl font-semibold mb-2 text-center md:text-left text-white"
+              className="text-xl font-semibold mb-1 text-white" // Reduced text size and margin
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1, duration: 0.4 }}
@@ -131,19 +113,18 @@ const SentimentPoll: React.FC = () => {
               What's your outlook for the next Fed meeting?
             </motion.h2>
             
-            {/* Reduced from mb-8 */}
             <motion.p 
-              className="text-sm text-gray-400 mb-6 text-center md:text-left"
+              className="text-xs text-gray-400 mb-3 md:text-left" // Reduced text size and margin
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.4 }}
             >
-              Submit your forecast for the upcoming FOMC decision. Your view contributes to the aggregated market sentiment.
+              Submit your forecast for the upcoming FOMC decision.
             </motion.p>
             
             {/* Direction Buttons */}
             <motion.div 
-              className="grid grid-cols-3 gap-3"
+              className="grid grid-cols-3 gap-2" // Reduced gap from gap-3 to gap-2
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.4 }}
@@ -166,7 +147,6 @@ const SentimentPoll: React.FC = () => {
             </motion.div>
             
             {/* Rate Select */}
-            {/* Reduced from mt-6 */}
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ 
@@ -174,7 +154,7 @@ const SentimentPoll: React.FC = () => {
                 height: direction ? 'auto' : 0
               }}
               transition={{ duration: 0.3 }}
-              className="overflow-hidden mt-4"
+              className="overflow-hidden mt-3"
             >
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-gray-300">What target rate do you expect the Fed to set?</label>
@@ -189,7 +169,6 @@ const SentimentPoll: React.FC = () => {
             </motion.div>
             
             {/* Confidence Slider */}
-            {/* Reduced from mt-6 */}
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ 
@@ -197,15 +176,14 @@ const SentimentPoll: React.FC = () => {
                 height: direction ? 'auto' : 0
               }}
               transition={{ duration: 0.3, delay: 0.1 }}
-              className="overflow-hidden mt-4"
+              className="overflow-hidden mt-3"
             >
               <ConfidenceSlider value={confidence} onChange={setConfidence} />
             </motion.div>
             
             {/* Comment Box */}
-            {/* Reduced from mt-6 */}
             <motion.div 
-              className="space-y-1 mt-4"
+              className="space-y-1 mt-3"
               initial={{ opacity: 0, height: 0 }}
               animate={{ 
                 opacity: direction ? 1 : 0,
@@ -222,41 +200,19 @@ const SentimentPoll: React.FC = () => {
                     setComment(e.target.value);
                   }
                 }}
-                rows={2}
-                className="resize-none bg-gray-800/50 border-gray-700 focus:border-sky-600 focus:ring-sky-600/20"
+                rows={1} // Reduced from rows={2} to rows={1}
+                className="resize-none bg-gray-800/50 border-gray-700 focus:border-sky-600 focus:ring-sky-600/20 text-sm py-1" // Added text-sm and reduced padding
                 maxLength={200}
               />
               <div className="flex justify-end">
                 <span className="text-xs text-gray-500">{comment.length}/200</span>
               </div>
             </motion.div>
-            
-            {/* Continue Button */}
-            {/* Reduced from mt-8 */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: direction ? 1 : 0,
-                y: direction ? 0 : 10
-              }}
-              transition={{ duration: 0.3, delay: 0.3 }}
-              className="mt-6"
-            >
-              <Button 
-                type="button" 
-                onClick={handleContinueToDotPlot}
-                className="w-full bg-sky-600 hover:bg-sky-700 text-white py-6 font-medium rounded-lg transition-all duration-200 flex items-center justify-center"
-                disabled={!direction || selectedRate === null}
-              >
-                Continue to Dot Plot
-              </Button>
-            </motion.div>
           </div>
           
-          {/* Section 2: Dot Plot Projection */}
-          <div id="dotplot-section" className={activeSection === 'dotplot' ? '' : 'opacity-50'}>
-            {/* Reduced from pt-8 mt-8 to remove gap */}
-            <div className="border-t border-gray-800 pt-4">
+          {/* Section 2: Dot Plot Projection - Show directly after initial section without separate "Continue" button */}
+          <div id="dotplot-section">
+            <div className="border-t border-gray-800 pt-3 mt-2"> {/* Further reduced spacing */}
               <DotPlotProjection 
                 values={dotPlotValues}
                 onChange={setDotPlotValues}
@@ -264,19 +220,15 @@ const SentimentPoll: React.FC = () => {
             </div>
             
             {/* Submit Button */}
-            {/* Reduced from mt-8 */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: activeSection === 'dotplot' ? 1 : 0,
-                y: activeSection === 'dotplot' ? 0 : 10
-              }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="mt-6"
+              className="mt-4"
             >
               <Button 
                 type="submit" 
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-6 font-medium rounded-lg transition-all duration-200 flex items-center justify-center"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 font-medium rounded-lg transition-all duration-200 flex items-center justify-center" // Reduced py from 6 to 4
                 disabled={submitted || !direction || selectedRate === null}
               >
                 {submitted ? "Submitted!" : "Submit Your Forecast"}

@@ -26,8 +26,8 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   // Calculate number of steps based on min, max and step size
   const totalSteps = Math.floor((maxRate - minRate) / stepSize) + 1;
   
-  // Calculate the height of each grid cell
-  const cellHeight = 24;
+  // Calculate the height of each grid cell - reduced height for compactness
+  const cellHeight = 20; // Reduced from 24 for more compact display
   const totalHeight = totalSteps * cellHeight;
   
   // Convert rate value to grid position (inverted since we draw from top to bottom)
@@ -56,7 +56,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     return `${(rate * 100).toFixed(2)}%`;
   };
   
-  // Generate grid lines for the rate steps
+  // Generate grid lines for the rate steps - now showing all labels for more explicit y-axis
   const renderGridLines = () => {
     return Array.from({ length: totalSteps }).map((_, index) => {
       const isFullUnit = (index * stepSize) % 0.01 === 0; // Show full label at each 1%
@@ -69,11 +69,10 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
           className={`absolute w-full border-t ${isFullUnit ? 'border-gray-700' : isHalfUnit ? 'border-gray-800' : 'border-gray-900'} flex items-center`}
           style={{ top: index * cellHeight }}
         >
-          {isFullUnit && (
-            <span className="text-xs text-gray-500 absolute -left-8">
-              {formatRateValue(value)}
-            </span>
-          )}
+          {/* Always show labels for more explicit y-axis */}
+          <span className={`text-xs ${isFullUnit ? 'text-gray-400' : 'text-gray-600'} absolute -left-8`}>
+            {isFullUnit || isHalfUnit ? formatRateValue(value) : ''}
+          </span>
         </div>
       );
     });
@@ -81,9 +80,9 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
 
   return (
     <div className="flex flex-col items-center">
-      <span className="text-sm font-medium text-gray-300 mb-2">{year}</span>
+      <span className="text-xs font-medium text-gray-300 mb-1">{year}</span>
       
-      <div className="relative h-[400px] w-16 bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden">
+      <div className="relative h-[320px] w-16 bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden">
         {/* Grid lines */}
         {renderGridLines()}
         
@@ -138,10 +137,10 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
       </div>
       
       {/* Show selected value below */}
-      <div className="mt-2 h-7">
+      <div className="mt-1 h-5">
         {value !== null && (
           <motion.span 
-            className="text-sm font-medium text-sky-400"
+            className="text-xs font-medium text-sky-400"
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             key={value}
