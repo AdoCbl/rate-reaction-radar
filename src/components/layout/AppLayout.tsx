@@ -39,11 +39,11 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 text-white">
-      <header className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-20">
-        <div className="container max-w-5xl mx-auto px-4 py-2">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800">
+      <header className="border-b border-blue-200 bg-white/70 backdrop-blur-md sticky top-0 z-20 shadow-sm">
+        <div className="container max-w-5xl mx-auto px-4 py-3">
           <motion.h1 
-            className="text-xl font-semibold text-white"
+            className="text-xl font-semibold text-blue-800"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             key={pageTitle}
@@ -54,7 +54,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
         </div>
       </header>
       
-      <main className="flex-grow container max-w-5xl mx-auto px-4 py-2 pb-16">
+      <main className="flex-grow container max-w-5xl mx-auto px-4 py-4 pb-16">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

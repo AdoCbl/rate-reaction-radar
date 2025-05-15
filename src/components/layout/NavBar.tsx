@@ -11,7 +11,7 @@ import {
 
 export const NavBar = () => {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 border-t border-gray-800 bg-gray-900/80 backdrop-blur-md py-2 px-4 z-10 shadow-lg">
+    <nav className="fixed bottom-0 left-0 right-0 border-t border-blue-200 bg-white/80 backdrop-blur-md py-2 px-4 z-10 shadow-lg">
       <div className="max-w-5xl mx-auto">
         <ul className="flex justify-between items-center">
           <NavItem to="/" icon={<BarChart3 size={20} />} label="Poll" />
@@ -40,8 +40,8 @@ const NavItem = ({ to, icon, label }: NavItemProps) => {
         className={({ isActive }) => 
           `flex flex-col items-center justify-center px-2 py-1 rounded-md transition-all duration-200 ${
             isActive 
-              ? 'text-sky-400 font-medium scale-105' 
-              : 'text-gray-400 hover:text-gray-300'
+              ? 'text-blue-600 font-medium scale-105 bg-blue-100/70 shadow-sm' 
+              : 'text-gray-600 hover:text-blue-500 hover:bg-blue-50'
           }`
         }
       >

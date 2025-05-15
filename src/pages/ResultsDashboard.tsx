@@ -56,8 +56,8 @@ const ResultsDashboard: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-2xl font-semibold text-white">Market Sentiment Results</h1>
-        <p className="text-gray-400 mt-2 text-sm">
+        <h1 className="text-2xl font-semibold text-blue-800">Market Sentiment Results</h1>
+        <p className="text-gray-600 mt-2 text-sm">
           Compare your forecast with aggregated client expectations and the SEP median projections.
         </p>
       </motion.div>
@@ -69,7 +69,7 @@ const ResultsDashboard: React.FC = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <Card className="p-4 glass-card h-full">
+          <Card className="p-4 glass-card h-full border-blue-200 shadow-md">
             <FomcRateOutlook 
               aggregatedData={aggregatedData.directions}
               userVote={userVote.direction}
@@ -84,7 +84,7 @@ const ResultsDashboard: React.FC = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
         >
-          <Card className="p-4 glass-card h-full">
+          <Card className="p-4 glass-card h-full border-amber-200 shadow-md">
             <AggregatedDotPlot 
               projections={aggregatedData.projections}
               userProjections={aggregatedData.userProjections}
@@ -103,7 +103,7 @@ const ResultsDashboard: React.FC = () => {
       >
         <Button 
           onClick={() => navigate('/game')}
-          className="bg-sky-600 hover:bg-sky-500 text-white shadow-lg flex items-center gap-2 px-4 py-6 rounded-full"
+          className="bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-white shadow-lg flex items-center gap-2 px-4 py-6 rounded-full"
           size="lg"
         >
           <Gamepad className="h-5 w-5" />
