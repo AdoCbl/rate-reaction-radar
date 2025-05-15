@@ -76,14 +76,14 @@ export const PollForm: React.FC = () => {
 
   return (
     <motion.div 
-      className="glass-card rounded-xl p-4 md:p-6 shadow-xl w-full max-w-4xl mx-auto" 
+      className="glass-card rounded-xl p-4 md:p-5 shadow-xl w-full max-w-4xl mx-auto" 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
       <FormHeader />
       
-      <form onSubmit={handleSubmit} className="space-y-3"> 
+      <form onSubmit={handleSubmit}> 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Left column: FOMC Decision */}
           <FomcOutlookSection 
@@ -95,7 +95,7 @@ export const PollForm: React.FC = () => {
           />
           
           {/* Right column: Dot Plot */}
-          <div className="space-y-3">
+          <div>
             <div id="dotplot-section">
               <DotPlotProjection 
                 values={dotPlotValues}
@@ -106,7 +106,7 @@ export const PollForm: React.FC = () => {
         </div>
         
         {/* Comments Box - Full width across both columns */}
-        <div className="col-span-full">
+        <div className="col-span-full mt-2">
           <CommentSection 
             comment={comment}
             setComment={setComment}
@@ -115,10 +115,12 @@ export const PollForm: React.FC = () => {
         </div>
         
         {/* Submit Button */}
-        <SubmitButton 
-          submitted={submitted}
-          disabled={!direction}
-        />
+        <div className="mt-3">
+          <SubmitButton 
+            submitted={submitted}
+            disabled={!direction}
+          />
+        </div>
       </form>
     </motion.div>
   );

@@ -69,7 +69,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   
   return (
     <motion.div 
-      className="w-full space-y-2" 
+      className="w-full" 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
@@ -111,20 +111,22 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
         </div>
       </div>
       
-      {/* SEP Median information (only shown when toggle is on) */}
-      {showMedians && (
-        <motion.div 
-          className="text-xs text-gray-400 bg-gray-800/50 p-2 rounded-md border border-gray-700"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <p>Latest FOMC SEP median values shown in light blue.</p>
-        </motion.div>
-      )}
+      {/* Container with fixed height to prevent layout shifts */}
+      <div className="h-8 mt-2">
+        {showMedians && (
+          <motion.div 
+            className="text-xs text-gray-400 bg-gray-800/50 p-2 rounded-md border border-gray-700"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <p>Latest FOMC SEP median values shown in light blue.</p>
+          </motion.div>
+        )}
+      </div>
       
-      <div className="flex justify-end mt-1">
+      <div className="flex justify-end">
         <button
           type="button"
           onClick={handleReset}

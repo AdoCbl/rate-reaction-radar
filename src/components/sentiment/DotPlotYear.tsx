@@ -43,9 +43,13 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     let rate = maxRate - (steps * stepSize);
     
     // Ensure the value is exactly a multiple of 0.00125 (0.125%)
-    const increment = 0.00125; // 0.125%
-    const multiplier = Math.round(rate / increment);
-    rate = multiplier * increment;
+    // 0.00125 is 0.125%
+    const increment = 0.00125;
+    // Round to the nearest multiple of increment
+    rate = Math.round(rate / increment) * increment;
+    
+    // Fix floating point precision issues
+    rate = Number(rate.toFixed(5));
     
     // Clamp the value to ensure it's within range
     return Math.min(Math.max(rate, minRate), maxRate);
@@ -93,7 +97,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     <div className="flex flex-col items-center">
       <span className="text-sm font-medium text-gray-300 mb-1">{year}</span>
       
-      <div className="relative h-[200px] w-12 bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden">
+      <div className="relative h-[200px] w-10 bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden">
         {/* Grid lines */}
         {renderGridLines()}
         
@@ -148,7 +152,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
       </div>
       
       {/* Show selected value below with more spacing to prevent overlap */}
-      <div className="mt-3 h-6 text-center">
+      <div className="mt-1 h-6 text-center">
         {value !== null && (
           <motion.span 
             className="text-xs font-medium text-sky-400 inline-block"
@@ -163,4 +167,3 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     </div>
   );
 };
-
