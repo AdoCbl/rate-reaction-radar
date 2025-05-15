@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { DotPlotProjection } from '@/components/sentiment/DotPlotProjection';
 import { Direction, YearProjection } from './types';
-import { FormHeader } from './FormHeader';
 import { CommentSection } from './CommentSection';
 import { SubmitButton } from './SubmitButton';
 import { toast } from 'sonner';
@@ -76,18 +75,13 @@ export const PollForm: React.FC = () => {
 
   return (
     <motion.div 
-      className="relative glass-card rounded-2xl p-4 md:p-5 shadow-2xl w-full max-w-5xl mx-auto backdrop-blur-lg bg-gradient-to-b from-slate-900/90 to-slate-800/90 border border-slate-700/50 overflow-hidden"
+      className="relative glass-card rounded-2xl p-3 shadow-2xl w-full max-w-5xl mx-auto backdrop-blur-md bg-gradient-to-b from-slate-900/80 to-slate-800/80 border border-slate-700/40 overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      {/* Radial gradient background effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-indigo-600/5 via-transparent to-transparent pointer-events-none" />
-      
-      <FormHeader />
-      
       <form onSubmit={handleSubmit}> 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Left column: FOMC Decision */}
           <FomcOutlookSection 
             direction={direction}
@@ -98,18 +92,16 @@ export const PollForm: React.FC = () => {
           />
           
           {/* Right column: Dot Plot */}
-          <div className="bg-slate-800/60 rounded-xl p-3 border border-slate-700/50 shadow-lg">
-            <div id="dotplot-section">
-              <DotPlotProjection 
-                values={dotPlotValues}
-                onChange={setDotPlotValues}
-              />
-            </div>
+          <div className="bg-slate-800/50 rounded-xl p-2 border border-slate-700/40 shadow-md">
+            <DotPlotProjection 
+              values={dotPlotValues}
+              onChange={setDotPlotValues}
+            />
           </div>
         </div>
         
         {/* Comments Box - Full width across both columns */}
-        <div className="col-span-full mt-4">
+        <div className="mt-3">
           <CommentSection 
             comment={comment}
             setComment={setComment}
@@ -118,7 +110,7 @@ export const PollForm: React.FC = () => {
         </div>
         
         {/* Submit Button */}
-        <div className="mt-4">
+        <div className="mt-3">
           <SubmitButton 
             submitted={submitted}
             disabled={!direction}

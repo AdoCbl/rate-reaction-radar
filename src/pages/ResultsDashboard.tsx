@@ -4,13 +4,8 @@ import { Card } from '@/components/ui/card';
 import { FomcRateOutlook } from '@/components/results/FomcRateOutlook';
 import { AggregatedDotPlot } from '@/components/results/AggregatedDotPlot';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Gamepad } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 const ResultsDashboard: React.FC = () => {
-  const navigate = useNavigate();
-  
   // Mock data for the current user's vote
   const [userVote] = useState({
     direction: 'hold',
@@ -93,23 +88,6 @@ const ResultsDashboard: React.FC = () => {
           </Card>
         </motion.div>
       </div>
-      
-      {/* Floating CTA button */}
-      <motion.div
-        className="fixed bottom-8 right-8 z-10"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.8, type: "spring" }}
-      >
-        <Button 
-          onClick={() => navigate('/game')}
-          className="bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 dark:from-indigo-500/90 dark:to-indigo-700/90 text-white shadow-lg flex items-center gap-2 px-4 py-6 rounded-full transition-all duration-300 hover:shadow-indigo-500/20 hover:shadow-xl"
-          size="lg"
-        >
-          <Gamepad className="h-5 w-5" />
-          <span>Try the Rate Reaction Game</span>
-        </Button>
-      </motion.div>
     </div>
   );
 };

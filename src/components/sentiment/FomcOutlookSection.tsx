@@ -21,9 +21,9 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
   onConfidenceChange
 }) => {
   return (
-    <div className="space-y-3 bg-slate-800/60 rounded-xl p-3 border border-slate-700/50 shadow-lg">
+    <div className="space-y-2 bg-slate-800/50 rounded-xl p-2 border border-slate-700/40 shadow-md">
       <motion.h2 
-        className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300"
+        className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1, duration: 0.4 }}
