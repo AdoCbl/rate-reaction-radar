@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { DotPlotProjection } from '@/components/sentiment/DotPlotProjection';
 import { Direction, YearProjection } from './types';
@@ -21,9 +22,9 @@ export const PollForm: React.FC = () => {
   
   // State for dot plot projections
   const [dotPlotValues, setDotPlotValues] = useState<YearProjection[]>([
-    { year: '2024', value: null },
     { year: '2025', value: null },
     { year: '2026', value: null },
+    { year: '2027', value: null },
     { year: 'Long Run', value: null }
   ]);
 
@@ -87,15 +88,15 @@ export const PollForm: React.FC = () => {
 
   return (
     <motion.div 
-      className="glass-card rounded-xl p-6 shadow-xl" 
+      className="glass-card rounded-xl p-4 md:p-6 shadow-xl w-full max-w-4xl mx-auto" 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
       <FormHeader />
       
-      <form onSubmit={handleSubmit} className="space-y-6"> 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6"> 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {/* Left column: FOMC Decision */}
           <FomcOutlookSection 
             direction={direction}

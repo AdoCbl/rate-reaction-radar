@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { DotPlotYear } from './DotPlotYear';
 import { Switch } from '@/components/ui/switch';
@@ -17,9 +18,9 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   
   // Fed SEP median values from the most recent projection
   const sepMedians = [
-    { year: '2024', value: 0.0425 },
-    { year: '2025', value: 0.0375 },
-    { year: '2026', value: 0.0350 },
+    { year: '2025', value: 0.0425 },
+    { year: '2026', value: 0.0375 },
+    { year: '2027', value: 0.0350 },
     { year: 'Long Run', value: 0.0325 }
   ];
   

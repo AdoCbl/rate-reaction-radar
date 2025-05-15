@@ -8,7 +8,7 @@ const ScenarioDisplay = () => {
   return (
     <>
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-white">
+        <h2 className="text-lg font-semibold text-white">
           Historical Market Scenario
         </h2>
         <Badge variant="outline" className="bg-gray-800/30 text-white border-gray-700">
@@ -16,7 +16,7 @@ const ScenarioDisplay = () => {
         </Badge>
       </div>
       <motion.div 
-        className="p-4 bg-gray-800/50 rounded-md border border-gray-700 shadow-inner"
+        className="p-3 bg-gray-800/50 rounded-md border border-gray-700 shadow-inner"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}

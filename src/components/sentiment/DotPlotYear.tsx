@@ -37,11 +37,13 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     return steps * cellHeight + cellHeight / 2;
   };
   
-  // Convert grid position to rate value
+  // Convert grid position to rate value, ensuring it's a multiple of 0.00125 (0.125%)
   const positionToValue = (posY: number): number => {
     const steps = Math.round(posY / cellHeight);
     const rate = maxRate - (steps * stepSize);
-    return Math.min(Math.max(rate, minRate), maxRate);
+    // Round to the nearest 0.125% increment
+    const increment = 0.00125; // 0.125%
+    return Math.round(Math.min(Math.max(rate, minRate), maxRate) / increment) * increment;
   };
   
   // Handle click on the grid
@@ -85,7 +87,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     <div className="flex flex-col items-center">
       <span className="text-sm font-medium text-gray-300 mb-1">{year}</span>
       
-      <div className="relative h-[200px] w-14 bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden">
+      <div className="relative h-[200px] w-12 bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden">
         {/* Grid lines */}
         {renderGridLines()}
         
