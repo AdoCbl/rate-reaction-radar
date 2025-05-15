@@ -21,9 +21,9 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
   onConfidenceChange
 }) => {
   return (
-    <div className="space-y-6 bg-slate-800/60 rounded-xl p-5 border border-slate-700/50 shadow-lg">
+    <div className="space-y-3 bg-slate-800/60 rounded-xl p-3 border border-slate-700/50 shadow-lg">
       <motion.h2 
-        className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300"
+        className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1, duration: 0.4 }}
@@ -31,18 +31,9 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
         Your FOMC Outlook
       </motion.h2>
       
-      <motion.p 
-        className="text-base text-slate-300 mb-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.4 }}
-      >
-        What's your outlook for the next meeting?
-      </motion.p>
-      
       {/* Direction Buttons */}
       <motion.div 
-        className="grid grid-cols-3 gap-4"
+        className="grid grid-cols-3 gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.4 }}
@@ -68,17 +59,14 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="mt-6"
         transition={{ duration: 0.3 }}
       >
-        <div className="space-y-2">
-          <div className="flex items-center">
-            <p className="text-base font-medium text-slate-300">Current target rate: 
-              <span className="ml-2 px-3 py-1 bg-slate-700/70 rounded-md text-white font-semibold">
-                {currentRate.toFixed(2)}%
-              </span>
-            </p>
-          </div>
+        <div className="flex items-center">
+          <p className="text-sm font-medium text-slate-300">Current target rate: 
+            <span className="ml-1 px-2 py-0.5 bg-slate-700/70 rounded-md text-white font-semibold">
+              {currentRate.toFixed(2)}%
+            </span>
+          </p>
         </div>
       </motion.div>
       
@@ -86,7 +74,6 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="mt-6"
         transition={{ duration: 0.3, delay: 0.1 }}
       >
         <ConfidenceSlider value={confidence} onChange={onConfidenceChange} />

@@ -17,7 +17,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
   useEffect(() => {
     switch (location.pathname) {
       case '/':
-        setPageTitle('Weekly Sentiment Poll');
+        setPageTitle('Sentiment Poll');
         break;
       case '/results':
         setPageTitle('Live Results Dashboard');
@@ -40,11 +40,11 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-indigo-950 text-gray-800 dark:text-gray-100">
-      <header className="border-b border-blue-200 dark:border-blue-900 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md sticky top-0 z-20 shadow-sm">
-        <div className="container max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div className="h-screen flex flex-col overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-indigo-950 text-gray-800 dark:text-gray-100">
+      <header className="border-b border-blue-200 dark:border-blue-900 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md sticky top-0 z-20 shadow-sm py-2">
+        <div className="container max-w-5xl mx-auto px-4 flex justify-between items-center">
           <motion.h1 
-            className="text-xl font-semibold text-blue-800 dark:text-blue-300"
+            className="text-lg font-semibold text-blue-800 dark:text-blue-300"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             key={pageTitle}
@@ -56,13 +56,13 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
         </div>
       </header>
       
-      <main className="flex-grow container max-w-5xl mx-auto px-4 py-4 pb-16">
+      <main className="flex-grow container max-w-5xl mx-auto px-4 py-2 overflow-hidden flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
           key={location.pathname}
-          className="h-full"
+          className="h-full w-full"
         >
           {children}
         </motion.div>

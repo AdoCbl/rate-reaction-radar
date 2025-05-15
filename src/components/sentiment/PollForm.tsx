@@ -76,7 +76,7 @@ export const PollForm: React.FC = () => {
 
   return (
     <motion.div 
-      className="relative glass-card rounded-2xl p-6 md:p-8 shadow-2xl w-full max-w-5xl mx-auto backdrop-blur-lg bg-gradient-to-b from-slate-900/90 to-slate-800/90 border border-slate-700/50 overflow-hidden"
+      className="relative glass-card rounded-2xl p-4 md:p-5 shadow-2xl w-full max-w-5xl mx-auto backdrop-blur-lg bg-gradient-to-b from-slate-900/90 to-slate-800/90 border border-slate-700/50 overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
@@ -87,7 +87,7 @@ export const PollForm: React.FC = () => {
       <FormHeader />
       
       <form onSubmit={handleSubmit}> 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Left column: FOMC Decision */}
           <FomcOutlookSection 
             direction={direction}
@@ -98,7 +98,7 @@ export const PollForm: React.FC = () => {
           />
           
           {/* Right column: Dot Plot */}
-          <div className="bg-slate-800/60 rounded-xl p-5 border border-slate-700/50 shadow-lg">
+          <div className="bg-slate-800/60 rounded-xl p-3 border border-slate-700/50 shadow-lg">
             <div id="dotplot-section">
               <DotPlotProjection 
                 values={dotPlotValues}
@@ -109,7 +109,7 @@ export const PollForm: React.FC = () => {
         </div>
         
         {/* Comments Box - Full width across both columns */}
-        <div className="col-span-full mt-8">
+        <div className="col-span-full mt-4">
           <CommentSection 
             comment={comment}
             setComment={setComment}
@@ -118,7 +118,7 @@ export const PollForm: React.FC = () => {
         </div>
         
         {/* Submit Button */}
-        <div className="mt-8 sticky bottom-0">
+        <div className="mt-4">
           <SubmitButton 
             submitted={submitted}
             disabled={!direction}

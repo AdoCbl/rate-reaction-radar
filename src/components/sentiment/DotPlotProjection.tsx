@@ -49,13 +49,13 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   
   // Generate y-axis labels for the interest rate range (0-5%)
   const renderYAxisLabels = () => {
-    // Creating labels at 1% intervals
+    // Creating fewer labels to save space - just at 2% intervals
     const labels = [];
-    for (let rate = 0; rate <= 0.05; rate += 0.01) {
+    for (let rate = 0; rate <= 0.05; rate += 0.02) {
       labels.push(
         <div 
           key={rate} 
-          className={`text-xs ${rate % 0.02 === 0 ? 'text-slate-300 font-medium' : 'text-slate-500'}`}
+          className="text-xs text-slate-300 font-medium"
           style={{ 
             position: 'absolute', 
             right: '8px', 
@@ -77,14 +77,11 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
     >
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">Rate Projections</h3>
-          <p className="text-slate-400 text-sm">Click on each column to place your forecast</p>
-        </div>
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">Rate Projections</h3>
         
-        <div className="flex items-center space-x-3">
-          <span className="text-sm text-slate-400">SEP Medians</span>
+        <div className="flex items-center space-x-2">
+          <span className="text-xs text-slate-400">SEP Medians</span>
           <Switch 
             checked={showMedians}
             onCheckedChange={setShowMedians}
@@ -94,20 +91,20 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <HelpCircle className="h-5 w-5 text-slate-400 hover:text-slate-300 transition-colors" />
+                <HelpCircle className="h-4 w-4 text-slate-400 hover:text-slate-300 transition-colors" />
               </TooltipTrigger>
               <TooltipContent className="bg-slate-800 border-slate-700 text-white">
-                <p className="max-w-xs">Federal Reserve Summary of Economic Projections (SEP) median values</p>
+                <p className="text-xs">Federal Reserve Summary of Economic Projections (SEP) median values</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>
       </div>
       
-      <div className="mt-4 bg-slate-900/60 p-4 rounded-lg border border-slate-800">
-        <div className="flex space-x-2 justify-between relative">
+      <div className="mt-2 bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+        <div className="flex space-x-1 justify-between relative">
           {/* Y-axis labels column */}
-          <div className="flex flex-col justify-between h-[200px] pr-2 w-8 relative">
+          <div className="flex flex-col justify-between h-[160px] pr-1 w-6 relative">
             {renderYAxisLabels()}
           </div>
           
@@ -128,30 +125,13 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
         </div>
       </div>
       
-      {/* Container with fixed height to prevent layout shifts */}
-      <div className="h-8 mt-2">
-        <AnimatePresence>
-          {showMedians && (
-            <motion.div 
-              className="text-sm text-slate-400 bg-slate-800/70 p-2 rounded-md border border-slate-700"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-            >
-              <p>FOMC SEP median values shown in light purple</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-      
       <div className="flex justify-end mt-2">
         <button
           type="button"
           onClick={handleReset}
-          className="text-sm font-medium text-slate-400 hover:text-white transition-colors px-3 py-1.5 rounded-md hover:bg-slate-800/70 border border-transparent hover:border-slate-700"
+          className="text-xs font-medium text-slate-400 hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-slate-800/70 border border-transparent hover:border-slate-700"
         >
-          Reset projections
+          Reset
         </button>
       </div>
     </motion.div>
