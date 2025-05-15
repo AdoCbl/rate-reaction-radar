@@ -60,7 +60,7 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
   const chartData = aggregatedData.map(item => ({
     name: formatDirection(item.name),
     value: item.percentage,
-    color: getDirectionColor(item.name),
+    fill: getDirectionColor(item.name),
     directionKey: item.name
   }));
 
@@ -84,7 +84,7 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
                 dataKey="value"
                 radius={[4, 4, 0, 0]}
                 className="fill-current"
-                fill={(data) => data.color}
+                fill="fill"
                 label={{ position: 'top', fill: '#ffffff', fontSize: 12 }}
                 isAnimationActive={true}
               />
