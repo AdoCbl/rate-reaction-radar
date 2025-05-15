@@ -1,20 +1,14 @@
 
 import React, { useState } from 'react';
-import { DirectionButton, Direction } from '@/components/sentiment/DirectionButton';
-import { RateSelect } from '@/components/sentiment/RateSelect';
-import { ConfidenceSlider } from '@/components/sentiment/ConfidenceSlider';
+import { Direction } from '@/components/sentiment/DirectionButton';
 import { DotPlotProjection } from '@/components/sentiment/DotPlotProjection';
 import { FormHeader } from './FormHeader';
 import { CommentSection } from './CommentSection';
 import { SubmitButton } from './SubmitButton';
-import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
-
-type YearProjection = {
-  year: string;
-  value: number | null;
-};
+import { FomcOutlookSection } from './FomcOutlookSection';
+import { YearProjection } from './types';
 
 export const PollForm: React.FC = () => {
   // Current Fed Funds rate
@@ -105,78 +99,15 @@ export const PollForm: React.FC = () => {
       <form onSubmit={handleSubmit} className="space-y-6"> 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {/* Left column: FOMC Decision */}
-          <div className="space-y-4">
-            <motion.h2 
-              className="text-xl font-semibold text-white"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1, duration: 0.4 }}
-            >
-              Your FOMC Outlook
-            </motion.h2>
-            
-            <motion.p 
-              className="text-sm text-gray-400 mb-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.4 }}
-            >
-              What's your outlook for the next meeting?
-            </motion.p>
-            
-            {/* Direction Buttons */}
-            <motion.div 
-              className="grid grid-cols-3 gap-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.4 }}
-            >
-              <DirectionButton 
-                direction="cut" 
-                selected={direction === 'cut'} 
-                onClick={handleDirectionClick}
-              />
-              <DirectionButton 
-                direction="hold" 
-                selected={direction === 'hold'} 
-                onClick={handleDirectionClick}
-              />
-              <DirectionButton 
-                direction="hike" 
-                selected={direction === 'hike'} 
-                onClick={handleDirectionClick}
-              />
-            </motion.div>
-            
-            {/* Rate Select - Always visible */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-4"
-              transition={{ duration: 0.3 }}
-            >
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-300">Expected target rate:</label>
-                <RateSelect 
-                  currentRate={currentRate}
-                  selectedRate={selectedRate || currentRate}
-                  onChange={setSelectedRate}
-                  direction={direction || 'hold'}
-                />
-                <p className="text-xs text-gray-500 mt-1">Current: {currentRate.toFixed(2)}%</p>
-              </div>
-            </motion.div>
-            
-            {/* Confidence Slider - Always visible */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-4"
-              transition={{ duration: 0.3, delay: 0.1 }}
-            >
-              <ConfidenceSlider value={confidence} onChange={setConfidence} />
-            </motion.div>
-          </div>
+          <FomcOutlookSection 
+            direction={direction}
+            selectedRate={selectedRate}
+            confidence={confidence}
+            currentRate={currentRate}
+            onDirectionClick={handleDirectionClick}
+            onRateChange={setSelectedRate}
+            onConfidenceChange={setConfidence}
+          />
           
           {/* Right column: Dot Plot */}
           <div className="space-y-4">

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { motion } from 'framer-motion';
-import { Direction } from './DirectionButton';
+import { Direction } from './types';
 
 type CommentSectionProps = {
   comment: string;

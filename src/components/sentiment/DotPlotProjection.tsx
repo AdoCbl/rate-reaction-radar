@@ -1,13 +1,8 @@
-
 import React, { useState } from 'react';
 import { DotPlotYear } from './DotPlotYear';
 import { Switch } from '@/components/ui/switch';
 import { motion } from 'framer-motion';
-
-type YearProjection = {
-  year: string;
-  value: number | null;
-};
+import { YearProjection } from './types';
 
 type DotPlotProjectionProps = {
   onChange: (projections: YearProjection[]) => void;

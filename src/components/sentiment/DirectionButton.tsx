@@ -1,9 +1,7 @@
-
 import React from 'react';
 import { ArrowUp, ArrowRight, ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-export type Direction = 'hike' | 'hold' | 'cut';
+import { Direction } from './types';
 
 type DirectionButtonProps = {
   direction: Direction;
