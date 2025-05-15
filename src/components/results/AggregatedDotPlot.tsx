@@ -23,12 +23,12 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
   const [showSepMedians, setShowSepMedians] = useState(false);
   const years = Object.keys(projections);
   
-  // Fed SEP median values from the most recent projection
+  // Fed SEP median values from the most recent projection - using realistic values
   const sepMedians = {
     '2025': 0.0425,
     '2026': 0.0375,
-    '2027': 0.0350,
-    'Long Run': 0.0325
+    '2027': 0.0325,
+    'Long Run': 0.0250
   };
 
   // Format rate as percentage
@@ -91,7 +91,7 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                   
                   {/* Client dots */}
                   {projections[year].map((value, index) => {
-                    const top = (value / 0.05) * 200;
+                    const top = Math.min(200, (value / 0.05) * 200); // Ensure it stays within bounds
                     const isUserDot = userProjections[year] === value;
                     const jitterX = isUserDot ? 0 : (index % 5) - 2; // Add some horizontal jitter
                     

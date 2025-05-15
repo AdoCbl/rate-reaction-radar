@@ -88,8 +88,6 @@ const ResultsDashboard: React.FC = () => {
           </Card>
         </motion.div>
       </div>
-
-      {/* Removed the CTA Button */}
     </div>
   );
 };
