@@ -24,7 +24,6 @@ const SentimentPoll: React.FC = () => {
   const [confidence, setConfidence] = useState<number>(50);
   const [comment, setComment] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [activeSection, setActiveSection] = useState<'forecast' | 'dotplot'>('forecast');
   
   // State for dot plot projections
   const [dotPlotValues, setDotPlotValues] = useState<YearProjection[]>([
@@ -89,152 +88,154 @@ const SentimentPoll: React.FC = () => {
       setComment('');
       setDotPlotValues(dotPlotValues.map(item => ({ ...item, value: null })));
       setSubmitted(false);
-      setActiveSection('forecast');
     }, 3000);
   };
 
   return (
     <div className="max-w-lg mx-auto">
       <motion.div 
-        className="glass-card rounded-xl p-4 shadow-xl" // Reduced padding from p-6 to p-4
+        className="glass-card rounded-xl p-4 shadow-xl" 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <form onSubmit={handleSubmit} className="space-y-3"> {/* Reduced from space-y-4 to space-y-3 */}
-          {/* Section 1: Rate Forecast */}
-          <div id="forecast-section">
-            <motion.h2 
-              className="text-xl font-semibold mb-1 text-white" // Reduced text size and margin
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1, duration: 0.4 }}
-            >
-              What's your outlook for the next Fed meeting?
-            </motion.h2>
-            
-            <motion.p 
-              className="text-xs text-gray-400 mb-3 md:text-left" // Reduced text size and margin
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.4 }}
-            >
-              Submit your forecast for the upcoming FOMC decision.
-            </motion.p>
-            
-            {/* Direction Buttons */}
-            <motion.div 
-              className="grid grid-cols-3 gap-2" // Reduced gap from gap-3 to gap-2
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.4 }}
-            >
-              <DirectionButton 
-                direction="cut" 
-                selected={direction === 'cut'} 
-                onClick={handleDirectionClick}
-              />
-              <DirectionButton 
-                direction="hold" 
-                selected={direction === 'hold'} 
-                onClick={handleDirectionClick}
-              />
-              <DirectionButton 
-                direction="hike" 
-                selected={direction === 'hike'} 
-                onClick={handleDirectionClick}
-              />
-            </motion.div>
-            
-            {/* Rate Select */}
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ 
-                opacity: direction ? 1 : 0,
-                height: direction ? 'auto' : 0
-              }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden mt-3"
-            >
-              <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-300">What target rate do you expect the Fed to set?</label>
-                <RateSelect 
-                  currentRate={currentRate}
-                  selectedRate={selectedRate}
-                  onChange={setSelectedRate}
-                  direction={direction}
+        <form onSubmit={handleSubmit} className="space-y-3"> 
+          {/* Two column layout for better balance */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Left column: FOMC Decision */}
+            <div className="space-y-2">
+              <motion.h2 
+                className="text-lg font-semibold mb-1 text-white"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1, duration: 0.4 }}
+              >
+                Your FOMC Outlook
+              </motion.h2>
+              
+              <motion.p 
+                className="text-xs text-gray-400 mb-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.4 }}
+              >
+                What's your outlook for the next meeting?
+              </motion.p>
+              
+              {/* Direction Buttons */}
+              <motion.div 
+                className="grid grid-cols-3 gap-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
+              >
+                <DirectionButton 
+                  direction="cut" 
+                  selected={direction === 'cut'} 
+                  onClick={handleDirectionClick}
                 />
-                <p className="text-xs text-gray-500 mt-1">Current rate: {currentRate.toFixed(2)}%</p>
-              </div>
-            </motion.div>
-            
-            {/* Confidence Slider */}
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ 
-                opacity: direction ? 1 : 0,
-                height: direction ? 'auto' : 0
-              }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-              className="overflow-hidden mt-3"
-            >
-              <ConfidenceSlider value={confidence} onChange={setConfidence} />
-            </motion.div>
-            
-            {/* Comment Box */}
-            <motion.div 
-              className="space-y-1 mt-3"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ 
-                opacity: direction ? 1 : 0,
-                height: direction ? 'auto' : 0
-              }}
-              transition={{ duration: 0.3, delay: 0.2 }}
-            >
-              <label className="block text-sm font-medium text-gray-300">Briefly explain your view (optional):</label>
-              <Textarea 
-                placeholder="Type your thoughts here..."
-                value={comment}
-                onChange={(e) => {
-                  if (e.target.value.length <= 200) {
-                    setComment(e.target.value);
-                  }
+                <DirectionButton 
+                  direction="hold" 
+                  selected={direction === 'hold'} 
+                  onClick={handleDirectionClick}
+                />
+                <DirectionButton 
+                  direction="hike" 
+                  selected={direction === 'hike'} 
+                  onClick={handleDirectionClick}
+                />
+              </motion.div>
+              
+              {/* Rate Select */}
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ 
+                  opacity: direction ? 1 : 0,
+                  height: direction ? 'auto' : 0
                 }}
-                rows={1} // Reduced from rows={2} to rows={1}
-                className="resize-none bg-gray-800/50 border-gray-700 focus:border-sky-600 focus:ring-sky-600/20 text-sm py-1" // Added text-sm and reduced padding
-                maxLength={200}
-              />
-              <div className="flex justify-end">
-                <span className="text-xs text-gray-500">{comment.length}/200</span>
-              </div>
-            </motion.div>
-          </div>
-          
-          {/* Section 2: Dot Plot Projection - Show directly after initial section without separate "Continue" button */}
-          <div id="dotplot-section">
-            <div className="border-t border-gray-800 pt-3 mt-2"> {/* Further reduced spacing */}
-              <DotPlotProjection 
-                values={dotPlotValues}
-                onChange={setDotPlotValues}
-              />
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden mt-2"
+              >
+                <div className="space-y-1">
+                  <label className="block text-xs font-medium text-gray-300">Expected target rate:</label>
+                  <RateSelect 
+                    currentRate={currentRate}
+                    selectedRate={selectedRate}
+                    onChange={setSelectedRate}
+                    direction={direction}
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Current: {currentRate.toFixed(2)}%</p>
+                </div>
+              </motion.div>
+              
+              {/* Confidence Slider */}
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ 
+                  opacity: direction ? 1 : 0,
+                  height: direction ? 'auto' : 0
+                }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="overflow-hidden mt-2"
+              >
+                <ConfidenceSlider value={confidence} onChange={setConfidence} />
+              </motion.div>
+              
+              {/* Comment Box */}
+              <motion.div 
+                className="space-y-1 mt-2"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ 
+                  opacity: direction ? 1 : 0,
+                  height: direction ? 'auto' : 0
+                }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+              >
+                <label className="block text-xs font-medium text-gray-300">Comments (optional):</label>
+                <Textarea 
+                  placeholder="Your thoughts..."
+                  value={comment}
+                  onChange={(e) => {
+                    if (e.target.value.length <= 200) {
+                      setComment(e.target.value);
+                    }
+                  }}
+                  rows={1}
+                  className="resize-none bg-gray-800/50 border-gray-700 focus:border-sky-600 focus:ring-sky-600/20 text-xs py-1"
+                  maxLength={200}
+                />
+                <div className="flex justify-end">
+                  <span className="text-xs text-gray-500">{comment.length}/200</span>
+                </div>
+              </motion.div>
             </div>
             
-            {/* Submit Button */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="mt-4"
-            >
-              <Button 
-                type="submit" 
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 font-medium rounded-lg transition-all duration-200 flex items-center justify-center" // Reduced py from 6 to 4
-                disabled={submitted || !direction || selectedRate === null}
-              >
-                {submitted ? "Submitted!" : "Submit Your Forecast"}
-              </Button>
-            </motion.div>
+            {/* Right column: Dot Plot */}
+            <div className="space-y-2">
+              <div id="dotplot-section">
+                <DotPlotProjection 
+                  values={dotPlotValues}
+                  onChange={setDotPlotValues}
+                />
+              </div>
+            </div>
           </div>
+          
+          {/* Submit Button (full width below both columns) */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="mt-3"
+          >
+            <Button 
+              type="submit" 
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 font-medium rounded-lg transition-all duration-200 flex items-center justify-center"
+              disabled={submitted || !direction || selectedRate === null}
+            >
+              {submitted ? "Submitted!" : "Submit Your Forecast"}
+            </Button>
+          </motion.div>
         </form>
       </motion.div>
     </div>

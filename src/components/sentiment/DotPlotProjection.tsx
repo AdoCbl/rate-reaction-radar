@@ -50,7 +50,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   
   return (
     <motion.div 
-      className="w-full space-y-2" // Reduced spacing further
+      className="w-full space-y-2" 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
@@ -71,9 +71,9 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       </div>
       
       <div className="mt-2">
-        <div className="flex space-x-3 justify-between min-w-[400px]">
-          {/* Year columns with explicit y-axis */}
-          <div className="flex flex-col justify-center py-1 pr-1">
+        <div className="flex space-x-3 justify-between">
+          {/* Y-axis label column */}
+          <div className="flex flex-col justify-center py-1 pr-1 w-10">
             {/* Y-axis label */}
             <div className="text-xs text-gray-500 rotate-[-90deg] origin-center mb-2">Interest Rate</div>
           </div>
@@ -84,7 +84,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
               year={yearData.year}
               value={yearData.value}
               onChange={(value) => handleYearChange(yearData.year, value)}
-              minRate={0.03} // 3%
+              minRate={0} // Changed to 0%
               maxRate={0.05} // 5%
               stepSize={0.0025} // 0.25%
               sepMedian={showMedians ? getMedianForYear(yearData.year) : null}
