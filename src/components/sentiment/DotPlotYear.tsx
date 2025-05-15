@@ -16,7 +16,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   year,
   value,
   onChange,
-  minRate = 0, // Changed to 0% (from 0.03)
+  minRate = 0, // 0%
   maxRate = 0.05, // 5%
   stepSize = 0.0025, // 0.25%
   sepMedian
@@ -27,7 +27,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   const totalSteps = Math.floor((maxRate - minRate) / stepSize) + 1;
   
   // Calculate the height of each grid cell - reduced height for compactness
-  const cellHeight = 15; // Further reduced from 20 for more compact display
+  const cellHeight = 10; // Further reduced from 15 for more compact display
   const totalHeight = totalSteps * cellHeight;
   
   // Convert rate value to grid position (inverted since we draw from top to bottom)
@@ -71,7 +71,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
         >
           {/* Show labels for full percents and half percents */}
           {(isFullPercent || (isHalfPercent && index % 4 === 0)) && (
-            <span className={`text-xs ${isFullPercent ? 'text-gray-400' : 'text-gray-600'} absolute -left-8`}>
+            <span className={`text-xs ${isFullPercent ? 'text-gray-400' : 'text-gray-600'} absolute -left-8 hidden`}>
               {formatRateValue(value)}
             </span>
           )}
@@ -84,7 +84,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     <div className="flex flex-col items-center">
       <span className="text-xs font-medium text-gray-300 mb-1">{year}</span>
       
-      <div className="relative h-[300px] w-16 bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden">
+      <div className="relative h-[200px] w-14 bg-gray-900/40 border border-gray-800 rounded-lg overflow-hidden">
         {/* Grid lines */}
         {renderGridLines()}
         
@@ -97,7 +97,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
         {/* SEP median dot (dimmed) */}
         {sepMedian !== null && (
           <motion.div
-            className="absolute left-1/2 w-4 h-4 bg-purple-400/50 rounded-full"
+            className="absolute left-1/2 w-3 h-3 bg-purple-400/50 rounded-full"
             style={{ 
               top: valueToPosition(sepMedian), 
               x: '-50%', 
@@ -112,7 +112,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
         {/* User's dot marker */}
         {value !== null && (
           <motion.div
-            className="absolute left-1/2 w-5 h-5 bg-sky-500 rounded-full shadow-lg shadow-sky-500/20 cursor-grab active:cursor-grabbing"
+            className="absolute left-1/2 w-4 h-4 bg-sky-500 rounded-full shadow-lg shadow-sky-500/20 cursor-grab active:cursor-grabbing"
             style={{ 
               top: valueToPosition(value), 
               x: '-50%', 

@@ -48,6 +48,29 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
     return median ? median.value : null;
   };
   
+  // Generate y-axis labels for the interest rate range (0-5%)
+  const renderYAxisLabels = () => {
+    // Creating labels at 1% intervals
+    const labels = [];
+    for (let rate = 0; rate <= 0.05; rate += 0.01) {
+      labels.push(
+        <div 
+          key={rate} 
+          className="text-xs text-gray-400" 
+          style={{ 
+            position: 'absolute', 
+            right: '8px', 
+            bottom: `${(rate / 0.05) * 100}%`,
+            transform: 'translateY(50%)'
+          }}
+        >
+          {(rate * 100).toFixed(0)}%
+        </div>
+      );
+    }
+    return labels;
+  };
+  
   return (
     <motion.div 
       className="w-full space-y-2" 
@@ -57,8 +80,8 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
     >
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-semibold text-white">Place your projection on the dot plot</h3>
-          <p className="text-xs text-gray-400">Where do you think rates will be in coming years?</p>
+          <h3 className="text-sm font-semibold text-white">Rate Projections</h3>
+          <p className="text-xs text-gray-400">Forecast future interest rates</p>
         </div>
         
         <div className="flex items-center space-x-2 text-xs">
@@ -71,11 +94,13 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       </div>
       
       <div className="mt-2">
-        <div className="flex space-x-3 justify-between">
-          {/* Y-axis label column */}
-          <div className="flex flex-col justify-center py-1 pr-1 w-10">
-            {/* Y-axis label */}
-            <div className="text-xs text-gray-500 rotate-[-90deg] origin-center mb-2">Interest Rate</div>
+        <div className="flex space-x-3 justify-between relative">
+          {/* Y-axis label column with explicit labels */}
+          <div className="flex flex-col justify-between h-[200px] pr-2 w-10 relative">
+            <div className="text-xs text-gray-500 rotate-[-90deg] origin-center absolute left-[-8px] top-[50%] font-medium">
+              Interest Rate (%)
+            </div>
+            {renderYAxisLabels()}
           </div>
           
           {values.map((yearData) => (
@@ -84,7 +109,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
               year={yearData.year}
               value={yearData.value}
               onChange={(value) => handleYearChange(yearData.year, value)}
-              minRate={0} // Changed to 0%
+              minRate={0} // 0%
               maxRate={0.05} // 5%
               stepSize={0.0025} // 0.25%
               sepMedian={showMedians ? getMedianForYear(yearData.year) : null}

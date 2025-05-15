@@ -92,13 +92,33 @@ const SentimentPoll: React.FC = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto">
+    <div className="max-w-5xl mx-auto">
       <motion.div 
         className="glass-card rounded-xl p-4 shadow-xl" 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
+        <div className="mb-3 text-center">
+          <motion.h1 
+            className="text-xl md:text-2xl font-semibold mb-1 text-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1, duration: 0.4 }}
+          >
+            Your Outlook for the Upcoming FOMC Meeting
+          </motion.h1>
+          
+          <motion.p 
+            className="text-xs md:text-sm text-gray-400"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
+          >
+            Provide your short-term prediction and long-term rate projections.
+          </motion.p>
+        </div>
+        
         <form onSubmit={handleSubmit} className="space-y-3"> 
           {/* Two column layout for better balance */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
