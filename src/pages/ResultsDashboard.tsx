@@ -44,15 +44,15 @@ const ResultsDashboard: React.FC = () => {
   });
 
   return (
-    <div className="space-y-8 animate-fade-in max-w-5xl mx-auto px-4">
+    <div className="space-y-6 animate-fade-in max-w-5xl mx-auto px-4 py-6">
       <motion.div 
-        className="text-center mb-8"
+        className="text-center mb-6"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-3xl font-bold text-indigo-800 dark:text-indigo-300">Market Sentiment Results</h1>
-        <p className="text-slate-600 dark:text-slate-400 mt-2">
+        <h1 className="text-3xl font-bold text-indigo-300">Market Sentiment Results</h1>
+        <p className="text-slate-400 mt-2">
           Compare your forecast with aggregated client expectations and the SEP median projections.
         </p>
       </motion.div>
@@ -64,7 +64,7 @@ const ResultsDashboard: React.FC = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <Card className="p-6 overflow-hidden bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-md rounded-xl h-full">
+          <Card className="p-5 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl h-full">
             <FomcRateOutlook 
               aggregatedData={aggregatedData.directions}
               userVote={userVote.direction}
@@ -79,7 +79,7 @@ const ResultsDashboard: React.FC = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Card className="p-6 overflow-hidden bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-md rounded-xl h-full">
+          <Card className="p-5 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl h-full">
             <AggregatedDotPlot 
               projections={aggregatedData.projections}
               userProjections={aggregatedData.userProjections}
