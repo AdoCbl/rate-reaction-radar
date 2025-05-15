@@ -37,13 +37,18 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     return steps * cellHeight + cellHeight / 2;
   };
   
-  // Convert grid position to rate value, ensuring it's a multiple of 0.00125 (0.125%)
+  // Convert grid position to rate value, ensuring it's exactly a multiple of 0.00125 (0.125%)
   const positionToValue = (posY: number): number => {
     const steps = Math.round(posY / cellHeight);
-    const rate = maxRate - (steps * stepSize);
-    // Round to the nearest 0.125% increment
+    let rate = maxRate - (steps * stepSize);
+    
+    // Ensure the value is exactly a multiple of 0.00125 (0.125%)
     const increment = 0.00125; // 0.125%
-    return Math.round(Math.min(Math.max(rate, minRate), maxRate) / increment) * increment;
+    const multiplier = Math.round(rate / increment);
+    rate = multiplier * increment;
+    
+    // Clamp the value to ensure it's within range
+    return Math.min(Math.max(rate, minRate), maxRate);
   };
   
   // Handle click on the grid
@@ -55,6 +60,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   
   // Format rate values as percentages
   const formatRateValue = (rate: number): string => {
+    // Format to exactly 2 decimal places for display
     return `${(rate * 100).toFixed(2)}%`;
   };
   
@@ -133,7 +139,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
             onDragStart={() => setIsDragging(true)}
             onDragEnd={(_, info) => {
               setIsDragging(false);
-              // Calculate new value based on position
+              // Calculate new value based on position, ensuring it's a multiple of 0.125%
               const newValue = positionToValue(valueToPosition(value) + info.offset.y);
               onChange(newValue);
             }}
@@ -157,3 +163,4 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     </div>
   );
 };
+
