@@ -21,23 +21,14 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
   onConfidenceChange
 }) => {
   return (
-    <div className="space-y-2 bg-slate-800/50 rounded-xl p-2 border border-slate-700/40 shadow-md">
-      <motion.h2 
-        className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.1, duration: 0.4 }}
-      >
-        Your FOMC Outlook
-      </motion.h2>
-      
+    <motion.div 
+      className="space-y-5"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.1, duration: 0.4 }}
+    >
       {/* Direction Buttons */}
-      <motion.div 
-        className="grid grid-cols-3 gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.4 }}
-      >
+      <div className="grid grid-cols-3 gap-3">
         <DirectionButton 
           direction="cut" 
           selected={direction === 'cut'} 
@@ -53,7 +44,7 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
           selected={direction === 'hike'} 
           onClick={onDirectionClick}
         />
-      </motion.div>
+      </div>
       
       {/* Current Rate Display */}
       <motion.div
@@ -62,7 +53,7 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
         transition={{ duration: 0.3 }}
       >
         <div className="flex items-center">
-          <p className="text-sm font-medium text-slate-300">Current target rate: 
+          <p className="text-base font-medium text-slate-300">Current target rate: 
             <span className="ml-1 px-2 py-0.5 bg-slate-700/70 rounded-md text-white font-semibold">
               {currentRate.toFixed(2)}%
             </span>
@@ -75,9 +66,10 @@ export const FomcOutlookSection: React.FC<FomcOutlookSectionProps> = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.1 }}
+        className="mt-1"
       >
         <ConfidenceSlider value={confidence} onChange={onConfidenceChange} />
       </motion.div>
-    </div>
+    </motion.div>
   );
 };

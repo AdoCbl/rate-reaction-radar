@@ -49,13 +49,13 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   
   // Generate y-axis labels for the interest rate range (0-5%)
   const renderYAxisLabels = () => {
-    // Creating fewer labels to save space - just at 2% intervals
+    // Creating fewer labels to save space - just at 1% increments
     const labels = [];
-    for (let rate = 0; rate <= 0.05; rate += 0.02) {
+    for (let rate = 0; rate <= 0.05; rate += 0.01) {
       labels.push(
         <div 
           key={rate} 
-          className="text-xs text-slate-300 font-medium"
+          className="text-xs text-slate-400 font-medium"
           style={{ 
             position: 'absolute', 
             right: '8px', 
@@ -76,35 +76,31 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
-    >
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">Rate Projections</h3>
+    >      
+      <div className="flex items-center justify-end space-x-2 mb-2 text-sm">
+        <span className="text-xs text-slate-400">SEP Medians</span>
+        <Switch 
+          checked={showMedians}
+          onCheckedChange={setShowMedians}
+          className="data-[state=checked]:bg-indigo-600"
+        />
         
-        <div className="flex items-center space-x-2">
-          <span className="text-xs text-slate-400">SEP Medians</span>
-          <Switch 
-            checked={showMedians}
-            onCheckedChange={setShowMedians}
-            className="data-[state=checked]:bg-indigo-600"
-          />
-          
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <HelpCircle className="h-4 w-4 text-slate-400 hover:text-slate-300 transition-colors" />
-              </TooltipTrigger>
-              <TooltipContent className="bg-slate-800 border-slate-700 text-white">
-                <p className="text-xs">Federal Reserve Summary of Economic Projections (SEP) median values</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <HelpCircle className="h-4 w-4 text-slate-400 hover:text-slate-300 transition-colors" />
+            </TooltipTrigger>
+            <TooltipContent side="top" className="bg-slate-800 border-slate-700 text-white text-xs">
+              <p>Federal Reserve Summary of Economic Projections (SEP) median values</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
       
-      <div className="mt-2 bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+      <div className="bg-slate-800/40 p-3 rounded-lg">
         <div className="flex space-x-1 justify-between relative">
           {/* Y-axis labels column */}
-          <div className="flex flex-col justify-between h-[160px] pr-1 w-6 relative">
+          <div className="flex flex-col justify-between h-[150px] pr-1 w-6 relative">
             {renderYAxisLabels()}
           </div>
           
@@ -129,7 +125,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs font-medium text-slate-400 hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-slate-800/70 border border-transparent hover:border-slate-700"
+          className="text-xs font-medium text-slate-400 hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-slate-800/70"
         >
           Reset
         </button>

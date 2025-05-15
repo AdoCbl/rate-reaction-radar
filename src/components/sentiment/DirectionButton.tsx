@@ -41,30 +41,65 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
     }
   };
 
-  const getStyles = () => {
-    const baseStyle = "flex flex-col items-center justify-center py-6 px-3 rounded-xl border-2 transition-all duration-300 w-full font-medium";
-    
+  const getGradient = () => {
     switch (direction) {
       case 'hike':
         return selected
-          ? `${baseStyle} bg-gradient-to-b from-emerald-900/60 to-emerald-900/30 border-emerald-500 text-emerald-400 shadow-lg shadow-emerald-500/20`
-          : `${baseStyle} bg-slate-800/80 border-slate-700 text-slate-300 hover:border-emerald-600 hover:text-emerald-400 hover:bg-emerald-900/20`;
+          ? 'from-emerald-600/80 to-emerald-800/80'
+          : 'from-slate-700/70 to-slate-800/70 hover:from-emerald-800/30 hover:to-emerald-900/30';
       case 'hold':
         return selected
-          ? `${baseStyle} bg-gradient-to-b from-sky-900/60 to-sky-900/30 border-sky-500 text-sky-400 shadow-lg shadow-sky-500/20`
-          : `${baseStyle} bg-slate-800/80 border-slate-700 text-slate-300 hover:border-sky-600 hover:text-sky-400 hover:bg-sky-900/20`;
+          ? 'from-sky-600/80 to-sky-800/80'
+          : 'from-slate-700/70 to-slate-800/70 hover:from-sky-800/30 hover:to-sky-900/30';
       case 'cut':
         return selected
-          ? `${baseStyle} bg-gradient-to-b from-rose-900/60 to-rose-900/30 border-rose-500 text-rose-400 shadow-lg shadow-rose-500/20`
-          : `${baseStyle} bg-slate-800/80 border-slate-700 text-slate-300 hover:border-rose-600 hover:text-rose-400 hover:bg-rose-900/20`;
+          ? 'from-rose-600/80 to-rose-800/80'
+          : 'from-slate-700/70 to-slate-800/70 hover:from-rose-800/30 hover:to-rose-900/30';
       default:
-        return baseStyle;
+        return '';
+    }
+  };
+
+  const getBorderColor = () => {
+    switch (direction) {
+      case 'hike':
+        return selected
+          ? 'border-emerald-400'
+          : 'border-slate-600 hover:border-emerald-500';
+      case 'hold':
+        return selected
+          ? 'border-sky-400'
+          : 'border-slate-600 hover:border-sky-500';
+      case 'cut':
+        return selected
+          ? 'border-rose-400'
+          : 'border-slate-600 hover:border-rose-500';
+      default:
+        return 'border-slate-600';
+    }
+  };
+
+  const getTextColor = () => {
+    switch (direction) {
+      case 'hike':
+        return selected ? 'text-emerald-300' : 'text-slate-300 hover:text-emerald-300';
+      case 'hold':
+        return selected ? 'text-sky-300' : 'text-slate-300 hover:text-sky-300';
+      case 'cut':
+        return selected ? 'text-rose-300' : 'text-slate-300 hover:text-rose-300';
+      default:
+        return 'text-slate-300';
     }
   };
 
   return (
     <motion.button
-      className={getStyles()}
+      className={`
+        flex flex-col items-center justify-center py-4 px-3 rounded-xl 
+        border-2 transition-all duration-300 w-full font-medium
+        bg-gradient-to-br ${getGradient()} ${getBorderColor()} ${getTextColor()}
+        ${selected ? 'shadow-lg' : ''}
+      `}
       onClick={() => onClick(direction)}
       type="button"
       aria-pressed={selected}

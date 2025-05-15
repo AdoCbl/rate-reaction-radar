@@ -75,24 +75,34 @@ export const PollForm: React.FC = () => {
 
   return (
     <motion.div 
-      className="relative glass-card rounded-2xl p-3 shadow-2xl w-full max-w-5xl mx-auto backdrop-blur-md bg-gradient-to-b from-slate-900/80 to-slate-800/80 border border-slate-700/40 overflow-hidden"
+      className="relative rounded-2xl p-5 shadow-2xl w-full max-w-5xl mx-auto 
+                backdrop-blur-lg bg-gradient-to-b from-slate-900/90 to-slate-800/70 
+                border border-slate-700/60 overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <form onSubmit={handleSubmit}> 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {/* Left column: FOMC Decision */}
-          <FomcOutlookSection 
-            direction={direction}
-            confidence={confidence}
-            currentRate={currentRate}
-            onDirectionClick={handleDirectionClick}
-            onConfidenceChange={setConfidence}
-          />
+      <form onSubmit={handleSubmit} className="space-y-5"> 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Left column: FOMC Decision - Top Priority */}
+          <div>
+            <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">
+              Your FOMC Outlook
+            </h2>
+            <FomcOutlookSection 
+              direction={direction}
+              confidence={confidence}
+              currentRate={currentRate}
+              onDirectionClick={handleDirectionClick}
+              onConfidenceChange={setConfidence}
+            />
+          </div>
           
-          {/* Right column: Dot Plot */}
-          <div className="bg-slate-800/50 rounded-xl p-2 border border-slate-700/40 shadow-md">
+          {/* Right column: Dot Plot - Second Priority */}
+          <div>
+            <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-300">
+              Rate Projections
+            </h2>
             <DotPlotProjection 
               values={dotPlotValues}
               onChange={setDotPlotValues}
@@ -100,21 +110,23 @@ export const PollForm: React.FC = () => {
           </div>
         </div>
         
-        {/* Comments Box - Full width across both columns */}
-        <div className="mt-3">
-          <CommentSection 
-            comment={comment}
-            setComment={setComment}
-            direction={direction}
-          />
-        </div>
-        
-        {/* Submit Button */}
-        <div className="mt-3">
-          <SubmitButton 
-            submitted={submitted}
-            disabled={!direction}
-          />
+        <div className="border-t border-slate-700/40 my-4 pt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Comments Box - Last Priority */}
+          <div className="md:col-span-2">
+            <CommentSection 
+              comment={comment}
+              setComment={setComment}
+              direction={direction}
+            />
+          </div>
+          
+          {/* Submit Button - Always Visible */}
+          <div className="flex items-end">
+            <SubmitButton 
+              submitted={submitted}
+              disabled={!direction}
+            />
+          </div>
         </div>
       </form>
     </motion.div>
