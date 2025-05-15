@@ -108,7 +108,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
               onChange={(value) => handleYearChange(yearData.year, value)}
               minRate={0} // 0%
               maxRate={0.05} // 5%
-              stepSize={0.0025} // 0.25%
+              stepSize={0.00125} // 0.125%
               sepMedian={showMedians ? getMedianForYear(yearData.year) : null}
             />
           ))}

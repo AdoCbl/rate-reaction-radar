@@ -17,7 +17,7 @@ export const CommentSection: React.FC<CommentSectionProps> = ({
 }) => {
   return (
     <motion.div 
-      className="space-y-2 mt-6"
+      className="space-y-2"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}

@@ -176,13 +176,6 @@ export const PollForm: React.FC = () => {
             >
               <ConfidenceSlider value={confidence} onChange={setConfidence} />
             </motion.div>
-            
-            {/* Comments Box - Always visible */}
-            <CommentSection 
-              comment={comment}
-              setComment={setComment}
-              direction={direction}
-            />
           </div>
           
           {/* Right column: Dot Plot */}
@@ -194,6 +187,15 @@ export const PollForm: React.FC = () => {
               />
             </div>
           </div>
+        </div>
+        
+        {/* Comments Box - Full width across both columns */}
+        <div className="col-span-full">
+          <CommentSection 
+            comment={comment}
+            setComment={setComment}
+            direction={direction}
+          />
         </div>
         
         {/* Submit Button */}

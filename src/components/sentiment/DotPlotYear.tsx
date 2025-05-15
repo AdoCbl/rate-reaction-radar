@@ -18,7 +18,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   onChange,
   minRate = 0, // 0%
   maxRate = 0.05, // 5%
-  stepSize = 0.0025, // 0.25%
+  stepSize = 0.00125, // 0.125%
   sepMedian
 }) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -27,7 +27,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   const totalSteps = Math.floor((maxRate - minRate) / stepSize) + 1;
   
   // Calculate the height of each grid cell - reduced height for compactness
-  const cellHeight = 10; // Further reduced from 15 for more compact display
+  const cellHeight = 5; // Further reduced for more compact display with 0.125% increments
   const totalHeight = totalSteps * cellHeight;
   
   // Convert rate value to grid position (inverted since we draw from top to bottom)
@@ -62,11 +62,12 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
       const value = maxRate - (index * stepSize);
       const isFullPercent = Math.abs(Math.round(value * 100) - value * 100) < 0.01;
       const isHalfPercent = Math.abs(Math.round(value * 100 * 2) / 2 - value * 100) < 0.01;
+      const isQuarterPercent = Math.abs(Math.round(value * 100 * 4) / 4 - value * 100) < 0.01;
       
       return (
         <div 
           key={index}
-          className={`absolute w-full border-t ${isFullPercent ? 'border-gray-700' : isHalfPercent ? 'border-gray-800' : 'border-gray-900'} flex items-center`}
+          className={`absolute w-full border-t ${isFullPercent ? 'border-gray-700' : isHalfPercent ? 'border-gray-800' : isQuarterPercent ? 'border-gray-900/60' : 'border-gray-900/30'} flex items-center`}
           style={{ top: index * cellHeight }}
         >
           {/* Show labels for full percents and half percents */}
