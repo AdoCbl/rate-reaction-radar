@@ -4,15 +4,20 @@ import { Card } from '@/components/ui/card';
 import { FomcRateOutlook } from '@/components/results/FomcRateOutlook';
 import { AggregatedDotPlot } from '@/components/results/AggregatedDotPlot';
 import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { GameController } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ResultsDashboard: React.FC = () => {
+  const navigate = useNavigate();
+  
   // Mock data for the current user's vote
   const [userVote] = useState({
     direction: 'hold',
     confidence: 75
   });
 
-  // Mock data for the aggregated votes - using more realistic values
+  // Mock data for the aggregated votes with realistic values
   const [aggregatedData] = useState({
     directions: [
       { name: 'cut', count: 45, percentage: 45 },
@@ -21,20 +26,20 @@ const ResultsDashboard: React.FC = () => {
     ],
     averageRate: 5.31,
     projections: {
-      // Fixed projections to be within the visible 0-5% range
+      // Realistic projections within the visible range (0-6%)
       '2025': [0.0425, 0.0450, 0.0475, 0.0425, 0.0450, 0.0425, 0.0400, 0.0475],
       '2026': [0.0350, 0.0375, 0.0375, 0.0400, 0.0350, 0.0325, 0.0425],
       '2027': [0.0300, 0.0325, 0.0275, 0.0325, 0.0300, 0.0250],
       'Long Run': [0.0250, 0.0225, 0.0275, 0.0250, 0.0225, 0.0275]
     },
-    // Fixed user's own projections to be within range
+    // User's own projections within the visible range
     userProjections: {
       '2025': 0.0450,
       '2026': 0.0375,
       '2027': 0.0300,
       'Long Run': 0.0250
     },
-    // Fixed median projections to be within range
+    // Median projections
     medians: {
       '2025': 0.0450,
       '2026': 0.0375,
@@ -88,6 +93,23 @@ const ResultsDashboard: React.FC = () => {
           </Card>
         </motion.div>
       </div>
+      
+      {/* Floating CTA button */}
+      <motion.div
+        className="fixed bottom-24 right-4 md:right-8 z-10"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.8, type: "spring" }}
+      >
+        <Button 
+          onClick={() => navigate('/game')}
+          className="bg-sky-600 hover:bg-sky-500 text-white shadow-lg flex items-center gap-2 px-4 py-6 rounded-full"
+          size="lg"
+        >
+          <GameController className="h-5 w-5" />
+          <span>Try the Rate Reaction Game</span>
+        </Button>
+      </motion.div>
     </div>
   );
 };

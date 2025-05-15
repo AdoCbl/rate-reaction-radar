@@ -66,7 +66,7 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      <h2 className="text-xl font-semibold text-white mb-2">Clients' Predictions for the Next Fed Move</h2>
+      <h2 className="text-xl font-semibold text-white mb-2 text-left">Clients' Predictions for the Next Fed Move</h2>
       
       <div className="flex-grow mt-4">
         <ChartContainer

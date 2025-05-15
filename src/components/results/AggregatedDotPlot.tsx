@@ -23,7 +23,7 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
   const [showSepMedians, setShowSepMedians] = useState(false);
   const years = Object.keys(projections);
   
-  // Fed SEP median values from the most recent projection - using realistic values
+  // SEP median values - using realistic values
   const sepMedians = {
     '2025': 0.0425,
     '2026': 0.0375,
@@ -36,10 +36,19 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
     return `${(rate * 100).toFixed(2)}%`;
   };
 
+  // Calculate position on the y-axis for rates
+  // The visible range is 0% to 6% (0 to 0.06)
+  const getPositionFromRate = (rate: number): number => {
+    // Set the limits to ensure values stay within the chart boundaries
+    const maxRate = 0.06; // 6%
+    // Calculate position as a percentage of height (inverted since 0% is at the bottom)
+    return 100 - Math.min(100, (rate / maxRate) * 100);
+  };
+
   return (
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-xl font-semibold text-white">Client Rate Path Projections</h2>
+        <h2 className="text-xl font-semibold text-white text-left">Client Rate Path Projections</h2>
         
         <div className="flex items-center space-x-2">
           <span className="text-xs text-gray-400">SEP</span>
@@ -51,14 +60,24 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
       </div>
       
       <div className="flex-grow relative">
-        <div className="flex justify-between h-[200px] mt-6 relative">
-          {/* Y-axis labels */}
+        <div className="flex justify-between h-[400px] mt-6 relative">
+          {/* Y-axis labels - more detailed with 0.25% increments */}
           <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between pointer-events-none">
-            {[5, 4, 3, 2, 1, 0].map((value) => (
-              <div key={value} className="flex items-center">
+            {[6, 5.5, 5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5, 0].map((value) => (
+              <div 
+                key={value} 
+                className="flex items-center"
+                style={{ 
+                  position: 'absolute', 
+                  left: 0, 
+                  top: `${getPositionFromRate(value / 100)}%`, 
+                  transform: 'translateY(-50%)' 
+                }}
+              >
                 <span className="text-xs text-gray-500 w-8 text-right pr-2">
                   {value}%
                 </span>
+                <div className="absolute w-full border-t border-gray-800" style={{left: '14px', width: 'calc(100vw - 28px)'}}></div>
               </div>
             ))}
           </div>
@@ -66,33 +85,14 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
           {/* Dot plots for each year */}
           <div className="flex justify-between w-full pl-10">
             {years.map((year) => (
-              <div key={year} className="flex flex-col items-center">
+              <div key={year} className="flex flex-col items-center flex-1">
                 <span className="text-sm font-medium text-gray-300 mb-1">{year}</span>
                 
-                <div className="relative h-[200px] w-10 bg-gray-900/40 border border-gray-800 rounded-lg">
-                  {/* Grid lines */}
-                  {Array.from({ length: 21 }).map((_, i) => {
-                    const rate = 0.05 - (i * 0.0025);
-                    const isFullPercent = Math.abs(Math.round(rate * 100) - rate * 100) < 0.01;
-                    const isHalfPercent = Math.abs(Math.round(rate * 100 * 2) / 2 - rate * 100) < 0.01;
-                    
-                    return (
-                      <div 
-                        key={i}
-                        className={`absolute w-full border-t ${
-                          isFullPercent ? 'border-gray-700' : 
-                          isHalfPercent ? 'border-gray-800' : 
-                          'border-gray-900/30'
-                        }`}
-                        style={{ top: (i * 10) }}
-                      />
-                    );
-                  })}
-                  
+                <div className="relative h-[400px] w-full max-w-16 bg-gray-900/40 border border-gray-800 rounded-lg">
                   {/* Client dots */}
                   {projections[year].map((value, index) => {
-                    const top = Math.min(200, (value / 0.05) * 200); // Ensure it stays within bounds
-                    const isUserDot = userProjections[year] === value;
+                    const position = getPositionFromRate(value);
+                    const isUserDot = Math.abs(userProjections[year] - value) < 0.0001;
                     const jitterX = isUserDot ? 0 : (index % 5) - 2; // Add some horizontal jitter
                     
                     return (
@@ -104,8 +104,8 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                         }`}
                         style={{ 
                           left: `calc(50% + ${jitterX}px)`,
-                          bottom: `${top}px`,
-                          transform: 'translate(-50%, 50%)'
+                          top: `${position}%`,
+                          transform: 'translate(-50%, -50%)'
                         }}
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
@@ -119,11 +119,11 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                   })}
                   
                   {/* SEP median line */}
-                  {showSepMedians && (
+                  {showSepMedians && sepMedians[year as keyof typeof sepMedians] && (
                     <motion.div
-                      className="absolute w-8 h-0.5 bg-purple-400/70 left-1/2 transform -translate-x-1/2"
+                      className="absolute w-10 h-0.5 bg-purple-400/70 left-1/2 transform -translate-x-1/2"
                       style={{ 
-                        bottom: `${(sepMedians[year as keyof typeof sepMedians] / 0.05) * 200}px`
+                        top: `${getPositionFromRate(sepMedians[year as keyof typeof sepMedians])}%`
                       }}
                       initial={{ scaleX: 0, opacity: 0 }}
                       animate={{ scaleX: 1, opacity: 1 }}
@@ -134,7 +134,7 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                 </div>
                 
                 {/* Year median value */}
-                <div className="mt-1 text-center">
+                <div className="mt-2 text-center">
                   <span className="text-xs text-gray-400">
                     Median: {formatRateValue(medians[year])}
                   </span>
