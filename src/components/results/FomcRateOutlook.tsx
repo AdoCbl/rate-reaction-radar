@@ -82,7 +82,6 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
               <XAxis dataKey="name" axisLine={false} tickLine={false} />
               <Bar
                 dataKey="value"
-                nameKey="directionKey"
                 radius={[4, 4, 0, 0]}
                 className="fill-[var(--color-bg)]"
                 label={{ position: 'top', fill: '#ffffff', fontSize: 12 }}
@@ -95,6 +94,7 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
                       `${value.toFixed(0)}%`,
                       formatDirection(name.toLowerCase())
                     ]}
+                    nameKey="directionKey"
                   />
                 }
               />
