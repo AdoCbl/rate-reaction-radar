@@ -6,11 +6,11 @@ import { ConfidenceSlider } from '@/components/sentiment/ConfidenceSlider';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { Card } from '@/components/ui/card';
+import { motion } from 'framer-motion';
 
 const SentimentPoll: React.FC = () => {
-  // Current Fed Funds rate (example value)
-  const currentRate = 5.25;
+  // Current Fed Funds rate
+  const currentRate = 5.33;
   
   // State for the form
   const [direction, setDirection] = useState<Direction | null>(null);
@@ -67,18 +67,42 @@ const SentimentPoll: React.FC = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto animate-fade-in">
-      <Card className="p-6 shadow-sm">
-        <h2 className="text-xl font-semibold mb-6 text-center text-finance-navy">
-          What is your interest rate outlook for the upcoming Federal Reserve meeting?
-        </h2>
+    <div className="max-w-lg mx-auto">
+      <motion.div 
+        className="glass-card rounded-xl p-6 shadow-xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <motion.h2 
+          className="text-2xl font-semibold mb-2 text-center md:text-left text-white"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
+        >
+          What's your outlook for the next Fed meeting?
+        </motion.h2>
+        
+        <motion.p 
+          className="text-sm text-gray-400 mb-8 text-center md:text-left"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
+        >
+          Submit your forecast for the upcoming FOMC decision. Your view contributes to the aggregated market sentiment.
+        </motion.p>
         
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Direction Buttons */}
-          <div className="grid grid-cols-3 gap-3">
+          <motion.div 
+            className="grid grid-cols-3 gap-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
+          >
             <DirectionButton 
-              direction="hike" 
-              selected={direction === 'hike'} 
+              direction="cut" 
+              selected={direction === 'cut'} 
               onClick={handleDirectionClick}
             />
             <DirectionButton 
@@ -87,45 +111,94 @@ const SentimentPoll: React.FC = () => {
               onClick={handleDirectionClick}
             />
             <DirectionButton 
-              direction="cut" 
-              selected={direction === 'cut'} 
+              direction="hike" 
+              selected={direction === 'hike'} 
               onClick={handleDirectionClick}
             />
-          </div>
+          </motion.div>
           
           {/* Rate Select */}
-          <RateSelect 
-            currentRate={currentRate}
-            selectedRate={selectedRate}
-            onChange={setSelectedRate}
-            direction={direction}
-          />
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ 
+              opacity: direction ? 1 : 0,
+              height: direction ? 'auto' : 0
+            }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <div className="space-y-1">
+              <label className="block text-sm font-medium text-gray-300">What target rate do you expect the Fed to set?</label>
+              <RateSelect 
+                currentRate={currentRate}
+                selectedRate={selectedRate}
+                onChange={setSelectedRate}
+                direction={direction}
+              />
+              <p className="text-xs text-gray-500 mt-1">Current rate: {currentRate.toFixed(2)}%</p>
+            </div>
+          </motion.div>
           
           {/* Confidence Slider */}
-          <ConfidenceSlider value={confidence} onChange={setConfidence} />
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ 
+              opacity: direction ? 1 : 0,
+              height: direction ? 'auto' : 0
+            }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            className="overflow-hidden"
+          >
+            <ConfidenceSlider value={confidence} onChange={setConfidence} />
+          </motion.div>
           
           {/* Comment Box */}
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">Add a quick note about your reasoning (optional):</label>
+          <motion.div 
+            className="space-y-1"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ 
+              opacity: direction ? 1 : 0,
+              height: direction ? 'auto' : 0
+            }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            <label className="block text-sm font-medium text-gray-300">Briefly explain your view (optional):</label>
             <Textarea 
-              placeholder="Your thoughts on the rates outlook..."
+              placeholder="Type your thoughts here..."
               value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              rows={3}
-              className="resize-none"
+              onChange={(e) => {
+                if (e.target.value.length <= 200) {
+                  setComment(e.target.value);
+                }
+              }}
+              rows={2}
+              className="resize-none bg-gray-800/50 border-gray-700 focus:border-sky-600 focus:ring-sky-600/20"
+              maxLength={200}
             />
-          </div>
+            <div className="flex justify-end">
+              <span className="text-xs text-gray-500">{comment.length}/200</span>
+            </div>
+          </motion.div>
           
           {/* Submit Button */}
-          <Button 
-            type="submit" 
-            className="w-full" 
-            disabled={!direction || selectedRate === null || submitted}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: direction ? 1 : 0,
+              y: direction ? 0 : 10
+            }}
+            transition={{ duration: 0.3, delay: 0.3 }}
           >
-            {submitted ? "Submitted!" : "Submit Your View"}
-          </Button>
+            <Button 
+              type="submit" 
+              className="w-full bg-sky-600 hover:bg-sky-700 text-white py-6 font-medium rounded-lg transition-all duration-200 flex items-center justify-center"
+              disabled={!direction || selectedRate === null || submitted}
+            >
+              {submitted ? "Submitted!" : "Submit Your View"}
+            </Button>
+          </motion.div>
         </form>
-      </Card>
+      </motion.div>
     </div>
   );
 };

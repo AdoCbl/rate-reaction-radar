@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { motion } from 'framer-motion';
 
 type RateSelectProps = {
   currentRate: number;
@@ -40,24 +41,27 @@ export const RateSelect: React.FC<RateSelectProps> = ({
   const rateOptions = getRateOptions();
   
   return (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium">Projected rate level:</label>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
       <Select
         disabled={!direction}
         value={selectedRate?.toString() || ''}
         onValueChange={(value) => onChange(parseFloat(value))}
       >
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select rate" />
+        <SelectTrigger className="w-full bg-gray-800/60 border-gray-700 focus:border-sky-500 focus:ring focus:ring-sky-500/20 text-gray-200">
+          <SelectValue placeholder="Select target rate" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-gray-800 border-gray-700 text-gray-200">
           {rateOptions.map((rate) => (
-            <SelectItem key={rate} value={rate.toString()}>
+            <SelectItem key={rate} value={rate.toString()} className="focus:bg-gray-700 focus:text-white">
               {rate.toFixed(2)}%
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-    </div>
+    </motion.div>
   );
 };

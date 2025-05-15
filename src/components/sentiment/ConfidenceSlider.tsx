@@ -26,10 +26,17 @@ export const ConfidenceSlider: React.FC<ConfidenceSliderProps> = ({ value, onCha
   const confidenceInfo = getConfidenceInfo();
   
   return (
-    <div className="w-full space-y-4">
-      <div className="flex justify-between">
-        <span className="text-sm font-medium text-gray-300">How confident are you in this forecast?</span>
-        <span className="text-sm font-semibold text-white">{value}%</span>
+    <div className="w-full space-y-2">
+      <div className="flex justify-between items-center">
+        <span className="text-sm font-medium text-gray-300">How confident are you in your prediction?</span>
+        <motion.span 
+          key={value}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-sm font-semibold bg-gray-800 text-white px-2.5 py-1 rounded-md"
+        >
+          {value}%
+        </motion.span>
       </div>
       
       <Slider
@@ -38,14 +45,14 @@ export const ConfidenceSlider: React.FC<ConfidenceSliderProps> = ({ value, onCha
         step={5}
         value={[value]}
         onValueChange={handleSliderChange}
-        className="py-4"
+        className="py-6"
       />
       
       <div className="text-center">
         <motion.span 
-          className={`text-sm font-medium ${confidenceInfo.color}`}
+          className={`text-sm font-medium ${confidenceInfo.color} inline-block px-3 py-1 rounded-full bg-gray-800/50`}
           key={value}
-          initial={{ opacity: 0.7, y: 5 }}
+          initial={{ opacity: 0.5, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
         >
