@@ -40,16 +40,19 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   // Convert grid position to rate value, ensuring it's exactly a multiple of 0.00125 (0.125%)
   const positionToValue = (posY: number): number => {
     const steps = Math.round(posY / cellHeight);
+    
+    // Calculate raw rate value
     let rate = maxRate - (steps * stepSize);
     
-    // Ensure the value is exactly a multiple of 0.00125 (0.125%)
-    // 0.00125 is 0.125%
+    // Force alignment to 0.125% increments (0.00125 as decimal)
     const increment = 0.00125;
-    // Round to the nearest multiple of increment
     rate = Math.round(rate / increment) * increment;
     
-    // Fix floating point precision issues
-    rate = Number(rate.toFixed(5));
+    // Fix floating point precision issues by converting to basis points (0.125% = 12.5 basis points)
+    const basisPoints = Math.round(rate * 10000);
+    // Ensure basis points are multiples of 12.5
+    const adjustedBasisPoints = Math.round(basisPoints / 12.5) * 12.5;
+    rate = adjustedBasisPoints / 10000;
     
     // Clamp the value to ensure it's within range
     return Math.min(Math.max(rate, minRate), maxRate);
