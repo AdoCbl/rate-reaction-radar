@@ -138,8 +138,8 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
         )}
       </div>
       
-      {/* Show selected value below with more space */}
-      <div className="mt-2 h-6 text-center">
+      {/* Show selected value below with more spacing to prevent overlap */}
+      <div className="mt-3 h-6 text-center">
         {value !== null && (
           <motion.span 
             className="text-xs font-medium text-sky-400 inline-block"

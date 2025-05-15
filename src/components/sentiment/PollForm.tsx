@@ -148,36 +148,36 @@ export const PollForm: React.FC = () => {
               />
             </motion.div>
             
-            {/* Rate Select */}
+            {/* Rate Select - Always visible */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: direction ? 1 : 0 }}
-              className={`mt-4 ${direction ? 'block' : 'hidden'}`}
+              animate={{ opacity: 1 }}
+              className="mt-4"
               transition={{ duration: 0.3 }}
             >
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-300">Expected target rate:</label>
                 <RateSelect 
                   currentRate={currentRate}
-                  selectedRate={selectedRate}
+                  selectedRate={selectedRate || currentRate}
                   onChange={setSelectedRate}
-                  direction={direction}
+                  direction={direction || 'hold'}
                 />
                 <p className="text-xs text-gray-500 mt-1">Current: {currentRate.toFixed(2)}%</p>
               </div>
             </motion.div>
             
-            {/* Confidence Slider */}
+            {/* Confidence Slider - Always visible */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: direction ? 1 : 0 }}
-              className={`mt-4 ${direction ? 'block' : 'hidden'}`}
+              animate={{ opacity: 1 }}
+              className="mt-4"
               transition={{ duration: 0.3, delay: 0.1 }}
             >
               <ConfidenceSlider value={confidence} onChange={setConfidence} />
             </motion.div>
             
-            {/* Comments Box - Show it always */}
+            {/* Comments Box - Always visible */}
             <CommentSection 
               comment={comment}
               setComment={setComment}
