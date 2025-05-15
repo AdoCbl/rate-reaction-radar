@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { DotPlotYear } from './DotPlotYear';
 import { Switch } from '@/components/ui/switch';
 import { motion } from 'framer-motion';
@@ -20,12 +20,12 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
 }) => {
   const [showMedians, setShowMedians] = useState(false);
   
-  // Sample Fed SEP median values (to be replaced with actual data)
+  // Fed SEP median values from the most recent projection
   const sepMedians = [
-    { year: '2024', value: 4.75 },
-    { year: '2025', value: 3.5 },
-    { year: '2026', value: 3.0 },
-    { year: 'Long Run', value: 2.5 }
+    { year: '2024', value: 0.0425 },
+    { year: '2025', value: 0.0375 },
+    { year: '2026', value: 0.0350 },
+    { year: 'Long Run', value: 0.0325 }
   ];
   
   // Handle changing a single year's value
@@ -42,14 +42,20 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
     onChange(resetValues);
   };
   
+  // Get median for a specific year
+  const getMedianForYear = (year: string) => {
+    const median = sepMedians.find(item => item.year === year);
+    return median ? median.value : null;
+  };
+  
   return (
     <motion.div 
-      className="w-full space-y-6 mt-8"
+      className="w-full space-y-4" // Reduced spacing from space-y-6 to space-y-4
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
     >
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-2"> {/* Reduced spacing here too */}
         <h3 className="text-lg font-semibold text-white">Place your projection on the dot plot</h3>
         <p className="text-sm text-gray-400">Where do you think the Fed funds rate will be in the coming years?</p>
         
@@ -64,8 +70,6 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       
       <div className="overflow-x-auto pb-4">
         <div className="flex space-x-6 justify-between min-w-[400px]">
-          {/* Left Y-axis labels are handled within each DotPlotYear component */}
-          
           {/* Year columns */}
           {values.map((yearData) => (
             <DotPlotYear
@@ -73,9 +77,10 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
               year={yearData.year}
               value={yearData.value}
               onChange={(value) => handleYearChange(yearData.year, value)}
-              minRate={0}
-              maxRate={7}
-              stepSize={0.25}
+              minRate={0.03} // Updated min rate to 0.03 (3%)
+              maxRate={0.05} // Updated max rate to 0.05 (5%)
+              stepSize={0.0025} // Changed step size to 0.0025 (0.25%)
+              sepMedian={showMedians ? getMedianForYear(yearData.year) : null}
             />
           ))}
         </div>

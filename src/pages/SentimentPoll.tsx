@@ -118,7 +118,7 @@ const SentimentPoll: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-4"> {/* Reduced from space-y-8 */}
           {/* Section 1: Rate Forecast */}
           <div id="forecast-section">
             <motion.h2 
@@ -131,7 +131,7 @@ const SentimentPoll: React.FC = () => {
             </motion.h2>
             
             <motion.p 
-              className="text-sm text-gray-400 mb-8 text-center md:text-left"
+              className="text-sm text-gray-400 mb-6 text-center md:text-left" {/* Reduced from mb-8 */}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.4 }}
@@ -171,7 +171,7 @@ const SentimentPoll: React.FC = () => {
                 height: direction ? 'auto' : 0
               }}
               transition={{ duration: 0.3 }}
-              className="overflow-hidden mt-6"
+              className="overflow-hidden mt-4" {/* Reduced from mt-6 */}
             >
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-gray-300">What target rate do you expect the Fed to set?</label>
@@ -193,14 +193,14 @@ const SentimentPoll: React.FC = () => {
                 height: direction ? 'auto' : 0
               }}
               transition={{ duration: 0.3, delay: 0.1 }}
-              className="overflow-hidden mt-6"
+              className="overflow-hidden mt-4" {/* Reduced from mt-6 */}
             >
               <ConfidenceSlider value={confidence} onChange={setConfidence} />
             </motion.div>
             
             {/* Comment Box */}
             <motion.div 
-              className="space-y-1 mt-6"
+              className="space-y-1 mt-4" {/* Reduced from mt-6 */}
               initial={{ opacity: 0, height: 0 }}
               animate={{ 
                 opacity: direction ? 1 : 0,
@@ -234,7 +234,7 @@ const SentimentPoll: React.FC = () => {
                 y: direction ? 0 : 10
               }}
               transition={{ duration: 0.3, delay: 0.3 }}
-              className="mt-8"
+              className="mt-6" {/* Reduced from mt-8 */}
             >
               <Button 
                 type="button" 
@@ -249,7 +249,7 @@ const SentimentPoll: React.FC = () => {
           
           {/* Section 2: Dot Plot Projection */}
           <div id="dotplot-section" className={activeSection === 'dotplot' ? '' : 'opacity-50'}>
-            <div className="border-t border-gray-800 pt-8 mt-8">
+            <div className="border-t border-gray-800 pt-4"> {/* Reduced from pt-8 mt-8 to remove gap */}
               <DotPlotProjection 
                 values={dotPlotValues}
                 onChange={setDotPlotValues}
@@ -264,7 +264,7 @@ const SentimentPoll: React.FC = () => {
                 y: activeSection === 'dotplot' ? 0 : 10
               }}
               transition={{ duration: 0.3 }}
-              className="mt-8"
+              className="mt-6" {/* Reduced from mt-8 */}
             >
               <Button 
                 type="submit" 

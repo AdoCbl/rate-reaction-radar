@@ -9,15 +9,17 @@ type DotPlotYearProps = {
   minRate: number;
   maxRate: number;
   stepSize: number;
+  sepMedian: number | null;
 };
 
 export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   year,
   value,
   onChange,
-  minRate = 0,
-  maxRate = 7,
-  stepSize = 0.25
+  minRate = 0.03, // Default min rate now 0.03 (3%)
+  maxRate = 0.05, // Default max rate now 0.05 (5%)
+  stepSize = 0.0025, // Default step size now 0.0025 (0.25%)
+  sepMedian
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   
@@ -49,21 +51,27 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     onChange(positionToValue(posY));
   };
   
+  // Format rate values as percentages
+  const formatRateValue = (rate: number): string => {
+    return `${(rate * 100).toFixed(2)}%`;
+  };
+  
   // Generate grid lines for the rate steps
   const renderGridLines = () => {
     return Array.from({ length: totalSteps }).map((_, index) => {
-      const isFullUnit = (index * stepSize) % 1 === 0;
+      const isFullUnit = (index * stepSize) % 0.01 === 0; // Show full label at each 1%
+      const isHalfUnit = (index * stepSize) % 0.005 === 0; // Show smaller tick at each 0.5%
       const value = maxRate - (index * stepSize);
       
       return (
         <div 
           key={index}
-          className={`absolute w-full border-t ${isFullUnit ? 'border-gray-700' : 'border-gray-800'} flex items-center`}
+          className={`absolute w-full border-t ${isFullUnit ? 'border-gray-700' : isHalfUnit ? 'border-gray-800' : 'border-gray-900'} flex items-center`}
           style={{ top: index * cellHeight }}
         >
           {isFullUnit && (
-            <span className="text-xs text-gray-500 absolute -left-7">
-              {value.toFixed(value % 1 === 0 ? 0 : 2)}%
+            <span className="text-xs text-gray-500 absolute -left-8">
+              {formatRateValue(value)}
             </span>
           )}
         </div>
@@ -84,6 +92,21 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
           className="absolute inset-0 cursor-pointer"
           onClick={handleGridClick}
         />
+        
+        {/* SEP median dot (dimmed) */}
+        {sepMedian !== null && (
+          <motion.div
+            className="absolute left-1/2 w-4 h-4 bg-purple-400/50 rounded-full"
+            style={{ 
+              top: valueToPosition(sepMedian), 
+              x: '-50%', 
+              y: '-50%' 
+            }}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.4 }}
+          />
+        )}
         
         {/* User's dot marker */}
         {value !== null && (
@@ -123,7 +146,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
             animate={{ opacity: 1, y: 0 }}
             key={value}
           >
-            {value.toFixed(2)}%
+            {formatRateValue(value)}
           </motion.span>
         )}
       </div>
