@@ -95,11 +95,13 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       
       <div className="mt-2">
         <div className="flex space-x-1 justify-between relative">
-          {/* Y-axis label column with explicit labels */}
+          {/* Y-axis label row at the top */}
+          <div className="absolute -top-6 left-12 text-xs text-gray-500 font-medium">
+            Interest Rate (%)
+          </div>
+          
+          {/* Y-axis labels column */}
           <div className="flex flex-col justify-between h-[200px] pr-2 w-10 relative">
-            <div className="text-xs text-gray-500 rotate-[-90deg] origin-center absolute left-[-8px] top-[50%] font-medium">
-              Interest Rate (%)
-            </div>
             {renderYAxisLabels()}
           </div>
           
