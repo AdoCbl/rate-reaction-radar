@@ -27,11 +27,11 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
   const getDirectionIcon = (direction: string) => {
     switch(direction) {
       case 'cut':
-        return <ChevronDown className="text-blue-500" />;
+        return <ChevronDown className="text-direction-down" />;
       case 'hold':
-        return <ChevronRight className="text-gray-500" />;
+        return <ChevronRight className="text-direction-neutral" />;
       case 'hike':
-        return <ChevronUp className="text-purple-500" />;
+        return <ChevronUp className="text-direction-up" />;
       default:
         return null;
     }
@@ -41,13 +41,13 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
   const getDirectionColor = (direction: string) => {
     switch(direction) {
       case 'cut':
-        return "rgb(59 130 246)"; // blue-500
+        return "#dc2626"; // direction-down (red)
       case 'hold':
-        return "rgb(107 114 128)"; // gray-500
+        return "#3b82f6"; // direction-neutral (blue)
       case 'hike':
-        return "rgb(168 85 247)"; // purple-500
+        return "#16a34a"; // direction-up (green)
       default:
-        return "rgb(156 163 175)"; // gray-400
+        return "#64748b"; // gray
     }
   };
 
@@ -60,7 +60,8 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
   const chartData = aggregatedData.map(item => ({
     name: formatDirection(item.name),
     value: item.percentage,
-    color: getDirectionColor(item.name)
+    color: getDirectionColor(item.name),
+    directionKey: item.name
   }));
 
   return (
@@ -71,9 +72,9 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
         <ChartContainer
           className="w-full aspect-video h-64"
           config={{
-            cut: { theme: { dark: "rgb(59 130 246)", light: "rgb(59 130 246)" } },
-            hold: { theme: { dark: "rgb(107 114 128)", light: "rgb(107 114 128)" } },
-            hike: { theme: { dark: "rgb(168 85 247)", light: "rgb(168 85 247)" } },
+            cut: { theme: { dark: "#dc2626", light: "#dc2626" } },
+            hold: { theme: { dark: "#3b82f6", light: "#3b82f6" } }, 
+            hike: { theme: { dark: "#16a34a", light: "#16a34a" } },
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
@@ -81,6 +82,7 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
               <XAxis dataKey="name" axisLine={false} tickLine={false} />
               <Bar
                 dataKey="value"
+                nameKey="directionKey"
                 radius={[4, 4, 0, 0]}
                 className="fill-[var(--color-bg)]"
                 label={{ position: 'top', fill: '#ffffff', fontSize: 12 }}
@@ -105,7 +107,11 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
         <div className="flex items-center justify-center space-x-2">
           <span className="text-gray-400">You predicted:</span>
           <Badge 
-            className={`flex items-center space-x-1 bg-${userVote === 'cut' ? 'blue' : userVote === 'hold' ? 'gray' : 'purple'}-600 pulse-glow`}
+            className={`flex items-center space-x-1 ${
+              userVote === 'cut' ? 'bg-direction-down' : 
+              userVote === 'hold' ? 'bg-direction-neutral' : 
+              'bg-direction-up'
+            } pulse-glow`}
           >
             {getDirectionIcon(userVote)}
             <span>{formatDirection(userVote)}</span>

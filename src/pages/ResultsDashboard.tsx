@@ -3,20 +3,16 @@ import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { FomcRateOutlook } from '@/components/results/FomcRateOutlook';
 import { AggregatedDotPlot } from '@/components/results/AggregatedDotPlot';
-import { Button } from '@/components/ui/button';
-import { Gamepad2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 
 const ResultsDashboard: React.FC = () => {
-  const navigate = useNavigate();
   // Mock data for the current user's vote
   const [userVote] = useState({
     direction: 'hold',
     confidence: 75
   });
 
-  // Mock data for the aggregated votes
+  // Mock data for the aggregated votes - updated with more realistic values
   const [aggregatedData] = useState({
     directions: [
       { name: 'cut', count: 45, percentage: 45 },
@@ -25,24 +21,25 @@ const ResultsDashboard: React.FC = () => {
     ],
     averageRate: 5.31,
     projections: {
-      '2025': [0.04, 0.0375, 0.045, 0.04, 0.035, 0.0425, 0.04, 0.0375],
-      '2026': [0.035, 0.03, 0.0325, 0.035, 0.03, 0.0325, 0.0375],
-      '2027': [0.0275, 0.025, 0.03, 0.0275, 0.025, 0.03],
-      'Long Run': [0.0225, 0.02, 0.025, 0.0225, 0.02, 0.025]
+      // More realistic Fed projections around 4-5% range
+      '2025': [0.0425, 0.0450, 0.0475, 0.0425, 0.0450, 0.0425, 0.0400, 0.0475],
+      '2026': [0.0350, 0.0375, 0.0375, 0.0400, 0.0350, 0.0325, 0.0425],
+      '2027': [0.0300, 0.0325, 0.0275, 0.0325, 0.0300, 0.0250],
+      'Long Run': [0.0250, 0.0225, 0.0275, 0.0250, 0.0225, 0.0275]
     },
-    // User's own projections
+    // User's own projections - more realistic values
     userProjections: {
-      '2025': 0.04,
-      '2026': 0.035,
-      '2027': 0.0275,
-      'Long Run': 0.0225
+      '2025': 0.0450,
+      '2026': 0.0375,
+      '2027': 0.0300,
+      'Long Run': 0.0250
     },
-    // Median projections
+    // Median projections - more realistic values
     medians: {
-      '2025': 0.04,
-      '2026': 0.0325,
-      '2027': 0.0275,
-      'Long Run': 0.0225
+      '2025': 0.0450,
+      '2026': 0.0375,
+      '2027': 0.0300,
+      'Long Run': 0.0250
     }
   });
 
@@ -92,21 +89,7 @@ const ResultsDashboard: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* CTA Button */}
-      <motion.div 
-        className="flex justify-center mt-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.3 }}
-      >
-        <Button 
-          className="bg-blue-600 hover:bg-blue-700 px-6"
-          onClick={() => navigate('/game')}
-        >
-          <Gamepad2 size={18} />
-          <span className="ml-2">Try the Rate Reaction Game</span>
-        </Button>
-      </motion.div>
+      {/* Removed the CTA Button */}
     </div>
   );
 };
