@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { DirectionButton, Direction } from '@/components/sentiment/DirectionButton';
+import { DirectionButton } from '@/components/sentiment/DirectionButton';
+import { Direction } from '@/components/sentiment/types';
 import { ConfidenceSlider } from '@/components/sentiment/ConfidenceSlider';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';

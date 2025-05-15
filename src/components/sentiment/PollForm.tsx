@@ -1,14 +1,12 @@
-
 import React, { useState } from 'react';
-import { Direction } from '@/components/sentiment/DirectionButton';
 import { DotPlotProjection } from '@/components/sentiment/DotPlotProjection';
+import { Direction, YearProjection } from './types';
 import { FormHeader } from './FormHeader';
 import { CommentSection } from './CommentSection';
 import { SubmitButton } from './SubmitButton';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 import { FomcOutlookSection } from './FomcOutlookSection';
-import { YearProjection } from './types';
 
 export const PollForm: React.FC = () => {
   // Current Fed Funds rate

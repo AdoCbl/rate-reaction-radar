@@ -1,9 +1,9 @@
-
 import React from 'react';
-import { DirectionButton, Direction } from '@/components/sentiment/DirectionButton';
+import { DirectionButton } from '@/components/sentiment/DirectionButton';
 import { RateSelect } from '@/components/sentiment/RateSelect';
 import { ConfidenceSlider } from '@/components/sentiment/ConfidenceSlider';
 import { motion } from 'framer-motion';
+import { Direction } from './types';
 
 type FomcOutlookSectionProps = {
   direction: Direction | null;
