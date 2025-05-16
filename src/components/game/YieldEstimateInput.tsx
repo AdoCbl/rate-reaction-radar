@@ -20,14 +20,13 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
       <div className="mt-2 relative">
         <motion.div
           className={cn(
-            "absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1.5 rounded-full font-bold text-lg",
-            "bg-amber-500/20 text-amber-300 border border-amber-500/50"
+            "absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-lg font-semibold",
+            "bg-yellow-500/20 text-yellow-300 border border-yellow-500/50"
           )}
           animate={{
             x: `calc(${((yieldEstimate + 50) / 100) * 100}% - 50%)`,
             opacity: isDragging ? 1 : 0.9,
-            scale: isDragging ? 1.1 : 1,
-            boxShadow: isDragging ? '0 0 15px rgba(255, 255, 255, 0.2)' : '0 0 0px rgba(0, 0, 0, 0)'
+            scale: isDragging ? 1.1 : 1
           }}
           transition={{
             x: { type: 'spring', stiffness: 300, damping: 30 },

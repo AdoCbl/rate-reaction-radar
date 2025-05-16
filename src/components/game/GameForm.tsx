@@ -30,10 +30,10 @@ const GameForm: React.FC<GameFormProps> = ({
   onSubmit
 }) => {
   return (
-    <form onSubmit={onSubmit} className="space-y-8">
+    <form onSubmit={onSubmit} className="space-y-6">
       {/* Question 1: Fed Response */}
       <motion.div 
-        className="space-y-4"
+        className="space-y-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
@@ -60,7 +60,7 @@ const GameForm: React.FC<GameFormProps> = ({
       
       {/* Question 2: Yield Estimate */}
       <motion.div 
-        className="space-y-4 pt-2"
+        className="space-y-3 pt-2"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -76,7 +76,7 @@ const GameForm: React.FC<GameFormProps> = ({
       
       {/* Confidence Section */}
       <motion.div 
-        className="space-y-4 pt-2"
+        className="space-y-3 pt-2"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
@@ -104,12 +104,12 @@ const GameForm: React.FC<GameFormProps> = ({
       )}
       
       <motion.div 
-        className="flex items-center text-sm text-slate-300 mt-2 bg-slate-800/40 p-4 rounded-lg"
+        className="flex items-center text-sm text-slate-300 bg-slate-800/40 p-4 rounded-lg"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
       >
-        <Info size={18} className="mr-2 text-indigo-400 flex-shrink-0" />
+        <Info size={18} className="mr-2 text-blue-400 flex-shrink-0" />
         <span>Your responses will be scored based on accuracy and confidence level. Higher confidence increases potential score but also risks.</span>
       </motion.div>
       
@@ -118,11 +118,11 @@ const GameForm: React.FC<GameFormProps> = ({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="pt-4"
+        className="pt-2"
       >
         <Button 
           type="submit" 
-          className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-6 text-base rounded-lg"
+          className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-6 text-base rounded-lg"
           disabled={!direction || submitted}
         >
           {submitted ? (

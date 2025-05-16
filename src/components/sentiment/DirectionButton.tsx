@@ -43,18 +43,18 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
 
   const getBgGradient = () => {
     return selected
-      ? 'from-indigo-600/90 to-indigo-800/90'
-      : 'from-slate-700/70 to-slate-800/70 hover:from-indigo-800/30 hover:to-indigo-900/30';
+      ? 'from-blue-600/20 to-blue-800/20'
+      : 'from-slate-700/70 to-slate-800/70 hover:from-blue-800/20 hover:to-blue-900/20';
   };
 
   const getBorderColor = () => {
     return selected
-      ? 'border-indigo-400 ring-2 ring-indigo-500/40'
-      : 'border-slate-600 hover:border-indigo-500';
+      ? 'border-blue-400 ring-2 ring-blue-500/40'
+      : 'border-slate-600 hover:border-blue-500';
   };
 
   const getTextColor = () => {
-    return selected ? 'text-indigo-200' : 'text-slate-300 hover:text-indigo-300';
+    return selected ? 'text-blue-200' : 'text-slate-300 hover:text-blue-300';
   };
 
   return (
@@ -63,7 +63,7 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
         flex flex-col items-center justify-center py-3 px-2 rounded-lg 
         border-2 transition-all duration-300 w-full font-medium
         bg-gradient-to-br ${getBgGradient()} ${getBorderColor()} ${getTextColor()}
-        ${selected ? 'shadow-lg shadow-indigo-500/20' : ''}
+        ${selected ? 'shadow-lg shadow-blue-500/20' : ''}
       `}
       onClick={() => onClick(direction)}
       type="button"
@@ -74,7 +74,7 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
       animate={{ 
         opacity: 1,
         y: selected ? -3 : 0,
-        boxShadow: selected ? '0 10px 25px -5px rgba(99, 102, 241, 0.3)' : '0 0 0 rgba(0, 0, 0, 0)'
+        boxShadow: selected ? '0 10px 25px -5px rgba(59, 130, 246, 0.3)' : '0 0 0 rgba(0, 0, 0, 0)'
       }}
       transition={{ duration: 0.2 }}
     >
