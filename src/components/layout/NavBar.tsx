@@ -2,7 +2,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
-  BarChart3, 
   LineChart, 
   Activity, 
   Award, 
@@ -16,11 +15,9 @@ export const NavBar = () => {
       <div className="max-w-5xl mx-auto">
         <ul className="flex justify-between items-center">
           <NavItem to="/" icon={<LayoutDashboard size={20} />} label="Dashboard" />
-          <NavItem to="/poll" icon={<BarChart3 size={20} />} label="Poll" />
-          <NavItem to="/results" icon={<Activity size={20} />} label="Results" />
           <NavItem to="/trends" icon={<LineChart size={20} />} label="Trends" />
           <NavItem to="/game" icon={<Award size={20} />} label="Game" />
-          <NavItem to="/leaderboard" icon={<BarChart3 size={20} />} label="Leaderboard" />
+          <NavItem to="/leaderboard" icon={<Activity size={20} />} label="Leaderboard" />
           <NavItem to="/profile" icon={<UserCircle size={20} />} label="Profile" />
         </ul>
       </div>
