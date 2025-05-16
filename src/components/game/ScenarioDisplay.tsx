@@ -18,17 +18,17 @@ const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false 
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className={`p-4 ${isMobile ? 'space-y-2' : 'space-y-3'}`}>
-        <h2 className={`${isMobile ? 'text-lg' : 'text-xl'} font-bold text-indigo-300`}>
+      <div className={`p-3 ${isMobile ? 'space-y-1' : 'space-y-2'}`}>
+        <h2 className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300`}>
           Historical Market Scenario
         </h2>
         
-        <p className={`${isMobile ? 'text-sm' : 'text-base'} leading-relaxed text-gray-200`}>
+        <p className={`${isMobile ? 'text-xs' : 'text-sm'} leading-snug text-gray-200`}>
           {historicalScenario.scenario}
         </p>
         
         {!hideMetadata && (
-          <div className="mt-2 flex items-center justify-between text-xs text-gray-400">
+          <div className="mt-1 flex items-center justify-between text-xs text-gray-400">
             <span>{historicalScenario.date}</span>
             <span>{historicalScenario.context}</span>
           </div>
