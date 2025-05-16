@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { AggregatedDotPlot } from '@/components/results/AggregatedDotPlot';
 import { motion } from 'framer-motion';
 import { FomcOutlookChart } from '@/components/trends/FomcOutlookChart';
@@ -41,7 +41,7 @@ const ResultsDashboard: React.FC = () => {
   });
 
   return (
-    <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-3">
       {/* Left Panel: FOMC Policy Expectations History */}
       <motion.div
         initial={{ opacity: 0, x: -10 }}
@@ -49,13 +49,13 @@ const ResultsDashboard: React.FC = () => {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="h-full flex"
       >
-        <Card className="p-3 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col w-full">
-          <CardHeader className="p-3 pb-0">
+        <Card className="p-2 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col w-full">
+          <div className="p-2 pb-0">
             <h2 className="text-lg font-medium text-indigo-300 tracking-tight">FOMC Policy Expectations History</h2>
             <p className="text-xs text-slate-400">See how client sentiment has evolved over time</p>
-          </CardHeader>
+          </div>
           
-          <CardContent className="p-3 flex-grow flex flex-col">
+          <div className="p-2 flex-grow flex flex-col">
             <div className="flex justify-end">
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -82,7 +82,7 @@ const ResultsDashboard: React.FC = () => {
               </motion.div>
             </div>
             
-            <div className="flex-grow mt-1">
+            <div className="flex-grow">
               <FomcOutlookChart />
             </div>
             
@@ -91,7 +91,7 @@ const ResultsDashboard: React.FC = () => {
                 Client sentiment shifted toward 'Hold' after the June CPI release.
               </p>
             </div>
-          </CardContent>
+          </div>
         </Card>
       </motion.div>
 
@@ -102,19 +102,19 @@ const ResultsDashboard: React.FC = () => {
         transition={{ duration: 0.4, delay: 0.2 }}
         className="h-full flex"
       >
-        <Card className="p-3 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col w-full">
-          <CardHeader className="p-3 pb-0">
+        <Card className="p-2 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col w-full">
+          <div className="p-2 pb-0">
             <h2 className="text-lg font-medium text-indigo-300 tracking-tight">Aggregated Dot Plot</h2>
             <p className="text-xs text-slate-400">Client projections vs. FOMC median</p>
-          </CardHeader>
+          </div>
           
-          <CardContent className="p-3 flex-grow flex items-center">
+          <div className="p-2 flex-grow flex items-center">
             <AggregatedDotPlot 
               projections={aggregatedData.projections}
               userProjections={aggregatedData.userProjections}
               medians={aggregatedData.medians}
             />
-          </CardContent>
+          </div>
         </Card>
       </motion.div>
     </div>

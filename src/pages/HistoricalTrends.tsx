@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { MeetingDotPlotComparison } from '@/components/trends/MeetingDotPlotComparison';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -51,7 +51,7 @@ const HistoricalTrends: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow overflow-auto pb-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-grow">
         {currentMeetings.map((meeting, index) => (
           <motion.div 
             key={meeting.date.toISOString()}
@@ -59,15 +59,15 @@ const HistoricalTrends: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.2 }}
           >
-            <Card className="bg-slate-800/90 border border-slate-700 shadow-md h-full">
-              <CardHeader className="p-3 pb-1">
-                <h2 className="text-lg font-medium text-indigo-200">{meeting.title}</h2>
+            <Card className="bg-slate-800/90 border border-slate-700 shadow-md h-full p-2">
+              <div className="p-2 pb-0">
+                <h2 className="text-lg font-medium text-indigo-300">{meeting.title}</h2>
                 <p className="text-xs text-slate-400">
                   Forecast submitted prior to: {formatMeetingDate(meeting.date)}
                 </p>
-              </CardHeader>
-              <CardContent className="p-3">
-                <div className="h-56">
+              </div>
+              <div className="p-2">
+                <div className="h-52">
                   <MeetingDotPlotComparison 
                     meetingDate={meeting.date} 
                     showFullFedDots={true} 
@@ -75,9 +75,9 @@ const HistoricalTrends: React.FC = () => {
                   />
                 </div>
                 
-                <Separator className="my-2 bg-slate-700/50" />
+                <Separator className="my-1 bg-slate-700/50" />
                 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <p className="text-xs text-slate-300 italic">
                     {meeting.summary}
                   </p>
@@ -97,7 +97,7 @@ const HistoricalTrends: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </CardContent>
+              </div>
             </Card>
           </motion.div>
         ))}
@@ -105,7 +105,7 @@ const HistoricalTrends: React.FC = () => {
 
       {/* Pagination */}
       {pageCount > 1 && (
-        <div className="flex justify-center items-center gap-4 mt-2 mb-1">
+        <div className="flex justify-center items-center gap-4 mt-2">
           <button 
             onClick={prevPage} 
             disabled={currentPage === 0}

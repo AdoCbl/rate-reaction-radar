@@ -57,7 +57,7 @@ const RateReactionGame: React.FC = () => {
   };
 
   return (
-    <div className="h-full flex items-center justify-center">
+    <div className="h-full flex items-start justify-center">
       {/* Enhanced dark background with gradient */}
       <div className="fixed inset-0 bg-slate-950 -z-10 pointer-events-none" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(30,64,175,0.15),transparent_70%)] -z-10 pointer-events-none" />
@@ -79,7 +79,7 @@ const RateReactionGame: React.FC = () => {
               className="w-full"
             >
               <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md overflow-hidden">
-                <CardContent className="p-4 space-y-3">
+                <CardContent className="p-3 space-y-2">
                   <ScenarioDisplay hideMetadata={true} />
                   
                   <GameForm 
@@ -104,7 +104,7 @@ const RateReactionGame: React.FC = () => {
               className="w-full"
             >
               <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md overflow-hidden">
-                <CardContent className={`${isMobile ? 'p-3' : 'p-4'}`}>
+                <CardContent className={`${isMobile ? 'p-2' : 'p-3'}`}>
                   <GameResultDisplay 
                     direction={direction}
                     yieldEstimate={yieldEstimate}

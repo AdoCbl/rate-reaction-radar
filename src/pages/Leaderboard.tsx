@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Award, Calendar, Trophy } from 'lucide-react';
@@ -70,9 +70,9 @@ const Leaderboard: React.FC = () => {
   const [timeFrame, setTimeFrame] = React.useState<'weekly' | 'monthly' | 'all-time'>('weekly');
   
   return (
-    <div className="h-full grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="h-full grid grid-cols-1 md:grid-cols-3 gap-3">
       {/* Time frame selector */}
-      <div className="md:col-span-3 flex justify-end mb-1">
+      <div className="md:col-span-3 flex justify-end">
         <Tabs 
           value={timeFrame} 
           onValueChange={(value) => setTimeFrame(value as 'weekly' | 'monthly' | 'all-time')}
@@ -93,22 +93,22 @@ const Leaderboard: React.FC = () => {
         transition={{ duration: 0.4 }}
         className="flex items-center justify-center"
       >
-        <Card className="w-full h-full shadow-md bg-slate-800/90 border border-slate-700">
-          <CardHeader className="p-3 pb-1">
+        <Card className="w-full h-full shadow-md bg-slate-800/90 border border-slate-700 p-2">
+          <div className="p-2 pb-0">
             <h2 className="text-lg font-medium flex items-center gap-2">
               <Trophy size={18} className="text-yellow-500" />
               <span>Top Player</span>
             </h2>
-          </CardHeader>
-          <CardContent className="p-3 flex flex-col items-center justify-center">
-            <div className="flex flex-col items-center mb-2">
-              <div className="w-16 h-16 rounded-full bg-slate-700 flex items-center justify-center mb-2 border-2 border-primary">
-                <Trophy size={28} className="text-primary" />
+          </div>
+          <CardContent className="p-2 flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center">
+              <div className="w-14 h-14 rounded-full bg-slate-700 flex items-center justify-center mb-2 border-2 border-primary">
+                <Trophy size={24} className="text-primary" />
               </div>
               <Badge className="mb-1">1st Place</Badge>
               <p className="text-lg font-bold">{leaderboardData[0].username}</p>
               <p className="text-2xl font-bold text-primary mt-1">{leaderboardData[0].score}</p>
-              <div className="mt-2 text-xs text-muted-foreground text-center">
+              <div className="mt-1 text-xs text-muted-foreground text-center">
                 <div>Accuracy: {leaderboardData[0].accuracy}%</div>
                 <div>Games: {leaderboardData[0].gamesPlayed}</div>
               </div>
@@ -124,15 +124,15 @@ const Leaderboard: React.FC = () => {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="md:col-span-2"
       >
-        <Card className="shadow-md h-full">
-          <CardHeader className="p-3 pb-1">
+        <Card className="shadow-md h-full p-2">
+          <div className="p-2 pb-0">
             <h2 className="text-lg font-medium flex items-center gap-2">
               <Award size={18} />
               <span>Leaderboard</span>
             </h2>
-          </CardHeader>
-          <CardContent className="p-3">
-            <div className="space-y-2 overflow-auto max-h-[calc(100vh-230px)]">
+          </div>
+          <CardContent className="p-2">
+            <div className="space-y-1 overflow-auto max-h-[calc(100vh-180px)]">
               {leaderboardData.map((user) => (
                 <motion.div 
                   key={user.id} 
@@ -144,7 +144,7 @@ const Leaderboard: React.FC = () => {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center mr-3 text-white
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center mr-2 text-white
                         ${user.rank === 1 ? 'bg-primary' : 
                           user.rank === 2 ? 'bg-slate-500' : 
                           user.rank === 3 ? 'bg-amber-500' : 
@@ -163,7 +163,7 @@ const Leaderboard: React.FC = () => {
                             ))}
                           </div>
                         </div>
-                        <div className="flex text-xs text-muted-foreground mt-0.5">
+                        <div className="flex text-xs text-muted-foreground">
                           <span className="flex items-center mr-3">
                             <Calendar className="h-3 w-3 mr-1" />
                             {new Date(user.lastActive).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
@@ -175,7 +175,7 @@ const Leaderboard: React.FC = () => {
                     
                     <div className="text-right">
                       <div className="text-lg font-bold">{user.score}</div>
-                      <div className="flex justify-end text-xs text-muted-foreground mt-0.5 space-x-2">
+                      <div className="flex justify-end text-xs text-muted-foreground space-x-2">
                         <div className="flex items-center">
                           <span className="mr-1">Accuracy:</span>
                           <span className="font-medium">{user.accuracy}%</span>
@@ -187,7 +187,7 @@ const Leaderboard: React.FC = () => {
               ))}
             </div>
             
-            <Separator className="my-2" />
+            <Separator className="my-1" />
             
             {/* Your Position */}
             <motion.div 
@@ -196,12 +196,12 @@ const Leaderboard: React.FC = () => {
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center mr-3 text-primary font-medium">
+                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center mr-2 text-primary font-medium">
                     5
                   </div>
                   <div>
                     <p className="font-medium">JohnDoe (You)</p>
-                    <div className="flex text-xs text-muted-foreground mt-0.5">
+                    <div className="flex text-xs text-muted-foreground">
                       <span className="mr-3">Games: 24</span>
                       <span>Since: Apr 2025</span>
                     </div>
@@ -210,7 +210,7 @@ const Leaderboard: React.FC = () => {
                 
                 <div className="text-right">
                   <div className="text-lg font-bold">82</div>
-                  <div className="flex justify-end text-xs text-emerald-600 dark:text-emerald-500 font-medium mt-0.5">
+                  <div className="flex justify-end text-xs text-emerald-600 dark:text-emerald-500 font-medium">
                     <div className="flex items-center">
                       +5 this week
                     </div>

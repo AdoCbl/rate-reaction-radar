@@ -74,12 +74,12 @@ export const PollForm: React.FC = () => {
   };
 
   return (
-    <div className="p-5 md:p-6">
-      <form onSubmit={handleSubmit} className="space-y-5"> 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+    <div className="p-3">
+      <form onSubmit={handleSubmit} className="space-y-3"> 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
           {/* Left column: FOMC Decision - Top Priority */}
-          <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
-            <h2 className="text-xl font-bold mb-3 text-white">
+          <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
+            <h2 className="text-lg font-bold mb-2 text-white">
               Your FOMC Outlook
             </h2>
             <FomcOutlookSection 
@@ -92,8 +92,8 @@ export const PollForm: React.FC = () => {
           </div>
           
           {/* Right column: Dot Plot - Second Priority */}
-          <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
-            <h2 className="text-xl font-bold mb-3 text-white">
+          <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
+            <h2 className="text-lg font-bold mb-2 text-white">
               Rate Projections
             </h2>
             <DotPlotProjection 
@@ -103,9 +103,9 @@ export const PollForm: React.FC = () => {
           </div>
         </div>
         
-        <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+        <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
           {/* Comments Box - Last Priority */}
-          <div className="mb-4">
+          <div className="mb-3">
             <CommentSection 
               comment={comment}
               setComment={setComment}
