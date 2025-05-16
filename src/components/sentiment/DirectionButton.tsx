@@ -45,16 +45,16 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
     switch (direction) {
       case 'hike':
         return selected
-          ? 'from-emerald-600/90 to-emerald-800/90'
-          : 'from-slate-700/70 to-slate-800/70 hover:from-emerald-800/30 hover:to-emerald-900/30';
+          ? 'from-indigo-600/90 to-indigo-800/90'
+          : 'from-slate-700/70 to-slate-800/70 hover:from-indigo-800/30 hover:to-indigo-900/30';
       case 'hold':
         return selected
-          ? 'from-sky-600/90 to-sky-800/90'
-          : 'from-slate-700/70 to-slate-800/70 hover:from-sky-800/30 hover:to-sky-900/30';
+          ? 'from-indigo-600/90 to-indigo-800/90'
+          : 'from-slate-700/70 to-slate-800/70 hover:from-indigo-800/30 hover:to-indigo-900/30';
       case 'cut':
         return selected
-          ? 'from-rose-600/90 to-rose-800/90'
-          : 'from-slate-700/70 to-slate-800/70 hover:from-rose-800/30 hover:to-rose-900/30';
+          ? 'from-indigo-600/90 to-indigo-800/90'
+          : 'from-slate-700/70 to-slate-800/70 hover:from-indigo-800/30 hover:to-indigo-900/30';
       default:
         return '';
     }
@@ -64,16 +64,16 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
     switch (direction) {
       case 'hike':
         return selected
-          ? 'border-emerald-400'
-          : 'border-slate-600 hover:border-emerald-500';
+          ? 'border-indigo-400'
+          : 'border-slate-600 hover:border-indigo-500';
       case 'hold':
         return selected
-          ? 'border-sky-400'
-          : 'border-slate-600 hover:border-sky-500';
+          ? 'border-indigo-400'
+          : 'border-slate-600 hover:border-indigo-500';
       case 'cut':
         return selected
-          ? 'border-rose-400'
-          : 'border-slate-600 hover:border-rose-500';
+          ? 'border-indigo-400'
+          : 'border-slate-600 hover:border-indigo-500';
       default:
         return 'border-slate-600';
     }
@@ -82,11 +82,11 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
   const getTextColor = () => {
     switch (direction) {
       case 'hike':
-        return selected ? 'text-emerald-300' : 'text-slate-300 hover:text-emerald-300';
+        return selected ? 'text-indigo-300' : 'text-slate-300 hover:text-indigo-300';
       case 'hold':
-        return selected ? 'text-sky-300' : 'text-slate-300 hover:text-sky-300';
+        return selected ? 'text-indigo-300' : 'text-slate-300 hover:text-indigo-300';
       case 'cut':
-        return selected ? 'text-rose-300' : 'text-slate-300 hover:text-rose-300';
+        return selected ? 'text-indigo-300' : 'text-slate-300 hover:text-indigo-300';
       default:
         return 'text-slate-300';
     }
@@ -98,7 +98,7 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
         flex flex-col items-center justify-center py-2 px-2 rounded-lg 
         border-2 transition-all duration-300 w-full font-medium
         bg-gradient-to-br ${getGradient()} ${getBorderColor()} ${getTextColor()}
-        ${selected ? 'shadow-lg' : ''}
+        ${selected ? 'shadow-lg shadow-indigo-500/20' : ''}
       `}
       onClick={() => onClick(direction)}
       type="button"
@@ -109,7 +109,7 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
       animate={{ 
         opacity: 1,
         y: selected ? -3 : 0,
-        boxShadow: selected ? '0 10px 25px -5px rgba(0, 0, 0, 0.3)' : '0 0 0 rgba(0, 0, 0, 0)'
+        boxShadow: selected ? '0 10px 25px -5px rgba(79, 70, 229, 0.3)' : '0 0 0 rgba(0, 0, 0, 0)'
       }}
       transition={{ duration: 0.2 }}
     >

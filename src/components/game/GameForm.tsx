@@ -90,15 +90,15 @@ const GameForm: React.FC<GameFormProps> = ({
       {/* Prediction Summary */}
       {direction && (
         <motion.div
-          className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-4 flex justify-center"
+          className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-4"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <span className="text-slate-300">
-            You predicted: <span className="font-semibold">{direction.charAt(0).toUpperCase() + direction.slice(1)}</span> | 
-            <span className="font-semibold"> {yieldEstimate > 0 ? '+' : ''}{yieldEstimate} bps</span> | 
-            Confidence: <span className="font-semibold">{confidence}%</span>
+          <span className="text-slate-400 text-center block">
+            You predicted: <span className="font-semibold text-white">{direction.charAt(0).toUpperCase() + direction.slice(1)}</span> | 
+            <span className="font-semibold text-white"> {yieldEstimate > 0 ? '+' : ''}{yieldEstimate} bps</span> | 
+            Confidence: <span className="font-semibold text-white">{confidence}%</span>
           </span>
         </motion.div>
       )}

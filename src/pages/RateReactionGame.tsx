@@ -81,10 +81,9 @@ const RateReactionGame: React.FC = () => {
               className="w-full"
             >
               <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-xl overflow-hidden">
-                <CardHeader className="pb-5 border-b border-slate-700/50">
-                  <ScenarioDisplay hideMetadata={true} />
-                </CardHeader>
                 <CardContent className="space-y-8 py-6">
+                  <ScenarioDisplay hideMetadata={true} />
+                  
                   <GameForm 
                     direction={direction}
                     yieldEstimate={yieldEstimate}

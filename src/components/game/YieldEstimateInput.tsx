@@ -20,10 +20,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
       <div className="mt-2 relative">
         <motion.div
           className={cn(
-            "absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1.5 rounded-full font-bold text-lg border",
-            yieldEstimate > 0 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/50" : 
-            yieldEstimate < 0 ? "bg-red-500/20 text-red-400 border-red-500/50" : 
-            "bg-slate-500/20 text-slate-400 border-slate-500/50"
+            "absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1.5 rounded-full font-bold text-lg bg-amber-500/20 text-amber-400 border border-amber-500/50"
           )}
           animate={{
             x: `calc(${((yieldEstimate + 50) / 100) * 100}% - 50%)`,
@@ -43,14 +40,6 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
         
         <div className="px-2">
           <div className="relative">
-            {/* Colored track backgrounds */}
-            <div className="absolute h-2 top-[10px] left-0 right-0 rounded-full overflow-hidden z-0">
-              <div className="flex h-full w-full">
-                <div className="bg-gradient-to-r from-red-600/80 to-red-500/80 h-full w-1/2"></div>
-                <div className="bg-gradient-to-r from-emerald-500/80 to-emerald-600/80 h-full w-1/2"></div>
-              </div>
-            </div>
-            
             {/* Center marker */}
             <div className="absolute h-5 w-0.5 bg-white/30 top-[7px] left-1/2 transform -translate-x-1/2 z-10"></div>
             

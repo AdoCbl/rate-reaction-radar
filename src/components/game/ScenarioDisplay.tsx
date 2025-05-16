@@ -20,7 +20,12 @@ const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false 
   };
 
   return (
-    <>
+    <motion.div 
+      className="p-6 bg-slate-800/80 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-inner"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-white flex items-center">
           <Info className="mr-2 text-sky-400" size={20} />
@@ -35,22 +40,16 @@ const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false 
           </Badge>
         )}
       </div>
-      <motion.div 
-        className="p-5 bg-slate-800/60 rounded-lg border border-slate-700 shadow-inner"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <p className="text-lg leading-relaxed text-gray-200">{historicalScenario.scenario}</p>
-        
-        {!hideMetadata && (
-          <div className="mt-3 flex items-center justify-between text-xs text-gray-400">
-            <span>{historicalScenario.date}</span>
-            <span>{historicalScenario.context}</span>
-          </div>
-        )}
-      </motion.div>
-    </>
+      
+      <p className="text-lg leading-relaxed text-gray-200">{historicalScenario.scenario}</p>
+      
+      {!hideMetadata && (
+        <div className="mt-3 flex items-center justify-between text-xs text-gray-400">
+          <span>{historicalScenario.date}</span>
+          <span>{historicalScenario.context}</span>
+        </div>
+      )}
+    </motion.div>
   );
 };
 
