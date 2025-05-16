@@ -41,21 +41,16 @@ const ResultsDashboard: React.FC = () => {
   });
 
   return (
-    <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-3">
-      {/* Left Panel: FOMC Policy Expectations History */}
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
-        className="h-full flex"
-      >
-        <Card className="p-2 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col w-full">
-          <div className="p-2 pb-0">
+    <div className="h-full flex flex-col gap-3">
+      <div className="grid grid-cols-2 gap-3 flex-grow">
+        {/* Left Panel: FOMC Policy Expectations History */}
+        <Card className="bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col overflow-hidden">
+          <div className="p-3">
             <h2 className="text-sm font-medium text-indigo-300 tracking-tight">FOMC Policy Expectations History</h2>
             <p className="text-xs text-slate-400">See how client sentiment has evolved over time</p>
           </div>
           
-          <div className="p-2 flex-grow flex flex-col">
+          <div className="flex-grow flex flex-col p-2">
             <div className="flex justify-end">
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -93,22 +88,17 @@ const ResultsDashboard: React.FC = () => {
             </div>
           </div>
         </Card>
-      </motion.div>
 
-      {/* Right Panel: Aggregated Dot Plot */}
-      <motion.div
-        initial={{ opacity: 0, x: 10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
-        className="h-full flex"
-      >
-        <Card className="p-2 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col w-full">
-          <div className="p-2 pb-0">
-            <h2 className="text-sm font-medium text-indigo-300 tracking-tight">Aggregated Dot Plot</h2>
-            <p className="text-xs text-slate-400">Client projections vs. FOMC median</p>
+        {/* Right Panel: Aggregated Dot Plot with Client Median Projections */}
+        <Card className="bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col overflow-hidden">
+          <div className="p-3 flex justify-between items-start">
+            <div>
+              <h2 className="text-sm font-medium text-indigo-300 tracking-tight">Aggregated Dot Plot</h2>
+              <p className="text-xs text-slate-400">Client projections vs. FOMC median</p>
+            </div>
           </div>
           
-          <div className="p-2 flex-grow flex items-center">
+          <div className="flex-grow p-2">
             <AggregatedDotPlot 
               projections={aggregatedData.projections}
               userProjections={aggregatedData.userProjections}
@@ -116,7 +106,7 @@ const ResultsDashboard: React.FC = () => {
             />
           </div>
         </Card>
-      </motion.div>
+      </div>
     </div>
   );
 };

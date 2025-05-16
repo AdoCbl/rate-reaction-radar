@@ -17,7 +17,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
       <main className="flex-grow overflow-auto px-4">
         <div className="container max-w-5xl mx-auto h-[calc(100vh-48px)] flex flex-col">
           {/* Theme Toggle positioned in the top right with minimal spacing */}
-          <div className="flex justify-end h-10 items-center">
+          <div className="flex justify-end h-8 items-center">
             <ThemeToggle />
           </div>
           
