@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, PanInfo } from 'framer-motion';
 
 type DotPlotYearProps = {
   year: string;
@@ -166,11 +166,12 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             drag="y"
-            dragConstraints={{ top: 0, bottom: "100%" }}
+            dragConstraints={{ top: 0, bottom: 0 }}
             onDragStart={() => setIsDragging(true)}
-            onDragEnd={(_, info) => {
+            onDragEnd={(_, info: PanInfo) => {
               setIsDragging(false);
-              const rect = info.node.parentElement?.getBoundingClientRect();
+              const element = document.getElementById(`year-${year}`);
+              const rect = element?.getBoundingClientRect();
               if (!rect) return;
               
               // Calculate position as percentage of parent height
