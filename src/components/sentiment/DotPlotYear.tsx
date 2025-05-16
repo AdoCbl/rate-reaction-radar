@@ -161,19 +161,19 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
 
   return (
     <div 
-      className="flex flex-col items-center"
+      className="flex flex-col items-center justify-between w-full"
       onMouseEnter={() => onHover?.(true)}
       onMouseLeave={() => onHover?.(false)}
     >
       <motion.span 
-        className={`text-base font-medium ${isHovered ? 'text-white' : 'text-slate-300'} mb-1 transition-colors`}
+        className={`text-sm font-medium ${isHovered ? 'text-white' : 'text-slate-300'} mb-3 transition-colors`}
         animate={{ scale: isHovered ? 1.05 : 1 }}
       >
         {year}
       </motion.span>
       
       <motion.div 
-        className="relative h-[200px] w-14 bg-slate-900/80 border border-slate-800 rounded-lg overflow-hidden transition-colors"
+        className="relative h-[180px] w-full bg-slate-900/80 border border-slate-800 rounded-lg overflow-hidden transition-colors"
         animate={{ 
           borderColor: isHovered ? 'rgb(71 85 105)' : undefined,
           backgroundColor: isHovered ? 'rgba(15, 23, 42, 0.9)' : undefined
@@ -236,7 +236,7 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
       </motion.div>
       
       {/* Show selected value below with more spacing to prevent overlap */}
-      <div className="mt-2 h-6 text-center">
+      <div className="mt-3 h-6 text-center"> {/* Increased spacing */}
         {value !== null ? (
           <motion.span 
             className="text-sm font-medium text-blue-400 inline-block px-2 py-0.5 bg-blue-900/30 rounded border border-blue-800/50"

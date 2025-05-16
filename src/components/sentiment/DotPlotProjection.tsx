@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { YearProjection } from './types';
 import { HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useIsMobile } from '@/hooks/use-mobile';
 
 type DotPlotProjectionProps = {
   onChange: (projections: YearProjection[]) => void;
@@ -16,6 +17,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   onChange,
   values
 }) => {
+  const isMobile = useIsMobile();
   const [showMedians, setShowMedians] = useState(false);
   const [hoveredYear, setHoveredYear] = useState<string | null>(null);
   
@@ -58,7 +60,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
           className="text-xs text-slate-400 font-medium"
           style={{ 
             position: 'absolute', 
-            right: '8px', 
+            right: '12px', // Increased right padding for better alignment
             bottom: `${(rate / 0.05) * 100}%`,
             transform: 'translateY(50%)'
           }}
@@ -77,10 +79,12 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
     >      
-      <div className="flex items-center justify-between space-x-2 mb-2 text-sm">
-        <span className="text-xs font-medium text-sky-400">Click to set your projections</span>
-        <div className="flex items-center gap-1">
-          <span className="text-xs text-slate-400">SEP Medians</span>
+      <div className="flex items-center justify-between mb-4"> {/* Increased vertical spacing */}
+        <span className="text-sm font-medium text-slate-400 hover:text-slate-300 transition-colors">
+          Click to set your projections
+        </span>
+        <div className="flex items-center gap-2 pr-1"> {/* Added right padding */}
+          <span className="text-sm text-slate-400">SEP Medians</span>
           <Switch 
             checked={showMedians}
             onCheckedChange={setShowMedians}
@@ -90,7 +94,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <HelpCircle className="h-3 w-3 text-slate-400 hover:text-slate-300 transition-colors" />
+                <HelpCircle className="h-4 w-4 text-slate-400 hover:text-slate-300 transition-colors" />
               </TooltipTrigger>
               <TooltipContent side="top" className="bg-slate-800 border-slate-700 text-white text-xs">
                 <p>Federal Reserve Summary of Economic Projections (SEP) median values</p>
@@ -100,35 +104,37 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
         </div>
       </div>
       
-      <div className="bg-slate-800/60 p-2 rounded-md shadow-inner">
-        <div className="flex space-x-1 justify-between relative">
-          {/* Y-axis labels column */}
-          <div className="flex flex-col justify-between h-[140px] pr-1 w-5 relative">
+      <div className={`bg-slate-800/60 p-4 rounded-xl shadow-sm border border-slate-700/50 ${isMobile ? 'px-2' : 'px-4'}`}>
+        <div className="flex space-x-2 justify-between relative">
+          {/* Y-axis labels column - increased width for better spacing */}
+          <div className="flex flex-col justify-between h-[180px] pr-2 w-8 relative">
             {renderYAxisLabels()}
           </div>
           
-          {values.map((yearData) => (
-            <DotPlotYear
-              key={yearData.year}
-              year={yearData.year}
-              value={yearData.value}
-              onChange={(value) => handleYearChange(yearData.year, value)}
-              minRate={0} // 0%
-              maxRate={0.05} // 5%
-              stepSize={0.00125} // 0.125%
-              sepMedian={showMedians ? getMedianForYear(yearData.year) : null}
-              isHovered={hoveredYear === yearData.year}
-              onHover={(hovered) => setHoveredYear(hovered ? yearData.year : null)}
-            />
-          ))}
+          <div className="flex flex-1 justify-between space-x-2">
+            {values.map((yearData) => (
+              <DotPlotYear
+                key={yearData.year}
+                year={yearData.year}
+                value={yearData.value}
+                onChange={(value) => handleYearChange(yearData.year, value)}
+                minRate={0} // 0%
+                maxRate={0.05} // 5%
+                stepSize={0.00125} // 0.125%
+                sepMedian={showMedians ? getMedianForYear(yearData.year) : null}
+                isHovered={hoveredYear === yearData.year}
+                onHover={(hovered) => setHoveredYear(hovered ? yearData.year : null)}
+              />
+            ))}
+          </div>
         </div>
       </div>
       
-      <div className="flex justify-end mt-1">
+      <div className="flex justify-end mt-3"> {/* Increased spacing */}
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs font-medium text-slate-400 hover:text-white transition-colors px-2 py-0.5 rounded-md hover:bg-slate-800/70"
+          className="text-xs font-medium text-slate-400 hover:text-white transition-colors px-3 py-1 rounded-md hover:bg-slate-800/70"
         >
           Reset
         </button>
