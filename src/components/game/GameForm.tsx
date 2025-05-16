@@ -5,7 +5,6 @@ import { DirectionButton } from '@/components/sentiment/DirectionButton';
 import { ConfidenceSlider } from '@/components/sentiment/ConfidenceSlider';
 import { Info, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Separator } from '@/components/ui/separator';
 import { Direction } from '@/components/sentiment/types';
 import YieldEstimateInput from './YieldEstimateInput';
 
@@ -31,16 +30,16 @@ const GameForm: React.FC<GameFormProps> = ({
   onSubmit
 }) => {
   return (
-    <form onSubmit={onSubmit} className="space-y-6">
+    <form onSubmit={onSubmit} className="space-y-8">
       {/* Question 1: Fed Response */}
       <motion.div 
-        className="space-y-3 p-4 bg-gray-800/40 rounded-lg border border-gray-700"
+        className="space-y-4"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <label className="block text-base font-medium text-gray-200">How did the Fed respond?</label>
-        <div className="grid grid-cols-3 gap-4 mt-2">
+        <h3 className="text-xl font-semibold text-white">What do you think the Fed did in response?</h3>
+        <div className="grid grid-cols-3 gap-4 mt-3">
           <DirectionButton 
             direction="hike" 
             selected={direction === 'hike'} 
@@ -61,30 +60,51 @@ const GameForm: React.FC<GameFormProps> = ({
       
       {/* Question 2: Yield Estimate */}
       <motion.div 
-        className="space-y-3 p-4 bg-gray-800/40 rounded-lg border border-gray-700"
+        className="space-y-4 pt-2"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <YieldEstimateInput 
-          yieldEstimate={yieldEstimate} 
-          onYieldChange={onYieldChange} 
-        />
+        <h3 className="text-xl font-semibold text-white">How do you think the 2-Year Treasury Yield reacted?</h3>
+        <div className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-6">
+          <YieldEstimateInput 
+            yieldEstimate={yieldEstimate} 
+            onYieldChange={onYieldChange} 
+          />
+        </div>
       </motion.div>
       
       {/* Confidence Section */}
       <motion.div 
-        className="space-y-3 p-4 bg-gray-800/40 rounded-lg border border-gray-700"
+        className="space-y-4 pt-2"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <label className="block text-base font-medium text-gray-200 mb-1">How confident are you?</label>
-        <ConfidenceSlider value={confidence} onChange={onConfidenceChange} />
+        <h3 className="text-xl font-semibold text-white">How confident are you in your prediction?</h3>
+        <div className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-6">
+          <ConfidenceSlider value={confidence} onChange={onConfidenceChange} />
+        </div>
       </motion.div>
       
+      {/* Prediction Summary */}
+      {direction && (
+        <motion.div
+          className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-4 flex justify-center"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <span className="text-slate-300">
+            You predicted: <span className="font-semibold">{direction.charAt(0).toUpperCase() + direction.slice(1)}</span> | 
+            <span className="font-semibold"> {yieldEstimate > 0 ? '+' : ''}{yieldEstimate} bps</span> | 
+            Confidence: <span className="font-semibold">{confidence}%</span>
+          </span>
+        </motion.div>
+      )}
+      
       <motion.div 
-        className="flex items-center text-sm text-gray-300 mt-2 bg-gray-800/40 p-3 rounded-lg"
+        className="flex items-center text-sm text-slate-300 mt-2 bg-slate-800/40 p-4 rounded-lg"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
@@ -98,10 +118,11 @@ const GameForm: React.FC<GameFormProps> = ({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
+        className="pt-4"
       >
         <Button 
           type="submit" 
-          className="w-full bg-sky-600 hover:bg-sky-500 text-white font-medium py-6 text-base"
+          className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-6 text-base rounded-lg"
           disabled={!direction || submitted}
         >
           {submitted ? (

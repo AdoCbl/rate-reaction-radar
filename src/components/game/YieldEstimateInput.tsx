@@ -16,24 +16,20 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   
   return (
-    <div className="space-y-3">
-      <label className="block text-base font-medium text-gray-200">
-        How did the 2-year Treasury yield respond?
-      </label>
-      
-      <div className="mt-5 relative">
+    <div className="space-y-4">      
+      <div className="mt-2 relative">
         <motion.div
           className={cn(
-            "absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1.5 rounded-full font-bold text-lg border-2",
-            yieldEstimate > 0 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500" : 
-            yieldEstimate < 0 ? "bg-red-500/20 text-red-400 border-red-500" : 
-            "bg-gray-500/20 text-gray-400 border-gray-500"
+            "absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1.5 rounded-full font-bold text-lg border",
+            yieldEstimate > 0 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/50" : 
+            yieldEstimate < 0 ? "bg-red-500/20 text-red-400 border-red-500/50" : 
+            "bg-slate-500/20 text-slate-400 border-slate-500/50"
           )}
           animate={{
             x: `calc(${((yieldEstimate + 50) / 100) * 100}% - 50%)`,
             opacity: isDragging ? 1 : 0.9,
             scale: isDragging ? 1.1 : 1,
-            boxShadow: isDragging ? '0 0 15px rgba(255, 255, 255, 0.3)' : '0 0 0px rgba(0, 0, 0, 0)'
+            boxShadow: isDragging ? '0 0 15px rgba(255, 255, 255, 0.2)' : '0 0 0px rgba(0, 0, 0, 0)'
           }}
           transition={{
             x: { type: 'spring', stiffness: 300, damping: 30 },
@@ -46,18 +42,12 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
         </motion.div>
         
         <div className="px-2">
-          <div className="flex justify-between text-sm font-medium text-gray-400 mb-2">
-            <span className="text-red-400">-50 bps</span>
-            <span className="text-gray-400">0</span>
-            <span className="text-emerald-400">+50 bps</span>
-          </div>
-          
           <div className="relative">
             {/* Colored track backgrounds */}
             <div className="absolute h-2 top-[10px] left-0 right-0 rounded-full overflow-hidden z-0">
               <div className="flex h-full w-full">
-                <div className="bg-gradient-to-r from-red-600 to-red-500 h-full w-1/2"></div>
-                <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 h-full w-1/2"></div>
+                <div className="bg-gradient-to-r from-red-600/80 to-red-500/80 h-full w-1/2"></div>
+                <div className="bg-gradient-to-r from-emerald-500/80 to-emerald-600/80 h-full w-1/2"></div>
               </div>
             </div>
             
@@ -89,10 +79,10 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
                 <div 
                   className={cn(
                     "h-1 w-0.5", 
-                    tick === 0 ? "bg-white" : "bg-gray-500"
+                    tick === 0 ? "bg-white" : "bg-slate-500"
                   )}
                 ></div>
-                <span className="text-xs text-gray-500 mt-1">
+                <span className="text-xs text-slate-400 mt-1">
                   {tick > 0 ? `+${tick}` : tick}
                 </span>
               </div>
@@ -101,8 +91,8 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
         </div>
         
         <div className="mt-4 pt-2 text-center">
-          <p className="text-sm text-gray-400">
-            Drag slider to estimate how Treasury yields reacted to the Fed decision
+          <p className="text-sm text-slate-400">
+            Drag the slider to estimate how 2-year Treasury yields reacted to the Fed decision
           </p>
         </div>
       </div>

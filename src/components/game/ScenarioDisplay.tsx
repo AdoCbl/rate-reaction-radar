@@ -5,7 +5,11 @@ import { motion } from 'framer-motion';
 import { historicalScenario } from './gameData';
 import { Info } from 'lucide-react';
 
-const ScenarioDisplay = () => {
+interface ScenarioDisplayProps {
+  hideMetadata?: boolean;
+}
+
+const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false }) => {
   const getDifficultyColor = () => {
     switch (historicalScenario.difficultyLevel) {
       case 'Easy': return 'bg-emerald-500/20 text-emerald-400 border-emerald-500';
@@ -17,30 +21,34 @@ const ScenarioDisplay = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-3">
+      <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-white flex items-center">
           <Info className="mr-2 text-sky-400" size={20} />
           Historical Market Scenario
         </h2>
-        <Badge 
-          variant="outline" 
-          className={`px-3 py-1 text-sm ${getDifficultyColor()}`}
-        >
-          {historicalScenario.difficultyLevel}
-        </Badge>
+        {!hideMetadata && (
+          <Badge 
+            variant="outline" 
+            className={`px-3 py-1 text-sm ${getDifficultyColor()}`}
+          >
+            {historicalScenario.difficultyLevel}
+          </Badge>
+        )}
       </div>
       <motion.div 
-        className="p-4 bg-gray-800/60 rounded-lg border border-gray-700 shadow-inner mb-2"
+        className="p-5 bg-slate-800/60 rounded-lg border border-slate-700 shadow-inner"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <p className="text-base leading-relaxed text-gray-200">{historicalScenario.scenario}</p>
+        <p className="text-lg leading-relaxed text-gray-200">{historicalScenario.scenario}</p>
         
-        <div className="mt-3 flex items-center justify-between text-xs text-gray-400">
-          <span>{historicalScenario.date}</span>
-          <span>{historicalScenario.context}</span>
-        </div>
+        {!hideMetadata && (
+          <div className="mt-3 flex items-center justify-between text-xs text-gray-400">
+            <span>{historicalScenario.date}</span>
+            <span>{historicalScenario.context}</span>
+          </div>
+        )}
       </motion.div>
     </>
   );
