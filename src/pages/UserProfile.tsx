@@ -19,7 +19,7 @@ import { motion } from 'framer-motion';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 
-// Mock user data - in a real app this would come from an API
+// Mock user data
 const userData = {
   username: 'JohnDoe',
   fullName: 'John Doe',
@@ -44,7 +44,6 @@ const userData = {
     { id: 1, date: '2025-05-06', score: 85, scenario: 'Post-Employment Report', predicted: '25bp cut', actual: '25bp cut', accuracy: 'Perfect', description: 'Correctly predicted Fed response to employment data' },
     { id: 2, date: '2025-04-29', score: 65, scenario: 'Q1 GDP Release', predicted: 'No change', actual: '25bp hike', accuracy: 'Close', description: 'Unexpected inflation data led to surprise hike' },
     { id: 3, date: '2025-04-22', score: 75, scenario: 'FOMC Meeting', predicted: '50bp cut', actual: '25bp cut', accuracy: 'Good', description: 'Direction correct but magnitude off' },
-    { id: 4, date: '2025-04-15', score: 90, scenario: 'CPI Report', predicted: 'No change', actual: 'No change', accuracy: 'Perfect', description: 'Correctly anticipated steady rates following inflation report' }
   ]
 };
 
@@ -59,22 +58,22 @@ const UserProfile: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full overflow-auto pb-2">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 h-full overflow-auto pb-1">
       {/* Left Column */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
         {/* User Identity Card */}
         <Card className="shadow-md">
-          <CardContent className="p-6">
-            <div className="flex items-center gap-4">
-              <Avatar className="h-16 w-16 border-2 border-primary/20">
-                <AvatarFallback className="bg-primary/10 text-primary text-2xl font-semibold">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-14 w-14 border-2 border-primary/20">
+                <AvatarFallback className="bg-primary/10 text-primary text-xl font-semibold">
                   {getInitials(userData.fullName)}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-grow">
                 <h2 className="text-xl font-bold">{userData.fullName}</h2>
-                <p className="text-muted-foreground">{userData.title}</p>
-                <p className="text-sm text-muted-foreground mt-1">{userData.email}</p>
+                <p className="text-muted-foreground text-sm">{userData.title}</p>
+                <p className="text-sm text-muted-foreground">{userData.email}</p>
               </div>
               <Button variant="outline" size="sm">Edit Profile</Button>
             </div>
@@ -83,13 +82,13 @@ const UserProfile: React.FC = () => {
 
         {/* Performance Overview */}
         <Card className="shadow-md flex-grow">
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 pb-1">
             <h3 className="text-lg font-medium">Performance Overview</h3>
           </CardHeader>
-          <CardContent className="p-6 pt-0">
-            <div className="grid grid-cols-2 gap-4">
+          <CardContent className="p-3 pt-0">
+            <div className="grid grid-cols-2 gap-3">
               <div className="flex items-start">
-                <div className="bg-primary/10 p-2 rounded-full mr-3">
+                <div className="bg-primary/10 p-2 rounded-full mr-2">
                   <TrendingUp size={16} className="text-primary" />
                 </div>
                 <div>
@@ -99,7 +98,7 @@ const UserProfile: React.FC = () => {
               </div>
               
               <div className="flex items-start">
-                <div className="bg-primary/10 p-2 rounded-full mr-3">
+                <div className="bg-primary/10 p-2 rounded-full mr-2">
                   <Shield size={16} className="text-primary" />
                 </div>
                 <div>
@@ -109,7 +108,7 @@ const UserProfile: React.FC = () => {
               </div>
               
               <div className="flex items-start">
-                <div className="bg-primary/10 p-2 rounded-full mr-3">
+                <div className="bg-primary/10 p-2 rounded-full mr-2">
                   <Check size={16} className="text-primary" />
                 </div>
                 <div>
@@ -119,7 +118,7 @@ const UserProfile: React.FC = () => {
               </div>
               
               <div className="flex items-start">
-                <div className="bg-primary/10 p-2 rounded-full mr-3">
+                <div className="bg-primary/10 p-2 rounded-full mr-2">
                   <Trophy size={16} className="text-primary" />
                 </div>
                 <div>
@@ -133,14 +132,14 @@ const UserProfile: React.FC = () => {
 
         {/* Account Settings */}
         <Card className="shadow-md">
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 pb-1">
             <div className="flex items-center">
               <Mail size={16} className="mr-2 text-muted-foreground" />
               <h3 className="text-lg font-medium">Account</h3>
             </div>
           </CardHeader>
-          <CardContent className="p-6 pt-2">
-            <div className="flex flex-col space-y-4">
+          <CardContent className="p-3 pt-1">
+            <div className="flex flex-col space-y-3">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="text-sm font-medium">Email Address</p>
@@ -175,16 +174,16 @@ const UserProfile: React.FC = () => {
       </div>
       
       {/* Right Column */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
         {/* Badges & Achievements */}
         <Card className="shadow-md">
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 pb-1">
             <div className="flex items-center">
               <Award size={16} className="mr-2 text-muted-foreground" />
               <h3 className="text-lg font-medium">Badges & Achievements</h3>
             </div>
           </CardHeader>
-          <CardContent className="p-6 pt-2">
+          <CardContent className="p-3 pt-1">
             <div className="flex flex-wrap gap-2">
               {userData.badges.map((badge) => (
                 <Badge key={badge.id} className="px-2 py-1 text-xs bg-slate-800 text-white hover:bg-slate-700" title={badge.description}>
@@ -197,20 +196,20 @@ const UserProfile: React.FC = () => {
         
         {/* Recent Predictions */}
         <Card className="shadow-md flex-grow">
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 pb-1">
             <div className="flex items-center">
               <FileText size={16} className="mr-2 text-muted-foreground" />
               <h3 className="text-lg font-medium">Recent Predictions</h3>
             </div>
           </CardHeader>
-          <CardContent className="p-6 pt-2">
-            <div className="space-y-3">
-              {userData.gameResults.slice(0, 3).map((result) => (
+          <CardContent className="p-3 pt-1">
+            <div className="space-y-2">
+              {userData.gameResults.map((result) => (
                 <div key={result.id} className="p-2 border border-slate-200 dark:border-slate-800 rounded-md hover:bg-accent/10 transition-colors">
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-sm font-medium">{result.scenario}</p>
-                      <div className="flex gap-2 items-center mt-1">
+                      <div className="flex gap-2 items-center mt-0.5">
                         <span className="text-xs text-muted-foreground">
                           {new Date(result.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                         </span>
@@ -237,7 +236,7 @@ const UserProfile: React.FC = () => {
                 </div>
               ))}
             </div>
-            <div className="mt-3 text-right">
+            <div className="mt-2 text-right">
               <Button variant="link" size="sm" className="text-primary p-0 h-auto">
                 View All Predictions
               </Button>

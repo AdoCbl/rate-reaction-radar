@@ -44,7 +44,7 @@ const RateReactionGame: React.FC = () => {
     // Show the result after a short delay
     setTimeout(() => {
       setShowResult(true);
-    }, 1000);
+    }, 800);
   };
   
   // Reset the game
@@ -64,23 +64,17 @@ const RateReactionGame: React.FC = () => {
       
       <motion.div 
         className="w-full max-w-2xl"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.3 }}
       >
-        <div className="text-center mb-2">
-          <p className="text-slate-400 text-sm">
-            Based on a real historical macro event, predict how the Fed and the market responded.
-          </p>
-        </div>
-        
         <AnimatePresence mode="wait">
           {!showResult ? (
             <motion.div
               key="game-form"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
               className="w-full"
             >
@@ -104,7 +98,7 @@ const RateReactionGame: React.FC = () => {
           ) : (
             <motion.div
               key="game-result"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.2 }}
               className="w-full"
