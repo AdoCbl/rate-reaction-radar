@@ -127,24 +127,7 @@ export const MeetingDotPlotComparison: React.FC<MeetingDotPlotComparisonProps> =
   };
 
   return (
-    <div className="mt-4">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-sky-400"></div>
-          <span className="text-xs text-slate-300">Client Projections</span>
-        </div>
-        <div className="flex items-center gap-1.5 ml-4">
-          <div className="w-3 h-3 rounded-full bg-purple-400"></div>
-          <span className="text-xs text-slate-300">Fed SEP Projections</span>
-        </div>
-        {showRealizedRates && (
-          <div className="flex items-center gap-1.5 ml-4">
-            <div className="w-4 h-0.5 bg-gray-400"></div>
-            <span className="text-xs text-slate-300">Realized EFFR</span>
-          </div>
-        )}
-      </div>
-
+    <div className="h-full">
       <div className="h-[300px] relative bg-slate-900/40 rounded-lg border border-slate-700 p-4">
         {/* Y-axis labels */}
         <div className="absolute left-2 top-0 bottom-0 w-6 flex flex-col justify-between">
@@ -173,7 +156,7 @@ export const MeetingDotPlotComparison: React.FC<MeetingDotPlotComparisonProps> =
               <div className="relative w-full h-full">
                 {/* Fed dots (if enabled) */}
                 {showFullFedDots && data.fedDots.map((dot, i) => {
-                  // Add horizontal jitter and slight vertical jitter for Fed dots
+                  // Add horizontal jitter but keep centered within the year column
                   const jitterX = ((i % 4) - 1.5) * 5; 
                   const jitterY = ((i % 3) - 1) * 2;
                   
@@ -203,7 +186,7 @@ export const MeetingDotPlotComparison: React.FC<MeetingDotPlotComparisonProps> =
                 
                 {/* Client dots */}
                 {data.clientDots.map((dot, i) => {
-                  // Add horizontal jitter (centered around the middle)
+                  // Add horizontal jitter, but centered within the column
                   const jitterX = ((i % 5) - 2) * 4; 
                   
                   return (
@@ -328,20 +311,6 @@ export const MeetingDotPlotComparison: React.FC<MeetingDotPlotComparisonProps> =
               </div>
             </div>
           ))}
-        </div>
-      </div>
-
-      <div className="mt-4 flex flex-wrap justify-between text-xs text-slate-400">
-        <div>
-          <span className="text-sky-400 font-medium">Client Accuracy: </span>
-          {forecastData.some(d => Math.abs(d.clientMedian - d.fedMedian) > 0.005) ? 
-            "Diverged > 50 bps on some projections" : 
-            "Within 50 bps of Fed projections"
-          }
-        </div>
-        <div>
-          <span className="text-purple-400 font-medium">Data collected: </span>
-          {new Date(meetingDate.getTime() - 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}
         </div>
       </div>
     </div>
