@@ -57,53 +57,54 @@ const ResultsDashboard: React.FC = () => {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Panel: FOMC Policy Expectations History */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex"
         >
-          <Card className="p-5 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl h-full">
-            <div className="flex flex-col h-full">
-              <div className="mb-4">
+          <Card className="p-6 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl flex flex-col w-full">
+            <div className="flex justify-between items-start mb-4">
+              <div>
                 <h2 className="text-xl font-bold text-indigo-300 tracking-tight">FOMC Policy Expectations History</h2>
                 <p className="text-sm text-slate-400">See how client sentiment has evolved over time</p>
               </div>
               
-              <div className="flex-grow">
-                <div className="h-[320px]">
-                  <FomcOutlookChart />
-                </div>
-              </div>
-              
-              <div className="mt-4">
-                <p className="text-sm text-slate-400">
-                  Client sentiment shifted toward 'Hold' after the June CPI release.
-                </p>
-                
-                <div className="flex items-center mt-4 pt-4 border-t border-slate-700/50">
-                  <span className="text-xs text-slate-400 mr-2">Your prediction:</span>
-                  <motion.div
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.5, duration: 0.3 }}
-                    className="px-3 py-1 rounded-full text-xs font-medium"
-                    style={{
-                      backgroundColor: 
-                        userVote.direction === 'cut' ? 'rgba(16, 185, 129, 0.2)' : 
-                        userVote.direction === 'hold' ? 'rgba(148, 163, 184, 0.2)' : 
-                        'rgba(244, 63, 94, 0.2)',
-                      color: 
-                        userVote.direction === 'cut' ? 'rgb(16, 185, 129)' : 
-                        userVote.direction === 'hold' ? 'rgb(148, 163, 184)' : 
-                        'rgb(244, 63, 94)'
-                    }}
-                  >
-                    {userVote.direction.charAt(0).toUpperCase() + userVote.direction.slice(1)}
-                  </motion.div>
-                </div>
-              </div>
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.3 }}
+                className="px-3 py-1.5 rounded-full text-sm font-medium shadow-lg flex items-center gap-1.5 bg-slate-700/50 border border-slate-600/50"
+              >
+                <span className="text-slate-300">Your prediction:</span>
+                <span
+                  className="px-2 py-0.5 rounded-full text-sm font-medium"
+                  style={{
+                    backgroundColor: 
+                      userVote.direction === 'cut' ? 'rgba(16, 185, 129, 0.3)' : 
+                      userVote.direction === 'hold' ? 'rgba(148, 163, 184, 0.3)' : 
+                      'rgba(244, 63, 94, 0.3)',
+                    color: 
+                      userVote.direction === 'cut' ? 'rgb(16, 185, 129)' : 
+                      userVote.direction === 'hold' ? 'rgb(148, 163, 184)' : 
+                      'rgb(244, 63, 94)'
+                  }}
+                >
+                  {userVote.direction.charAt(0).toUpperCase() + userVote.direction.slice(1)}
+                </span>
+              </motion.div>
+            </div>
+            
+            <div className="h-[260px] mb-5">
+              <FomcOutlookChart />
+            </div>
+            
+            <div className="mt-auto">
+              <p className="text-sm text-slate-400 pl-2 border-l-2 border-slate-600 ml-2 italic">
+                Client sentiment shifted toward 'Hold' after the June CPI release.
+              </p>
             </div>
           </Card>
         </motion.div>
@@ -113,13 +114,16 @@ const ResultsDashboard: React.FC = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex"
         >
-          <Card className="p-5 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl h-full">
-            <AggregatedDotPlot 
-              projections={aggregatedData.projections}
-              userProjections={aggregatedData.userProjections}
-              medians={aggregatedData.medians}
-            />
+          <Card className="p-6 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl flex flex-col w-full">
+            <div className="mb-4">
+              <AggregatedDotPlot 
+                projections={aggregatedData.projections}
+                userProjections={aggregatedData.userProjections}
+                medians={aggregatedData.medians}
+              />
+            </div>
           </Card>
         </motion.div>
       </div>

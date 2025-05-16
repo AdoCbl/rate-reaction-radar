@@ -53,17 +53,18 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-indigo-300 tracking-tight">Client Rate Path Projections</h2>
         
-        <div className="flex items-center space-x-2">
-          <span className="text-xs text-slate-400">SEP</span>
+        <div className="flex items-center space-x-2 bg-slate-700/30 px-3 py-1 rounded-md border border-slate-600/50">
+          <span className="text-sm text-slate-300 font-medium">SEP</span>
           <Switch 
             checked={showSepMedians}
             onCheckedChange={setShowSepMedians}
+            className="data-[state=checked]:bg-indigo-600"
           />
         </div>
       </div>
       
       <div className="flex-grow relative">
-        <div className="flex justify-between h-[320px] mt-6 relative">
+        <div className="flex justify-between h-[260px] mt-6 relative">
           {/* Y-axis labels - more detailed with 0.25% increments */}
           <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between pointer-events-none">
             {[6, 5.5, 5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5, 0].map((value) => (
@@ -99,7 +100,7 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                   {year}
                 </span>
                 
-                <div className={`relative h-[320px] w-full max-w-16 ${hoveredYear === year ? 'bg-slate-700/40' : 'bg-slate-800/40'} border ${hoveredYear === year ? 'border-slate-600' : 'border-slate-700'} rounded-lg overflow-hidden transition-all duration-200`}>
+                <div className={`relative h-[260px] w-full max-w-16 ${hoveredYear === year ? 'bg-slate-700/40' : 'bg-slate-800/40'} border ${hoveredYear === year ? 'border-slate-600' : 'border-slate-700'} rounded-lg overflow-hidden transition-all duration-200`}>
                   {/* Client dots */}
                   {projections[year].map((value, index) => {
                     const position = getPositionFromRate(value);
@@ -166,13 +167,13 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
       </div>
       
       {/* Client Median Projections */}
-      <div className="mt-6 border-t border-slate-700/50 pt-4">
-        <div className="flex items-center gap-1 mb-2">
-          <h3 className="text-sm font-medium text-slate-300">Client Median Projections</h3>
+      <div className="mt-8 border-t border-slate-700/50 pt-4">
+        <div className="flex items-center gap-2 mb-3">
+          <h3 className="text-sm font-semibold text-slate-200">Client Median Projections</h3>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Info size={14} className="text-slate-500" />
+                <Info size={14} className="text-slate-400" />
               </TooltipTrigger>
               <TooltipContent side="top" className="bg-slate-800 border-slate-700 text-white text-xs">
                 <p>Median rate projection values from all client forecasts</p>
@@ -181,11 +182,11 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
           </TooltipProvider>
         </div>
         
-        <div className="grid grid-cols-4 gap-2 bg-slate-800/40 rounded-md p-2 border border-slate-700/50">
+        <div className="grid grid-cols-4 gap-3 bg-slate-800/60 rounded-md p-3 border border-slate-700/50">
           {years.map((year) => (
             <div key={year} className="text-center">
-              <span className="text-xs font-medium text-slate-400 block">{year}</span>
-              <span className="text-sm text-indigo-300 font-semibold block">
+              <span className="text-sm font-medium text-slate-300 block">{year}</span>
+              <span className="text-base text-indigo-300 font-semibold block mt-1">
                 {formatRateValue(medians[year])}
               </span>
             </div>

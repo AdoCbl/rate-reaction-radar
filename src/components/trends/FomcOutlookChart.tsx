@@ -145,7 +145,7 @@ export const FomcOutlookChart: React.FC = () => {
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={historicalData}
-          margin={{ top: 10, right: 30, left: 0, bottom: 10 }}
+          margin={{ top: 5, right: 10, left: -15, bottom: 5 }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
@@ -165,11 +165,11 @@ export const FomcOutlookChart: React.FC = () => {
           
           <Tooltip content={<CustomTooltip />} />
           
-          {/* FOMC meeting reference lines - Converting Date to timestamp for compatibility */}
+          {/* FOMC meeting reference lines */}
           {fomcMeetings.map((date, index) => (
             <ReferenceLine
               key={index}
-              x={date.getTime()} // Convert Date to number timestamp
+              x={date}
               stroke="#475569"
               strokeDasharray="3 3"
               label={{
