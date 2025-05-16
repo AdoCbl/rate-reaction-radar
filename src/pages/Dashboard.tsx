@@ -81,50 +81,54 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="h-full grid">
+    <div className="h-full w-full py-1">
       <div className="fixed inset-0 bg-slate-950 -z-10 pointer-events-none" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(30,64,175,0.15),transparent_70%)] -z-10 pointer-events-none" />
       
-      <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-3 h-full">
-        {/* Top Row - Three Cards */}
+      <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-4 h-full">
+        {/* Top Row - Three Cards with consistent styling */}
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md"
+          className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md flex flex-col h-[calc(100vh-130px)]"
         >
           <h2 className="text-lg font-bold mb-2 text-white">
             Your FOMC Outlook
           </h2>
-          <FomcOutlookSection 
-            direction={direction}
-            confidence={confidence}
-            currentRate={currentRate}
-            onDirectionClick={handleDirectionClick}
-            onConfidenceChange={setConfidence}
-          />
+          <div className="flex-grow">
+            <FomcOutlookSection 
+              direction={direction}
+              confidence={confidence}
+              currentRate={currentRate}
+              onDirectionClick={handleDirectionClick}
+              onConfidenceChange={setConfidence}
+            />
+          </div>
         </motion.div>
 
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md"
+          className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md flex flex-col h-[calc(100vh-130px)]"
         >
           <h2 className="text-lg font-bold mb-2 text-white">
             Rate Projections
           </h2>
-          <DotPlotProjection 
-            values={dotPlotValues}
-            onChange={setDotPlotValues}
-          />
+          <div className="flex-grow">
+            <DotPlotProjection 
+              values={dotPlotValues}
+              onChange={setDotPlotValues}
+            />
+          </div>
         </motion.div>
 
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}
-          className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md flex flex-col"
+          className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md flex flex-col h-[calc(100vh-130px)]"
         >
           <h2 className="text-lg font-bold mb-2 text-white">
             FOMC Policy Expectations History
@@ -167,58 +171,59 @@ const Dashboard: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Bottom Row - Wide Card */}
+        {/* Bottom Row - Two Cards with left-aligned content */}
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className="col-span-3 bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md"
+          className="col-span-2 bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md h-[calc(100vh-calc(100vh-130px)-1rem-48px)]"
         >
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <CommentSection 
-                comment={comment}
-                setComment={setComment}
-                direction={direction}
-              />
+          <CommentSection 
+            comment={comment}
+            setComment={setComment}
+            direction={direction}
+          />
+        </motion.div>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.3 }}
+          className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md h-[calc(100vh-calc(100vh-130px)-1rem-48px)] flex flex-col"
+        >
+          <div className="grid grid-cols-4 gap-2 bg-slate-800/60 rounded-md p-2 border border-slate-700/50 mb-2">
+            <div className="text-center">
+              <span className="text-sm font-medium text-slate-300 block">2025</span>
+              <span className="text-sm text-indigo-300 font-semibold block mt-1">
+                {dotPlotValues[0].value !== null ? `${(dotPlotValues[0].value! * 100).toFixed(2)}%` : "—"}
+              </span>
             </div>
-            
-            <div className="flex flex-col justify-between">
-              <div className="grid grid-cols-4 gap-2 bg-slate-800/60 rounded-md p-2 border border-slate-700/50 mb-2">
-                <div className="text-center">
-                  <span className="text-sm font-medium text-slate-300 block">2025</span>
-                  <span className="text-base text-indigo-300 font-semibold block mt-1">
-                    {dotPlotValues[0].value !== null ? `${(dotPlotValues[0].value! * 100).toFixed(2)}%` : "—"}
-                  </span>
-                </div>
-                <div className="text-center">
-                  <span className="text-sm font-medium text-slate-300 block">2026</span>
-                  <span className="text-base text-indigo-300 font-semibold block mt-1">
-                    {dotPlotValues[1].value !== null ? `${(dotPlotValues[1].value! * 100).toFixed(2)}%` : "—"}
-                  </span>
-                </div>
-                <div className="text-center">
-                  <span className="text-sm font-medium text-slate-300 block">2027</span>
-                  <span className="text-base text-indigo-300 font-semibold block mt-1">
-                    {dotPlotValues[2].value !== null ? `${(dotPlotValues[2].value! * 100).toFixed(2)}%` : "—"}
-                  </span>
-                </div>
-                <div className="text-center">
-                  <span className="text-sm font-medium text-slate-300 block">Long Run</span>
-                  <span className="text-base text-indigo-300 font-semibold block mt-1">
-                    {dotPlotValues[3].value !== null ? `${(dotPlotValues[3].value! * 100).toFixed(2)}%` : "—"}
-                  </span>
-                </div>
-              </div>
-              
-              <div className="flex justify-end">
-                <div className="w-48">
-                  <SubmitButton 
-                    submitted={submitted}
-                    disabled={!direction}
-                  />
-                </div>
-              </div>
+            <div className="text-center">
+              <span className="text-sm font-medium text-slate-300 block">2026</span>
+              <span className="text-sm text-indigo-300 font-semibold block mt-1">
+                {dotPlotValues[1].value !== null ? `${(dotPlotValues[1].value! * 100).toFixed(2)}%` : "—"}
+              </span>
+            </div>
+            <div className="text-center">
+              <span className="text-sm font-medium text-slate-300 block">2027</span>
+              <span className="text-sm text-indigo-300 font-semibold block mt-1">
+                {dotPlotValues[2].value !== null ? `${(dotPlotValues[2].value! * 100).toFixed(2)}%` : "—"}
+              </span>
+            </div>
+            <div className="text-center">
+              <span className="text-sm font-medium text-slate-300 block">Long Run</span>
+              <span className="text-sm text-indigo-300 font-semibold block mt-1">
+                {dotPlotValues[3].value !== null ? `${(dotPlotValues[3].value! * 100).toFixed(2)}%` : "—"}
+              </span>
+            </div>
+          </div>
+          
+          <div className="flex-grow flex items-end justify-end">
+            <div className="w-full">
+              <SubmitButton 
+                submitted={submitted}
+                disabled={!direction}
+              />
             </div>
           </div>
         </motion.div>
