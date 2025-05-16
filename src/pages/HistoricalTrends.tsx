@@ -1,15 +1,63 @@
 
 import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import { Switch } from '@/components/ui/switch';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { FomcOutlookChart } from '@/components/trends/FomcOutlookChart';
-import { RatePathChart } from '@/components/trends/RatePathChart';
-import { ForecastAccuracyChart } from '@/components/trends/ForecastAccuracyChart';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { MeetingDotPlotComparison } from '@/components/trends/MeetingDotPlotComparison';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+// FOMC meetings with SEP releases (most recent first)
+const fomcMeetings = [
+  { 
+    date: new Date('2024-03-20'),
+    title: 'March 2024 FOMC Meeting',
+    summary: 'Client projections closely anticipated the Fed\'s long-run path but overestimated the pace of rate cuts in 2024.'
+  },
+  { 
+    date: new Date('2023-12-13'),
+    title: 'December 2023 FOMC Meeting',
+    summary: 'Client projections underestimated the Fed\'s pivot to a more dovish tone for 2024-2025.'
+  },
+  { 
+    date: new Date('2023-09-20'),
+    title: 'September 2023 FOMC Meeting',
+    summary: 'Clients correctly forecasted the hold decision but underestimated the hawkish dot plot revisions.'
+  },
+  { 
+    date: new Date('2023-06-14'),
+    title: 'June 2023 FOMC Meeting',
+    summary: 'Client projections were more dovish than the Fed\'s outlook, particularly for 2023-2024.'
+  },
+];
+
 const HistoricalTrends: React.FC = () => {
-  const [showFedMedians, setShowFedMedians] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const meetingsPerPage = 2; // Number of meetings to show per page
+  const pageCount = Math.ceil(fomcMeetings.length / meetingsPerPage);
+  
+  // Get current meetings
+  const currentMeetings = fomcMeetings.slice(
+    currentPage * meetingsPerPage,
+    (currentPage + 1) * meetingsPerPage
+  );
+  
+  // Change page
+  const nextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, pageCount - 1));
+  };
+  
+  const prevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 0));
+  };
+  
+  // Format date
+  const formatMeetingDate = (date: Date): string => {
+    return new Intl.DateTimeFormat('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    }).format(date);
+  };
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -19,159 +67,75 @@ const HistoricalTrends: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-3xl font-bold text-indigo-300">Historical Trends</h1>
+        <h1 className="text-3xl font-bold text-indigo-300">Forecast Accuracy: Client Projections vs Fed Dot Plots</h1>
         <p className="text-slate-400 mt-2">
-          Explore how client expectations have shifted over time for Federal Reserve policy actions.
+          Compare how client forecasts aligned with the actual FOMC SEP medians across previous meetings.
         </p>
       </motion.div>
 
-      {/* Mobile Tabs View */}
-      <div className="md:hidden">
-        <Tabs defaultValue="outlook" className="w-full">
-          <TabsList className="grid grid-cols-3 mb-4 w-full">
-            <TabsTrigger value="outlook">Short-term Policy</TabsTrigger>
-            <TabsTrigger value="projections">Long-term Outlook</TabsTrigger>
-            <TabsTrigger value="accuracy">Accuracy</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="outlook" className="mt-0">
-            <OutlookCard title="FOMC Policy Expectations History" 
-                        description="See how client sentiment has evolved over time"
-                        footer="Sentiment leaned heavily toward 'Hold' in the lead-up to the July FOMC." />
-          </TabsContent>
-          
-          <TabsContent value="projections" className="mt-0">
-            <OutlookCard title="Client Federal Reserve Expectations" 
-                        description="Track historical sentiment for future Fed policy"
-                        footer="Rate cut expectations increased significantly in recent months." 
-                        chart="rate-path"
-                        showFedMedians={showFedMedians}
-                        setShowFedMedians={setShowFedMedians} />
-          </TabsContent>
-          
-          <TabsContent value="accuracy" className="mt-0">
-            <AccuracyCard title="Forecast Accuracy vs Historical Fed Projections" 
-                         description="See how past client projections compare with the actual SEP medians released by the Federal Reserve." 
-                         footer="This comparison helps track how closely client sentiment aligned with Fed guidance over time." />
-          </TabsContent>
-        </Tabs>
+      {/* Meeting Dot Plot Comparisons */}
+      <div className="space-y-10">
+        {currentMeetings.map((meeting, index) => (
+          <motion.div 
+            key={meeting.date.toISOString()}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+          >
+            <Card className="bg-slate-800/90 border border-slate-700 shadow-lg">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xl text-indigo-200">{meeting.title}</CardTitle>
+                <CardDescription className="text-slate-400">
+                  Forecast submitted prior to: {formatMeetingDate(meeting.date)}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <MeetingDotPlotComparison meetingDate={meeting.date} />
+                
+                <Separator className="my-4 bg-slate-700/50" />
+                
+                <p className="text-sm text-slate-300 italic">
+                  {meeting.summary}
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
       </div>
 
-      {/* Desktop Stacked View */}
-      <div className="hidden md:flex md:flex-col md:gap-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="w-full"
-        >
-          <OutlookCard title="FOMC Policy Expectations History" 
-                      description="See how client sentiment has evolved over time"
-                      footer="Sentiment leaned heavily toward 'Hold' in the lead-up to the July FOMC." />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="w-full"
-        >
-          <OutlookCard title="Client Federal Reserve Expectations" 
-                      description="Track historical sentiment for future Fed policy"
-                      footer="Rate cut expectations increased significantly in recent months." 
-                      chart="rate-path"
-                      showFedMedians={showFedMedians}
-                      setShowFedMedians={setShowFedMedians} />
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="w-full"
-        >
-          <AccuracyCard title="Forecast Accuracy vs Historical Fed Projections" 
-                       description="See how past client projections compare with the actual SEP medians released by the Federal Reserve." 
-                       footer="This comparison helps track how closely client sentiment aligned with Fed guidance over time." />
-        </motion.div>
-      </div>
+      {/* Pagination */}
+      {pageCount > 1 && (
+        <div className="flex justify-center items-center gap-4 mt-8">
+          <button 
+            onClick={prevPage} 
+            disabled={currentPage === 0}
+            className={`p-2 rounded-full ${
+              currentPage === 0 
+                ? 'bg-slate-800/50 text-slate-600' 
+                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+            } transition-colors`}
+          >
+            <ChevronLeft size={20} />
+          </button>
+          
+          <span className="text-slate-400">
+            Page {currentPage + 1} of {pageCount}
+          </span>
+          
+          <button 
+            onClick={nextPage} 
+            disabled={currentPage === pageCount - 1}
+            className={`p-2 rounded-full ${
+              currentPage === pageCount - 1 
+                ? 'bg-slate-800/50 text-slate-600' 
+                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+            } transition-colors`}
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
+      )}
     </div>
-  );
-};
-
-// Card for FOMC Outlook Over Time
-const OutlookCard: React.FC<{
-  title: string;
-  description: string;
-  footer: string;
-  chart?: string;
-  showFedMedians?: boolean;
-  setShowFedMedians?: (show: boolean) => void;
-}> = ({ title, description, footer, chart = 'fomc-outlook', showFedMedians = false, setShowFedMedians }) => {
-  return (
-    <Card className="overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl">
-      <CardHeader className="p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <CardTitle className="text-xl font-semibold">
-              {title}
-            </CardTitle>
-            <CardDescription className="text-slate-400 mt-1">
-              {description}
-            </CardDescription>
-          </div>
-          
-          {chart === 'rate-path' && setShowFedMedians && (
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-400">SEP Medians</span>
-              <Switch 
-                checked={showFedMedians}
-                onCheckedChange={setShowFedMedians}
-                className="data-[state=checked]:bg-indigo-600"
-              />
-            </div>
-          )}
-        </div>
-      </CardHeader>
-      <CardContent className="p-6 pt-0">
-        <div className="h-80 md:h-96"> 
-          {chart === 'fomc-outlook' ? (
-            <FomcOutlookChart />
-          ) : (
-            <RatePathChart showFedMedians={showFedMedians || false} />
-          )}
-        </div>
-        <p className="text-sm text-slate-400 mt-4">
-          {footer}
-        </p>
-      </CardContent>
-    </Card>
-  );
-};
-
-// Card for Forecast Accuracy
-const AccuracyCard: React.FC<{
-  title: string;
-  description: string;
-  footer: string;
-}> = ({ title, description, footer }) => {
-  return (
-    <Card className="overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl">
-      <CardHeader className="p-6">
-        <CardTitle className="text-xl font-semibold">
-          {title}
-        </CardTitle>
-        <CardDescription className="text-slate-400">
-          {description}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="p-6 pt-0">
-        <ForecastAccuracyChart />
-        <p className="text-sm text-slate-400 mt-4 text-center">
-          {footer}
-        </p>
-      </CardContent>
-    </Card>
   );
 };
 
