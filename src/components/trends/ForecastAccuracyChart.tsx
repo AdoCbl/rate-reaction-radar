@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   LineChart, 
@@ -249,10 +248,13 @@ export const ForecastAccuracyChart: React.FC = () => {
                 .filter(hasDivergence)
                 .map((entry, index) => {
                   const clientKey = keys.client as keyof typeof entry;
+                  // Convert Date object to a string for ReferenceDot
+                  const dateValue = entry.date.toISOString();
+                  
                   return (
                     <ReferenceDot
                       key={`divergence-${index}`}
-                      x={entry.date}
+                      x={dateValue}
                       y={entry[clientKey] as number}
                       r={8}
                       fill="transparent"
