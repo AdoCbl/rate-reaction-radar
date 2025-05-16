@@ -81,13 +81,13 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full py-1 px-2">
       <div className="fixed inset-0 bg-slate-950 -z-10 pointer-events-none" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(30,64,175,0.15),transparent_70%)] -z-10 pointer-events-none" />
       
-      <form onSubmit={handleSubmit} className="h-screen flex flex-col px-4">
+      <form onSubmit={handleSubmit} className="h-full flex flex-col">
         {/* Top Row - Three Cards with consistent styling */}
-        <div className="grid grid-cols-3 gap-4 h-[calc(100vh-130px)]">
+        <div className="grid grid-cols-3 gap-3 h-[calc(100vh-110px)]">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -174,7 +174,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Bottom Row - Unified container with 3 sections */}
-        <div className="grid grid-cols-12 gap-4 h-[100px] mb-2">
+        <div className="grid grid-cols-12 gap-3 h-[90px] mt-2">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
