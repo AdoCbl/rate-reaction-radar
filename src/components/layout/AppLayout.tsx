@@ -14,14 +14,13 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-indigo-950 text-gray-800 dark:text-gray-100">
-      <header className="border-b border-blue-200 dark:border-blue-900 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md sticky top-0 z-20 shadow-sm">
-        <div className="container max-w-5xl mx-auto px-4 flex justify-end items-center h-12">
-          <ThemeToggle />
-        </div>
-      </header>
-      
-      <main className="flex-grow overflow-auto px-4">
-        <div className="container max-w-5xl mx-auto h-[calc(100vh-48px)] pt-4">
+      <main className="flex-grow overflow-auto px-4 pt-2">
+        <div className="container max-w-5xl mx-auto h-[calc(100vh-48px)]">
+          {/* Theme Toggle positioned in the top right */}
+          <div className="flex justify-end mb-2">
+            <ThemeToggle />
+          </div>
+          
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
