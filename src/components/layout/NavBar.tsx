@@ -6,7 +6,8 @@ import {
   LineChart, 
   Activity, 
   Award, 
-  UserCircle 
+  UserCircle,
+  LayoutDashboard 
 } from 'lucide-react';
 
 export const NavBar = () => {
@@ -14,7 +15,8 @@ export const NavBar = () => {
     <nav className="fixed bottom-0 left-0 right-0 border-t border-blue-200 dark:border-blue-900 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md py-2 px-4 z-10 shadow-lg">
       <div className="max-w-5xl mx-auto">
         <ul className="flex justify-between items-center">
-          <NavItem to="/" icon={<BarChart3 size={20} />} label="Poll" />
+          <NavItem to="/" icon={<LayoutDashboard size={20} />} label="Dashboard" />
+          <NavItem to="/poll" icon={<BarChart3 size={20} />} label="Poll" />
           <NavItem to="/results" icon={<Activity size={20} />} label="Results" />
           <NavItem to="/trends" icon={<LineChart size={20} />} label="Trends" />
           <NavItem to="/game" icon={<Award size={20} />} label="Game" />

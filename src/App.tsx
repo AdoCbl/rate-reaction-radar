@@ -9,6 +9,7 @@ import RateReactionGame from './pages/RateReactionGame';
 import Leaderboard from './pages/Leaderboard';
 import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
+import Dashboard from './pages/Dashboard';
 import './App.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -21,7 +22,8 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Router>
           <Routes>
-            <Route path="/" element={<AppLayout><SentimentPoll /></AppLayout>} />
+            <Route path="/" element={<AppLayout><Dashboard /></AppLayout>} />
+            <Route path="/poll" element={<AppLayout><SentimentPoll /></AppLayout>} />
             <Route path="/results" element={<AppLayout><ResultsDashboard /></AppLayout>} />
             <Route path="/trends" element={<AppLayout><HistoricalTrends /></AppLayout>} />
             <Route path="/game" element={<AppLayout><RateReactionGame /></AppLayout>} />
