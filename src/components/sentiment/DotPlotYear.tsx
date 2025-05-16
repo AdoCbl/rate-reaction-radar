@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
@@ -165,8 +164,8 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
             onDragEnd={(e, info) => {
               setIsDragging(false);
               
-              // Get the parent element directly
-              const element = e.currentTarget;
+              // Properly cast e.currentTarget to HTMLElement to access parentElement
+              const element = e.currentTarget as HTMLElement;
               const parentRect = element.parentElement?.getBoundingClientRect();
               
               if (parentRect) {
