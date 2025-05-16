@@ -50,7 +50,7 @@ const HistoricalTrends: React.FC = () => {
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex flex-col h-full">
       <div className="flex flex-col gap-3 flex-grow">
         {currentMeetings.map((meeting, index) => (
           <motion.div 
@@ -58,6 +58,7 @@ const HistoricalTrends: React.FC = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.2 }}
+            className="h-full"
           >
             <Card className="bg-slate-800/90 border border-slate-700 shadow-md h-full p-2">
               <div className="p-2 pb-0">
@@ -82,7 +83,6 @@ const HistoricalTrends: React.FC = () => {
                     {meeting.summary}
                   </p>
                   
-                  {/* Accuracy tag */}
                   <div className="flex items-center justify-between">
                     <div className="text-xs inline-flex items-center px-2 py-0.5 rounded-full bg-slate-700 text-slate-300">
                       <span className="font-medium mr-1 text-indigo-300">Accuracy:</span>
@@ -103,7 +103,7 @@ const HistoricalTrends: React.FC = () => {
         ))}
       </div>
 
-      {/* Pagination - Now using up/down arrows instead of left/right */}
+      {/* Pagination - using up/down arrows */}
       {pageCount > 1 && (
         <div className="flex justify-center items-center gap-4 mt-2 mb-2">
           <button 

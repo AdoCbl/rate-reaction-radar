@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { AggregatedDotPlot } from '@/components/results/AggregatedDotPlot';
 import { motion } from 'framer-motion';
 import { FomcOutlookChart } from '@/components/trends/FomcOutlookChart';
@@ -46,7 +46,7 @@ const ResultsDashboard: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
+        transition={{ duration: 0.3 }}
         className="h-full flex"
       >
         <Card className="p-2 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col w-full">
@@ -60,7 +60,7 @@ const ResultsDashboard: React.FC = () => {
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.3 }}
+                transition={{ delay: 0.2, duration: 0.3 }}
                 className="px-2 py-1 rounded-full text-xs font-medium shadow-md flex items-center gap-1.5 bg-slate-700/50 border border-slate-600/50"
               >
                 <span className="text-slate-300">Your prediction:</span>
@@ -99,7 +99,7 @@ const ResultsDashboard: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, x: 10 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4, delay: 0.2 }}
+        transition={{ duration: 0.3 }}
         className="h-full flex"
       >
         <Card className="p-2 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col w-full">

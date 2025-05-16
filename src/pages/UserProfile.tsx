@@ -53,7 +53,7 @@ const UserProfile: React.FC = () => {
   return (
     <div className="h-full flex flex-col gap-2">
       {/* User Identity Card */}
-      <Card className="shadow-md p-1">
+      <Card className="shadow-md p-1 bg-slate-800/90 border border-slate-700">
         <CardContent className="p-1 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10 border-2 border-primary/20">
@@ -63,7 +63,7 @@ const UserProfile: React.FC = () => {
             </Avatar>
             <div>
               <h2 className="text-base font-bold">{userData.fullName}</h2>
-              <p className="text-muted-foreground text-xs">{userData.title}</p>
+              <p className="text-xs text-slate-400">{userData.title}</p>
             </div>
           </div>
           
@@ -82,9 +82,9 @@ const UserProfile: React.FC = () => {
           <TabsContent value="overview" className="mt-0 h-full">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 h-full">
               {/* Performance Overview */}
-              <Card className="shadow-md col-span-1 p-2">
+              <Card className="shadow-md col-span-1 p-2 bg-slate-800/90 border border-slate-700">
                 <div className="p-1 pb-0">
-                  <h3 className="text-sm font-medium">Performance Overview</h3>
+                  <h3 className="text-sm font-medium text-indigo-300">Performance Overview</h3>
                 </div>
                 <CardContent className="p-1">
                   <div className="grid grid-cols-2 gap-2">
@@ -93,7 +93,7 @@ const UserProfile: React.FC = () => {
                         <TrendingUp size={12} className="text-primary" />
                       </div>
                       <div>
-                        <p className="text-xs font-medium text-muted-foreground">Forecast Accuracy</p>
+                        <p className="text-xs font-medium text-slate-400">Forecast Accuracy</p>
                         <p className="text-base font-bold">{userData.accuracy}%</p>
                       </div>
                     </div>
@@ -103,7 +103,7 @@ const UserProfile: React.FC = () => {
                         <Shield size={12} className="text-primary" />
                       </div>
                       <div>
-                        <p className="text-xs font-medium text-muted-foreground">Avg. Confidence</p>
+                        <p className="text-xs font-medium text-slate-400">Avg. Confidence</p>
                         <p className="text-base font-bold">{userData.confidence}%</p>
                       </div>
                     </div>
@@ -113,7 +113,7 @@ const UserProfile: React.FC = () => {
                         <Check size={12} className="text-primary" />
                       </div>
                       <div>
-                        <p className="text-xs font-medium text-muted-foreground">Submissions</p>
+                        <p className="text-xs font-medium text-slate-400">Submissions</p>
                         <p className="text-base font-bold">{userData.submissions}</p>
                       </div>
                     </div>
@@ -123,7 +123,7 @@ const UserProfile: React.FC = () => {
                         <Trophy size={12} className="text-primary" />
                       </div>
                       <div>
-                        <p className="text-xs font-medium text-muted-foreground">Game Score</p>
+                        <p className="text-xs font-medium text-slate-400">Game Score</p>
                         <p className="text-base font-bold">{userData.gameScore}</p>
                       </div>
                     </div>
@@ -132,10 +132,10 @@ const UserProfile: React.FC = () => {
               </Card>
               
               {/* Badges & Achievements */}
-              <Card className="shadow-md col-span-2 p-2">
+              <Card className="shadow-md col-span-2 p-2 bg-slate-800/90 border border-slate-700">
                 <div className="p-1 pb-0 flex items-center">
-                  <Award size={14} className="mr-2 text-muted-foreground" />
-                  <h3 className="text-sm font-medium">Badges & Achievements</h3>
+                  <Award size={14} className="mr-2 text-indigo-300" />
+                  <h3 className="text-sm font-medium text-indigo-300">Badges & Achievements</h3>
                 </div>
                 <CardContent className="p-1">
                   <div className="flex flex-wrap gap-1">
@@ -189,26 +189,26 @@ const UserProfile: React.FC = () => {
           </TabsContent>
           
           <TabsContent value="predictions" className="mt-0 h-full">
-            <Card className="shadow-md h-full p-2">
+            <Card className="shadow-md h-full p-2 bg-slate-800/90 border border-slate-700">
               <div className="p-1 pb-0 flex items-center">
-                <FileText size={14} className="mr-1 text-muted-foreground" />
-                <h3 className="text-sm font-medium">Recent Predictions</h3>
+                <FileText size={14} className="mr-1 text-indigo-300" />
+                <h3 className="text-sm font-medium text-indigo-300">Recent Predictions</h3>
               </div>
               <CardContent className="p-1">
-                <div className="space-y-1 overflow-auto max-h-[calc(100vh-160px)]">
+                <div className="space-y-1 overflow-auto max-h-[calc(100vh-180px)]">
                   {userData.gameResults.map((result) => (
-                    <div key={result.id} className="p-1 border border-slate-200 dark:border-slate-800 rounded-md hover:bg-accent/10 transition-colors">
+                    <div key={result.id} className="p-1 border border-slate-700 rounded-md hover:bg-slate-700/50 transition-colors">
                       <div className="flex justify-between items-center">
                         <div>
                           <p className="text-xs font-medium">{result.scenario}</p>
                           <div className="flex gap-1 items-center">
-                            <span className="text-xs text-muted-foreground">
+                            <span className="text-xs text-slate-400">
                               {new Date(result.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                             </span>
-                            <span className="text-xs px-1 py-0.5 bg-slate-200 dark:bg-slate-800 rounded-full">
+                            <span className="text-xs px-1 py-0.5 bg-slate-700 rounded-full">
                               Pred: {result.predicted}
                             </span>
-                            <span className="text-xs px-1 py-0.5 bg-slate-200 dark:bg-slate-800 rounded-full">
+                            <span className="text-xs px-1 py-0.5 bg-slate-700 rounded-full">
                               Actual: {result.actual}
                             </span>
                           </div>
@@ -224,7 +224,7 @@ const UserProfile: React.FC = () => {
                           {result.score}/100
                         </Badge>
                       </div>
-                      <p className="text-xs text-muted-foreground mt-0.5">{result.description}</p>
+                      <p className="text-xs text-slate-400 mt-0.5">{result.description}</p>
                     </div>
                   ))}
                   
@@ -239,17 +239,17 @@ const UserProfile: React.FC = () => {
           </TabsContent>
           
           <TabsContent value="account" className="mt-0 h-full">
-            <Card className="shadow-md h-full p-2">
+            <Card className="shadow-md h-full p-2 bg-slate-800/90 border border-slate-700">
               <div className="p-1 pb-0 flex items-center">
-                <Mail size={14} className="mr-1 text-muted-foreground" />
-                <h3 className="text-sm font-medium">Account</h3>
+                <Mail size={14} className="mr-1 text-indigo-300" />
+                <h3 className="text-sm font-medium text-indigo-300">Account</h3>
               </div>
               <CardContent className="p-1">
                 <div className="flex flex-col space-y-2">
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-xs font-medium">Email Address</p>
-                      <p className="text-xs text-muted-foreground">{userData.email}</p>
+                      <p className="text-xs text-slate-400">{userData.email}</p>
                     </div>
                     <Button variant="destructive" size="sm" className="flex items-center gap-1 text-xs py-1">
                       <LogOut size={12} />
@@ -257,12 +257,12 @@ const UserProfile: React.FC = () => {
                     </Button>
                   </div>
 
-                  <Separator className="my-1" />
+                  <Separator className="my-1 bg-slate-700/50" />
                   
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-xs font-medium">Email Notifications</p>
-                      <p className="text-xs text-muted-foreground">Receive updates about new polls</p>
+                      <p className="text-xs text-slate-400">Receive updates about new polls</p>
                     </div>
                     <Switch />
                   </div>
@@ -270,7 +270,7 @@ const UserProfile: React.FC = () => {
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-xs font-medium">Appear on Leaderboard</p>
-                      <p className="text-xs text-muted-foreground">Show your rankings publicly</p>
+                      <p className="text-xs text-slate-400">Show your rankings publicly</p>
                     </div>
                     <Switch defaultChecked />
                   </div>

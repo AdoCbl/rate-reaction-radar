@@ -14,10 +14,10 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-indigo-950 text-gray-800 dark:text-gray-100">
-      <main className="flex-grow overflow-auto px-4 pt-2">
-        <div className="container max-w-5xl mx-auto h-[calc(100vh-48px)]">
-          {/* Theme Toggle positioned in the top right */}
-          <div className="flex justify-end mb-2">
+      <main className="flex-grow overflow-auto px-4">
+        <div className="container max-w-5xl mx-auto h-[calc(100vh-48px)] flex flex-col">
+          {/* Theme Toggle positioned in the top right with minimal spacing */}
+          <div className="flex justify-end h-10 items-center">
             <ThemeToggle />
           </div>
           
@@ -26,7 +26,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
             key={location.pathname}
-            className="h-full"
+            className="flex-grow"
           >
             {children}
           </motion.div>

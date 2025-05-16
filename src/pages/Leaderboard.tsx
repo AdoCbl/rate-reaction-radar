@@ -90,12 +90,12 @@ const Leaderboard: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.3 }}
         className="flex items-center justify-center"
       >
         <Card className="w-full h-full shadow-md bg-slate-800/90 border border-slate-700 p-2">
           <div className="p-2 pb-0">
-            <h2 className="text-sm font-medium flex items-center gap-2">
+            <h2 className="text-sm font-medium flex items-center gap-2 text-indigo-300">
               <Trophy size={16} className="text-yellow-500" />
               <span>Top Player</span>
             </h2>
@@ -108,7 +108,7 @@ const Leaderboard: React.FC = () => {
               <Badge className="mb-1">1st Place</Badge>
               <p className="text-base font-bold">{leaderboardData[0].username}</p>
               <p className="text-xl font-bold text-primary mt-1">{leaderboardData[0].score}</p>
-              <div className="mt-1 text-xs text-muted-foreground text-center">
+              <div className="mt-1 text-xs text-slate-400 text-center">
                 <div>Accuracy: {leaderboardData[0].accuracy}%</div>
                 <div>Games: {leaderboardData[0].gamesPlayed}</div>
               </div>
@@ -121,12 +121,12 @@ const Leaderboard: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
+        transition={{ duration: 0.3 }}
         className="md:col-span-2"
       >
-        <Card className="shadow-md h-full p-2">
+        <Card className="shadow-md h-full p-2 bg-slate-800/90 border border-slate-700">
           <div className="p-2 pb-0">
-            <h2 className="text-sm font-medium flex items-center gap-2">
+            <h2 className="text-sm font-medium flex items-center gap-2 text-indigo-300">
               <Award size={16} />
               <span>Leaderboard</span>
             </h2>
@@ -136,7 +136,7 @@ const Leaderboard: React.FC = () => {
               {leaderboardData.map((user) => (
                 <motion.div 
                   key={user.id} 
-                  className="p-2 bg-card hover:bg-accent/10 rounded-lg border border-slate-200 dark:border-slate-800 transition-colors"
+                  className="p-2 bg-slate-800 hover:bg-slate-700/70 rounded-lg border border-slate-700 transition-colors"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
@@ -163,7 +163,7 @@ const Leaderboard: React.FC = () => {
                             ))}
                           </div>
                         </div>
-                        <div className="flex text-xs text-muted-foreground">
+                        <div className="flex text-xs text-slate-400">
                           <span className="flex items-center mr-3">
                             <Calendar className="h-3 w-3 mr-1" />
                             {new Date(user.lastActive).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
@@ -175,7 +175,7 @@ const Leaderboard: React.FC = () => {
                     
                     <div className="text-right">
                       <div className="text-lg font-bold">{user.score}</div>
-                      <div className="flex justify-end text-xs text-muted-foreground space-x-2">
+                      <div className="flex justify-end text-xs text-slate-400 space-x-2">
                         <div className="flex items-center">
                           <span className="mr-1">Accuracy:</span>
                           <span className="font-medium">{user.accuracy}%</span>
@@ -187,7 +187,7 @@ const Leaderboard: React.FC = () => {
               ))}
             </div>
             
-            <Separator className="my-1" />
+            <Separator className="my-1 bg-slate-700/50" />
             
             {/* Your Position */}
             <motion.div 
@@ -201,7 +201,7 @@ const Leaderboard: React.FC = () => {
                   </div>
                   <div>
                     <p className="font-medium">JohnDoe (You)</p>
-                    <div className="flex text-xs text-muted-foreground">
+                    <div className="flex text-xs text-slate-400">
                       <span className="mr-3">Games: 24</span>
                       <span>Since: Apr 2025</span>
                     </div>
