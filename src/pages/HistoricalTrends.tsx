@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { MeetingDotPlotComparison } from '@/components/trends/MeetingDotPlotComparison';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 // FOMC meetings with SEP releases (most recent first)
@@ -51,7 +51,7 @@ const HistoricalTrends: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-grow">
+      <div className="flex flex-col gap-3 flex-grow">
         {currentMeetings.map((meeting, index) => (
           <motion.div 
             key={meeting.date.toISOString()}
@@ -103,7 +103,7 @@ const HistoricalTrends: React.FC = () => {
         ))}
       </div>
 
-      {/* Pagination */}
+      {/* Pagination - Now using up/down arrows instead of left/right */}
       {pageCount > 1 && (
         <div className="flex justify-center items-center gap-4 mt-2">
           <button 
@@ -114,8 +114,9 @@ const HistoricalTrends: React.FC = () => {
                 ? 'bg-slate-800/50 text-slate-600' 
                 : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
             } transition-colors`}
+            aria-label="Previous page"
           >
-            <ChevronLeft size={18} />
+            <ChevronUp size={18} />
           </button>
           
           <span className="text-xs text-slate-400">
@@ -130,8 +131,9 @@ const HistoricalTrends: React.FC = () => {
                 ? 'bg-slate-800/50 text-slate-600' 
                 : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
             } transition-colors`}
+            aria-label="Next page"
           >
-            <ChevronRight size={18} />
+            <ChevronDown size={18} />
           </button>
         </div>
       )}
