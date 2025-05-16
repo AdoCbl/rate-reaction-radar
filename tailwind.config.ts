@@ -63,11 +63,11 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Updated colors for our financial app - consistent across pages
+				// Updated consistent colors across the app 
 				direction: {
-					up: '#f43f5e',    // Red for hike (Rose-500)
-					neutral: '#94a3b8', // Gray for hold (Slate-400)
-					down: '#10b981',   // Green for cut (Emerald-500)
+					cut: '#10b981',    // Green for cut (Emerald-500)
+					hold: '#94a3b8',   // Gray for hold (Slate-400)
+					hike: '#f43f5e',   // Red for hike (Rose-500)
 				},
 				finance: {
 					navy: '#0f172a',
