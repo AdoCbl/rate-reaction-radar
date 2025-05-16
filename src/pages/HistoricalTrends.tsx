@@ -28,8 +28,8 @@ const HistoricalTrends: React.FC = () => {
       <div className="md:hidden">
         <Tabs defaultValue="outlook" className="w-full">
           <TabsList className="grid grid-cols-2 mb-4 w-full">
-            <TabsTrigger value="outlook">FOMC Outlook</TabsTrigger>
-            <TabsTrigger value="projections">Rate Projections</TabsTrigger>
+            <TabsTrigger value="outlook">Policy Trends</TabsTrigger>
+            <TabsTrigger value="projections">Rate Path Trends</TabsTrigger>
           </TabsList>
           
           <TabsContent value="outlook" className="mt-0">
@@ -70,7 +70,7 @@ const OutlookCard: React.FC = () => {
     <Card className="overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl">
       <CardHeader>
         <CardTitle className="text-xl font-semibold">
-          Clients' Predictions for the Next Fed Move (History)
+          FOMC Policy Expectations History
         </CardTitle>
         <CardDescription className="text-slate-400">
           See how client sentiment has evolved over time
@@ -81,7 +81,7 @@ const OutlookCard: React.FC = () => {
           <FomcOutlookChart />
         </div>
         <p className="text-sm text-slate-400 mt-3">
-          Rate cut sentiment spiked following the June CPI report.
+          Sentiment leaned heavily toward 'Hold' in the lead-up to the July FOMC.
         </p>
       </CardContent>
     </Card>
@@ -99,14 +99,14 @@ const ProjectionsCard: React.FC<{
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
             <CardTitle className="text-xl font-semibold">
-              Client Rate Projections Over Time
+              Client Forecasted Rate Paths (Median Values)
             </CardTitle>
             <CardDescription className="text-slate-400">
               Track how rate expectations for future years have evolved
             </CardDescription>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-400">Show Fed SEP Medians</span>
+            <span className="text-xs text-slate-400">Compare with SEP</span>
             <Switch
               checked={showFedMedians}
               onCheckedChange={setShowFedMedians}
@@ -120,7 +120,7 @@ const ProjectionsCard: React.FC<{
           <RatePathChart showFedMedians={showFedMedians} />
         </div>
         <p className="text-sm text-slate-400 mt-3">
-          Client long-run projections have remained anchored around 2.50% despite near-term volatility.
+          Median long-run rate forecasts have remained stable near 2.50%.
         </p>
       </CardContent>
     </Card>
