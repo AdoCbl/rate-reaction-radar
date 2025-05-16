@@ -8,7 +8,6 @@ import Leaderboard from './pages/Leaderboard';
 import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
 import Dashboard from './pages/Dashboard';
-import ResultsDashboard from './pages/ResultsDashboard';
 import { Toaster } from 'sonner';
 import './App.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -24,7 +23,6 @@ function App() {
           <Toaster position="top-right" richColors />
           <Routes>
             <Route path="/" element={<AppLayout><Dashboard /></AppLayout>} />
-            <Route path="/results" element={<AppLayout><ResultsDashboard /></AppLayout>} />
             <Route path="/trends" element={<AppLayout><HistoricalTrends /></AppLayout>} />
             <Route path="/game" element={<AppLayout><RateReactionGame /></AppLayout>} />
             <Route path="/leaderboard" element={<AppLayout><Leaderboard /></AppLayout>} />
