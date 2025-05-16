@@ -140,6 +140,11 @@ export const FomcOutlookChart: React.FC = () => {
     );
   };
 
+  // Convert dates to string format for the ReferenceLine component
+  const formatDateToString = (date: Date): string => {
+    return date.toISOString(); // Use ISO string format for consistent comparison
+  };
+
   return (
     <ChartContainer config={chartConfig}>
       <ResponsiveContainer width="100%" height="100%">
@@ -165,11 +170,11 @@ export const FomcOutlookChart: React.FC = () => {
           
           <Tooltip content={<CustomTooltip />} />
           
-          {/* FOMC meeting reference lines */}
+          {/* FOMC meeting reference lines - Fixed: Convert Date to string for x prop */}
           {fomcMeetings.map((date, index) => (
             <ReferenceLine
               key={index}
-              x={date}
+              x={formatDateToString(date)} // Convert Date to string format
               stroke="#475569"
               strokeDasharray="3 3"
               label={{
