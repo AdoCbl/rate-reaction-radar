@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Switch } from '@/components/ui/switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 type AggregatedDotPlotProps = {
   projections: {
@@ -71,10 +72,11 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
         </div>
       </div>
       
-      <div className="flex-grow relative">
-        <div className="flex justify-between h-[240px] relative">
+      <div className="flex-grow relative bg-slate-800/40 rounded-md border border-slate-700/50">
+        {/* Fixed height container to prevent layout shifts */}
+        <div className="h-[240px] relative">
           {/* Y-axis labels - more detailed with 0.25% increments */}
-          <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between pointer-events-none">
+          <div className="absolute left-0 top-0 bottom-0 w-10 pointer-events-none">
             {[6, 5.5, 5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5, 0].map((value) => (
               <div 
                 key={value} 
@@ -89,18 +91,18 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                 <span className="text-xs text-slate-400 w-8 text-right pr-2">
                   {value}%
                 </span>
-                <div className="absolute w-full border-t border-slate-700" 
-                    style={{left: '14px', width: 'calc(100vw - 28px)'}}></div>
+                <div className="absolute border-t border-slate-700" 
+                    style={{left: '8px', width: 'calc(100vw - 16px)'}}></div>
               </div>
             ))}
           </div>
           
           {/* Dot plots for each year */}
-          <div className="flex justify-between w-full pl-10 space-x-3">
+          <div className="flex justify-between w-full pl-10 space-x-3 h-full">
             {years.map((year) => (
               <div 
                 key={year} 
-                className="flex flex-col items-center flex-1"
+                className="flex flex-col items-center flex-1 h-full"
                 onMouseEnter={() => setHoveredYear(year)}
                 onMouseLeave={() => setHoveredYear(null)}
               >
@@ -108,7 +110,7 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                   {year}
                 </span>
                 
-                <div className={`relative h-[240px] w-full max-w-16 ${hoveredYear === year ? 'bg-slate-700/40' : 'bg-slate-800/40'} border ${hoveredYear === year ? 'border-slate-600' : 'border-slate-700'} rounded-lg overflow-hidden transition-all duration-200`}>
+                <div className={`relative h-full w-full max-w-16 ${hoveredYear === year ? 'bg-slate-700/40' : 'bg-slate-800/40'} transition-all duration-200`}>
                   {/* Client dots */}
                   {projections[year].map((value, index) => {
                     const position = getPositionFromRate(value);
@@ -121,7 +123,7 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                           <TooltipTrigger asChild>
                             <motion.div
                               className={`absolute rounded-full ${isUserDot ? 
-                                'w-4 h-4 bg-indigo-500 ring-2 ring-indigo-300/30 shadow-lg shadow-indigo-500/30 z-10 pulse-glow' : 
+                                'w-4 h-4 bg-blue-500 ring-2 ring-blue-300/30 shadow-lg shadow-blue-500/30 z-10 pulse-glow' : 
                                 'w-2 h-2 bg-sky-400/70'
                               }`}
                               style={{ 
@@ -140,7 +142,7 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                           <TooltipContent side="top" className="bg-slate-800 border-slate-700 text-white">
                             <div className="text-xs">
                               {isUserDot ? (
-                                <span className="font-medium text-indigo-300">Your projection: </span>
+                                <span className="font-medium text-blue-300">Your projection: </span>
                               ) : (
                                 <span className="font-medium text-sky-400">Client projection: </span>
                               )}
@@ -152,18 +154,18 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                     );
                   })}
                   
-                  {/* SEP median line */}
-                  <AnimatePresence>
+                  {/* SEP median line - Using AnimatePresence to control visibility without layout shift */}
+                  <AnimatePresence initial={false}>
                     {showSepMedians && sepMedians[year as keyof typeof sepMedians] && (
                       <motion.div
-                        className="absolute w-10 h-[2px] bg-indigo-400 left-1/2 transform -translate-x-1/2"
+                        className="absolute w-10 h-[2px] bg-purple-400 left-1/2 transform -translate-x-1/2"
                         style={{ 
                           top: `${getPositionFromRate(sepMedians[year as keyof typeof sepMedians])}%`
                         }}
                         initial={{ scaleX: 0, opacity: 0 }}
                         animate={{ scaleX: 1, opacity: 0.7 }}
                         exit={{ scaleX: 0, opacity: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.3 }}
                       />
                     )}
                   </AnimatePresence>
@@ -175,9 +177,9 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
       </div>
       
       {/* Client Median Projections */}
-      <div className="mt-4 border-t border-slate-700/50 pt-3">
+      <div className="mt-4">
         <div className="flex items-center gap-2 mb-2">
-          <h3 className="text-sm font-semibold text-slate-200">Client Median Projections</h3>
+          <h3 className="text-sm font-medium text-indigo-300">Client Median Projections</h3>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
@@ -190,11 +192,13 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
           </TooltipProvider>
         </div>
         
+        <Separator className="mb-3" />
+        
         <div className="grid grid-cols-4 gap-3 bg-slate-800/60 rounded-md p-2 border border-slate-700/50">
           {years.map((year) => (
             <div key={year} className="text-center">
               <span className="text-sm font-medium text-slate-300 block">{year}</span>
-              <span className="text-base text-indigo-300 font-semibold block mt-1">
+              <span className="text-base text-blue-400 font-semibold block mt-1">
                 {formatRateValue(medians[year])}
               </span>
             </div>
@@ -202,20 +206,22 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
         </div>
       </div>
       
-      {/* Info text */}
-      <AnimatePresence>
-        {showSepMedians && (
-          <motion.div 
-            className="text-xs text-slate-400 bg-slate-800/70 p-2 rounded-md border border-slate-700 mt-2"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <p>Latest FOMC SEP median values shown in purple.</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Info text - Using fixed height and AnimatePresence to prevent layout shifts */}
+      <div className="h-8 mt-2">
+        <AnimatePresence initial={false} mode="wait">
+          {showSepMedians && (
+            <motion.div 
+              className="text-xs text-slate-400 bg-slate-800/70 p-2 rounded-md border border-slate-700"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <p>Latest FOMC SEP median values shown in purple.</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

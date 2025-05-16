@@ -1,9 +1,11 @@
 
 import React, { useState } from 'react';
-import { Card } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { AggregatedDotPlot } from '@/components/results/AggregatedDotPlot';
 import { motion } from 'framer-motion';
 import { FomcOutlookChart } from '@/components/trends/FomcOutlookChart';
+import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
 
 const ResultsDashboard: React.FC = () => {
   // Mock data for the current user's vote
@@ -44,14 +46,14 @@ const ResultsDashboard: React.FC = () => {
     <div className="h-full flex flex-col gap-3">
       <div className="grid grid-cols-2 gap-3 flex-grow">
         {/* Left Panel: FOMC Policy Expectations History */}
-        <Card className="bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col overflow-hidden">
-          <div className="p-3">
-            <h2 className="text-sm font-medium text-indigo-300 tracking-tight">FOMC Policy Expectations History</h2>
-            <p className="text-xs text-slate-400">See how client sentiment has evolved over time</p>
-          </div>
+        <Card className="flex flex-col overflow-hidden">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-indigo-300">FOMC Policy Expectations History</CardTitle>
+            <CardDescription>See how client sentiment has evolved over time</CardDescription>
+          </CardHeader>
           
-          <div className="flex-grow flex flex-col p-2">
-            <div className="flex justify-end">
+          <CardContent className="flex-grow flex flex-col p-3">
+            <div className="flex justify-end mb-2">
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -59,23 +61,20 @@ const ResultsDashboard: React.FC = () => {
                 className="px-2 py-1 rounded-full text-xs font-medium shadow-md flex items-center gap-1.5 bg-slate-700/50 border border-slate-600/50"
               >
                 <span className="text-slate-300">Your prediction:</span>
-                <span
-                  className="px-1.5 py-0.5 rounded-full text-xs font-medium"
-                  style={{
-                    backgroundColor: 
-                      userVote.direction === 'cut' ? 'rgba(16, 185, 129, 0.3)' : 
-                      userVote.direction === 'hold' ? 'rgba(148, 163, 184, 0.3)' : 
-                      'rgba(244, 63, 94, 0.3)',
-                    color: 
-                      userVote.direction === 'cut' ? 'rgb(16, 185, 129)' : 
-                      userVote.direction === 'hold' ? 'rgb(148, 163, 184)' : 
-                      'rgb(244, 63, 94)'
-                  }}
+                <Badge
+                  variant={
+                    userVote.direction === 'cut' ? 'success' : 
+                    userVote.direction === 'hold' ? 'muted' : 
+                    'destructive'
+                  }
+                  className="capitalize"
                 >
-                  {userVote.direction.charAt(0).toUpperCase() + userVote.direction.slice(1)}
-                </span>
+                  {userVote.direction}
+                </Badge>
               </motion.div>
             </div>
+            
+            <Separator className="mb-3" />
             
             <div className="flex-grow">
               <FomcOutlookChart />
@@ -86,25 +85,23 @@ const ResultsDashboard: React.FC = () => {
                 Client sentiment shifted toward 'Hold' after the June CPI release.
               </p>
             </div>
-          </div>
+          </CardContent>
         </Card>
 
         {/* Right Panel: Aggregated Dot Plot with Client Median Projections */}
-        <Card className="bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col overflow-hidden">
-          <div className="p-3 flex justify-between items-start">
-            <div>
-              <h2 className="text-sm font-medium text-indigo-300 tracking-tight">Aggregated Dot Plot</h2>
-              <p className="text-xs text-slate-400">Client projections vs. FOMC median</p>
-            </div>
-          </div>
+        <Card className="flex flex-col overflow-hidden">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-indigo-300">Aggregated Dot Plot</CardTitle>
+            <CardDescription>Client projections vs. FOMC median</CardDescription>
+          </CardHeader>
           
-          <div className="flex-grow p-2">
+          <CardContent className="flex-grow p-3">
             <AggregatedDotPlot 
               projections={aggregatedData.projections}
               userProjections={aggregatedData.userProjections}
               medians={aggregatedData.medians}
             />
-          </div>
+          </CardContent>
         </Card>
       </div>
     </div>
