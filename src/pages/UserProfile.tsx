@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -66,11 +67,13 @@ const UserProfile: React.FC = () => {
             </div>
           </div>
           
-          <TabsList className="grid grid-cols-3 w-auto">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="predictions">Predictions</TabsTrigger>
-            <TabsTrigger value="account">Account</TabsTrigger>
-          </TabsList>
+          <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-auto">
+            <TabsList className="grid grid-cols-3">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="predictions">Predictions</TabsTrigger>
+              <TabsTrigger value="account">Account</TabsTrigger>
+            </TabsList>
+          </Tabs>
         </CardContent>
       </Card>
       
