@@ -6,8 +6,10 @@ import { motion } from 'framer-motion';
 import { FomcOutlookChart } from '@/components/trends/FomcOutlookChart';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const ResultsDashboard: React.FC = () => {
+  const isMobile = useIsMobile();
   // Mock data for the current user's vote
   const [userVote] = useState({
     direction: 'hold',
@@ -46,10 +48,14 @@ const ResultsDashboard: React.FC = () => {
     <div className="h-full flex flex-col gap-3">
       <div className="grid grid-cols-2 gap-3 flex-grow">
         {/* Left Panel: FOMC Policy Expectations History */}
-        <Card className="flex flex-col overflow-hidden">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-indigo-300">FOMC Policy Expectations History</CardTitle>
-            <CardDescription>See how client sentiment has evolved over time</CardDescription>
+        <Card className="flex flex-col overflow-hidden bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md">
+          <CardHeader className={`${isMobile ? 'p-3' : 'p-3'} pb-2`}>
+            <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300`}>
+              FOMC Policy Expectations History
+            </CardTitle>
+            <CardDescription className={`${isMobile ? 'text-xs' : 'text-sm'} leading-snug text-gray-200`}>
+              See how client sentiment has evolved over time
+            </CardDescription>
           </CardHeader>
           
           <CardContent className="flex-grow flex flex-col p-3">
@@ -89,10 +95,14 @@ const ResultsDashboard: React.FC = () => {
         </Card>
 
         {/* Right Panel: Aggregated Dot Plot with Client Median Projections */}
-        <Card className="flex flex-col overflow-hidden">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-indigo-300">Aggregated Dot Plot</CardTitle>
-            <CardDescription>Client projections vs. FOMC median</CardDescription>
+        <Card className="flex flex-col overflow-hidden bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md">
+          <CardHeader className={`${isMobile ? 'p-3' : 'p-3'} pb-2`}>
+            <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300`}>
+              Aggregated Dot Plot
+            </CardTitle>
+            <CardDescription className={`${isMobile ? 'text-xs' : 'text-sm'} leading-snug text-gray-200`}>
+              Client projections vs. FOMC median
+            </CardDescription>
           </CardHeader>
           
           <CardContent className="flex-grow p-3">
