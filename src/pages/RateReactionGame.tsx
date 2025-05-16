@@ -42,7 +42,7 @@ const RateReactionGame: React.FC = () => {
     // Show the result after a short delay
     setTimeout(() => {
       setShowResult(true);
-    }, 500);
+    }, 1000);
   };
   
   // Reset the game

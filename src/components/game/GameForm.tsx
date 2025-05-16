@@ -118,26 +118,40 @@ const GameForm: React.FC<GameFormProps> = ({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="pt-2"
+        className="pt-8"
       >
-        <Button 
-          type="submit" 
-          className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-6 text-base rounded-lg"
-          disabled={!direction || submitted}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="w-full h-full"
+          whileHover={!submitted && direction ? { scale: 1.02, y: -2 } : {}}
         >
-          {submitted ? (
-            <motion.span 
-              className="flex items-center"
-              initial={{ opacity: 0.7 }}
-              animate={{ opacity: 1 }}
-              transition={{ repeat: Infinity, duration: 1, repeatType: "reverse" }}
-            >
-              Processing <ArrowRight className="ml-2" size={18} />
-            </motion.span>
-          ) : (
-            "Submit Your Prediction"
-          )}
-        </Button>
+          <Button 
+            type="submit" 
+            className={`w-full py-6 font-medium rounded-lg transition-all duration-300 shadow-lg text-base
+              ${submitted 
+                ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20' 
+                : !direction 
+                  ? 'bg-slate-700 text-slate-300 cursor-not-allowed opacity-70' 
+                  : 'bg-gradient-to-br from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white hover:shadow-sky-500/20 hover:shadow-xl'
+              }`}
+            disabled={!direction || submitted}
+          >
+            {submitted ? (
+              <motion.span 
+                className="flex items-center justify-center gap-2"
+                initial={{ opacity: 0.7 }}
+                animate={{ opacity: 1 }}
+                transition={{ repeat: Infinity, duration: 1, repeatType: "reverse" }}
+              >
+                Processing <ArrowRight className="ml-2" size={18} />
+              </motion.span>
+            ) : (
+              "Submit Your Prediction"
+            )}
+          </Button>
+        </motion.div>
       </motion.div>
     </form>
   );

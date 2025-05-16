@@ -2,7 +2,7 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { BarChart3, ChevronRight } from 'lucide-react';
+import { BarChart3, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { calculateScore, historicalScenario } from './gameData';
 import { Direction } from '@/components/sentiment/types';
@@ -33,6 +33,9 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
     if (yieldDifference <= 20) return "Close";
     return "Missed";
   };
+
+  // Explanation line based on scenario
+  const explanationLine = "The Fed responded to inflation concerns with a rate hike. Markets priced in more aggressive tightening ahead.";
   
   return (
     <div className="space-y-8">
@@ -91,7 +94,7 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
               <div className={`font-semibold text-xl ${isFedDirectionCorrect ? 'text-emerald-400' : 'text-red-400'}`}>
                 {historicalScenario.fedResponse.charAt(0).toUpperCase() + historicalScenario.fedResponse.slice(1)}
                 {isFedDirectionCorrect ? 
-                  <span className="inline-block ml-2 text-emerald-400">✓</span> : 
+                  <span className="inline-block ml-2 text-emerald-400"><Check className="h-5 w-5 inline" /></span> : 
                   <span className="inline-block ml-2 text-red-400">✗</span>
                 }
               </div>
@@ -101,7 +104,7 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
               <div className={`font-semibold text-xl ${yieldDifference <= 10 ? 'text-emerald-400' : 'text-red-400'}`}>
                 {historicalScenario.yieldChange > 0 ? '+' : ''}{historicalScenario.yieldChange} bps
                 {yieldDifference <= 10 ? 
-                  <span className="inline-block ml-2 text-emerald-400">✓</span> : 
+                  <span className="inline-block ml-2 text-emerald-400"><Check className="h-5 w-5 inline" /></span> : 
                   <span className="inline-block ml-2 text-red-400">✗</span>
                 }
               </div>
@@ -118,7 +121,8 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
         transition={{ delay: 0.3, duration: 0.4 }}
       >
         <div className="text-sm text-slate-400 mb-2">Historical Context</div>
-        <p className="text-white">{historicalScenario.context}</p>
+        <p className="text-white">{explanationLine}</p>
+        <p className="text-white mt-2">{historicalScenario.context}</p>
       </motion.div>
       
       <motion.div 
@@ -170,7 +174,7 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
         </Button>
         <Button 
           variant="default" 
-          className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-6"
+          className="w-full bg-gradient-to-br from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white py-6"
           onClick={() => window.location.href = '/leaderboard'}
         >
           <BarChart3 className="mr-2 h-4 w-4" />
