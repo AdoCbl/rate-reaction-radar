@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -67,216 +66,216 @@ const UserProfile: React.FC = () => {
             </div>
           </div>
           
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-auto">
-            <TabsList className="grid grid-cols-3 w-auto">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="predictions">Predictions</TabsTrigger>
-              <TabsTrigger value="account">Account</TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <TabsList className="grid grid-cols-3 w-auto">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="predictions">Predictions</TabsTrigger>
+            <TabsTrigger value="account">Account</TabsTrigger>
+          </TabsList>
         </CardContent>
       </Card>
       
       <div className="flex-grow">
-        <TabsContent value="overview" className="mt-0 h-full">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 h-full">
-            {/* Performance Overview */}
-            <Card className="shadow-md col-span-1 p-2">
-              <div className="p-1 pb-0">
-                <h3 className="text-sm font-medium">Performance Overview</h3>
-              </div>
-              <CardContent className="p-1">
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="flex items-start">
-                    <div className="bg-primary/10 p-1 rounded-full mr-2">
-                      <TrendingUp size={12} className="text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground">Forecast Accuracy</p>
-                      <p className="text-base font-bold">{userData.accuracy}%</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="bg-primary/10 p-1 rounded-full mr-2">
-                      <Shield size={12} className="text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground">Avg. Confidence</p>
-                      <p className="text-base font-bold">{userData.confidence}%</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="bg-primary/10 p-1 rounded-full mr-2">
-                      <Check size={12} className="text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground">Submissions</p>
-                      <p className="text-base font-bold">{userData.submissions}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="bg-primary/10 p-1 rounded-full mr-2">
-                      <Trophy size={12} className="text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground">Game Score</p>
-                      <p className="text-base font-bold">{userData.gameScore}</p>
-                    </div>
-                  </div>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full">
+          <TabsContent value="overview" className="mt-0 h-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 h-full">
+              {/* Performance Overview */}
+              <Card className="shadow-md col-span-1 p-2">
+                <div className="p-1 pb-0">
+                  <h3 className="text-sm font-medium">Performance Overview</h3>
                 </div>
-              </CardContent>
-            </Card>
-            
-            {/* Badges & Achievements */}
-            <Card className="shadow-md col-span-2 p-2">
-              <div className="p-1 pb-0 flex items-center">
-                <Award size={14} className="mr-2 text-muted-foreground" />
-                <h3 className="text-sm font-medium">Badges & Achievements</h3>
-              </div>
-              <CardContent className="p-1">
-                <div className="flex flex-wrap gap-1">
-                  {userData.badges.map((badge) => (
-                    <Badge key={badge.id} className="px-2 py-0.5 text-xs bg-slate-800 text-white hover:bg-slate-700" title={badge.description}>
-                      {badge.name}
-                    </Badge>
-                  ))}
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
-                  <div className="bg-slate-800/50 rounded-lg p-2">
-                    <h4 className="text-xs font-medium text-indigo-300 mb-1">Recent Stats</h4>
-                    <ul className="space-y-0.5 text-xs">
-                      <li className="flex justify-between">
-                        <span className="text-slate-400">Accuracy (last 5):</span>
-                        <span className="font-medium">83%</span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-slate-400">Weekly rank:</span>
-                        <span className="font-medium">#5</span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-slate-400">Best score:</span>
-                        <span className="font-medium">92 (Apr 15)</span>
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-slate-800/50 rounded-lg p-2">
-                    <h4 className="text-xs font-medium text-indigo-300 mb-1">Next Achievements</h4>
-                    <ul className="space-y-0.5 text-xs">
-                      <li className="flex justify-between">
-                        <span className="text-slate-400">Expert Forecaster:</span>
-                        <span className="font-medium">2 more weeks</span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-slate-400">Perfect Streak:</span>
-                        <span className="font-medium">1 more accurate</span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-slate-400">Top 3 Position:</span>
-                        <span className="font-medium">8 points needed</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-        
-        <TabsContent value="predictions" className="mt-0 h-full">
-          <Card className="shadow-md h-full p-2">
-            <div className="p-1 pb-0 flex items-center">
-              <FileText size={14} className="mr-1 text-muted-foreground" />
-              <h3 className="text-sm font-medium">Recent Predictions</h3>
-            </div>
-            <CardContent className="p-1">
-              <div className="space-y-1 overflow-auto max-h-[calc(100vh-160px)]">
-                {userData.gameResults.map((result) => (
-                  <div key={result.id} className="p-1 border border-slate-200 dark:border-slate-800 rounded-md hover:bg-accent/10 transition-colors">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="text-xs font-medium">{result.scenario}</p>
-                        <div className="flex gap-1 items-center">
-                          <span className="text-xs text-muted-foreground">
-                            {new Date(result.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-                          </span>
-                          <span className="text-xs px-1 py-0.5 bg-slate-200 dark:bg-slate-800 rounded-full">
-                            Pred: {result.predicted}
-                          </span>
-                          <span className="text-xs px-1 py-0.5 bg-slate-200 dark:bg-slate-800 rounded-full">
-                            Actual: {result.actual}
-                          </span>
-                        </div>
+                <CardContent className="p-1">
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="flex items-start">
+                      <div className="bg-primary/10 p-1 rounded-full mr-2">
+                        <TrendingUp size={12} className="text-primary" />
                       </div>
-                      <Badge 
-                        variant="outline" 
-                        className={
-                          result.score >= 80 ? 'text-direction-cut border-direction-cut' :
-                          result.score >= 50 ? 'text-direction-hold border-direction-hold' :
-                          'text-direction-hike border-direction-hike'
-                        }
-                      >
-                        {result.score}/100
-                      </Badge>
+                      <div>
+                        <p className="text-xs font-medium text-muted-foreground">Forecast Accuracy</p>
+                        <p className="text-base font-bold">{userData.accuracy}%</p>
+                      </div>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-0.5">{result.description}</p>
+                    
+                    <div className="flex items-start">
+                      <div className="bg-primary/10 p-1 rounded-full mr-2">
+                        <Shield size={12} className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-muted-foreground">Avg. Confidence</p>
+                        <p className="text-base font-bold">{userData.confidence}%</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="bg-primary/10 p-1 rounded-full mr-2">
+                        <Check size={12} className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-muted-foreground">Submissions</p>
+                        <p className="text-base font-bold">{userData.submissions}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="bg-primary/10 p-1 rounded-full mr-2">
+                        <Trophy size={12} className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-muted-foreground">Game Score</p>
+                        <p className="text-base font-bold">{userData.gameScore}</p>
+                      </div>
+                    </div>
                   </div>
-                ))}
-                
-                <div className="mt-1 text-right">
-                  <Button variant="link" size="sm" className="text-primary p-0 h-auto text-xs">
-                    View All Predictions
-                  </Button>
+                </CardContent>
+              </Card>
+              
+              {/* Badges & Achievements */}
+              <Card className="shadow-md col-span-2 p-2">
+                <div className="p-1 pb-0 flex items-center">
+                  <Award size={14} className="mr-2 text-muted-foreground" />
+                  <h3 className="text-sm font-medium">Badges & Achievements</h3>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        
-        <TabsContent value="account" className="mt-0 h-full">
-          <Card className="shadow-md h-full p-2">
-            <div className="p-1 pb-0 flex items-center">
-              <Mail size={14} className="mr-1 text-muted-foreground" />
-              <h3 className="text-sm font-medium">Account</h3>
+                <CardContent className="p-1">
+                  <div className="flex flex-wrap gap-1">
+                    {userData.badges.map((badge) => (
+                      <Badge key={badge.id} className="px-2 py-0.5 text-xs bg-slate-800 text-white hover:bg-slate-700" title={badge.description}>
+                        {badge.name}
+                      </Badge>
+                    ))}
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                    <div className="bg-slate-800/50 rounded-lg p-2">
+                      <h4 className="text-xs font-medium text-indigo-300 mb-1">Recent Stats</h4>
+                      <ul className="space-y-0.5 text-xs">
+                        <li className="flex justify-between">
+                          <span className="text-slate-400">Accuracy (last 5):</span>
+                          <span className="font-medium">83%</span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-slate-400">Weekly rank:</span>
+                          <span className="font-medium">#5</span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-slate-400">Best score:</span>
+                          <span className="font-medium">92 (Apr 15)</span>
+                        </li>
+                      </ul>
+                    </div>
+                    
+                    <div className="bg-slate-800/50 rounded-lg p-2">
+                      <h4 className="text-xs font-medium text-indigo-300 mb-1">Next Achievements</h4>
+                      <ul className="space-y-0.5 text-xs">
+                        <li className="flex justify-between">
+                          <span className="text-slate-400">Expert Forecaster:</span>
+                          <span className="font-medium">2 more weeks</span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-slate-400">Perfect Streak:</span>
+                          <span className="font-medium">1 more accurate</span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-slate-400">Top 3 Position:</span>
+                          <span className="font-medium">8 points needed</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
-            <CardContent className="p-1">
-              <div className="flex flex-col space-y-2">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="text-xs font-medium">Email Address</p>
-                    <p className="text-xs text-muted-foreground">{userData.email}</p>
-                  </div>
-                  <Button variant="destructive" size="sm" className="flex items-center gap-1 text-xs py-1">
-                    <LogOut size={12} />
-                    Log Out
-                  </Button>
-                </div>
-
-                <Separator className="my-1" />
-                
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="text-xs font-medium">Email Notifications</p>
-                    <p className="text-xs text-muted-foreground">Receive updates about new polls</p>
-                  </div>
-                  <Switch />
-                </div>
-                
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="text-xs font-medium">Appear on Leaderboard</p>
-                    <p className="text-xs text-muted-foreground">Show your rankings publicly</p>
-                  </div>
-                  <Switch defaultChecked />
-                </div>
+          </TabsContent>
+          
+          <TabsContent value="predictions" className="mt-0 h-full">
+            <Card className="shadow-md h-full p-2">
+              <div className="p-1 pb-0 flex items-center">
+                <FileText size={14} className="mr-1 text-muted-foreground" />
+                <h3 className="text-sm font-medium">Recent Predictions</h3>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+              <CardContent className="p-1">
+                <div className="space-y-1 overflow-auto max-h-[calc(100vh-160px)]">
+                  {userData.gameResults.map((result) => (
+                    <div key={result.id} className="p-1 border border-slate-200 dark:border-slate-800 rounded-md hover:bg-accent/10 transition-colors">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="text-xs font-medium">{result.scenario}</p>
+                          <div className="flex gap-1 items-center">
+                            <span className="text-xs text-muted-foreground">
+                              {new Date(result.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                            </span>
+                            <span className="text-xs px-1 py-0.5 bg-slate-200 dark:bg-slate-800 rounded-full">
+                              Pred: {result.predicted}
+                            </span>
+                            <span className="text-xs px-1 py-0.5 bg-slate-200 dark:bg-slate-800 rounded-full">
+                              Actual: {result.actual}
+                            </span>
+                          </div>
+                        </div>
+                        <Badge 
+                          variant="outline" 
+                          className={
+                            result.score >= 80 ? 'text-direction-cut border-direction-cut' :
+                            result.score >= 50 ? 'text-direction-hold border-direction-hold' :
+                            'text-direction-hike border-direction-hike'
+                          }
+                        >
+                          {result.score}/100
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">{result.description}</p>
+                    </div>
+                  ))}
+                  
+                  <div className="mt-1 text-right">
+                    <Button variant="link" size="sm" className="text-primary p-0 h-auto text-xs">
+                      View All Predictions
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="account" className="mt-0 h-full">
+            <Card className="shadow-md h-full p-2">
+              <div className="p-1 pb-0 flex items-center">
+                <Mail size={14} className="mr-1 text-muted-foreground" />
+                <h3 className="text-sm font-medium">Account</h3>
+              </div>
+              <CardContent className="p-1">
+                <div className="flex flex-col space-y-2">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-xs font-medium">Email Address</p>
+                      <p className="text-xs text-muted-foreground">{userData.email}</p>
+                    </div>
+                    <Button variant="destructive" size="sm" className="flex items-center gap-1 text-xs py-1">
+                      <LogOut size={12} />
+                      Log Out
+                    </Button>
+                  </div>
+
+                  <Separator className="my-1" />
+                  
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-xs font-medium">Email Notifications</p>
+                      <p className="text-xs text-muted-foreground">Receive updates about new polls</p>
+                    </div>
+                    <Switch />
+                  </div>
+                  
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-xs font-medium">Appear on Leaderboard</p>
+                      <p className="text-xs text-muted-foreground">Show your rankings publicly</p>
+                    </div>
+                    <Switch defaultChecked />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
