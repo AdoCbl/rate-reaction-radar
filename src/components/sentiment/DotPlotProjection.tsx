@@ -51,28 +51,29 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   
   // Generate y-axis labels for the interest rate range (0-5%)
   const renderYAxisLabels = () => {
-    // Creating labels at whole percentage points
     const labels = [];
     for (let rate = 0; rate <= 0.05; rate += 0.01) {
       labels.push(
         <div 
           key={rate} 
-          className="flex items-center justify-end relative w-full"
+          className="flex items-center justify-end"
           style={{ 
             position: 'absolute', 
             bottom: `${(rate / 0.05) * 100}%`,
             transform: 'translateY(50%)',
-            height: '20px' // Fixed height for consistent alignment
+            left: 0,
+            right: 0,
           }}
         >
           <span className="text-xs text-slate-400 font-medium pr-2">
             {(rate * 100).toFixed(0)}%
           </span>
           <div 
-            className="absolute left-0 right-0 border-t border-slate-700/70 -z-10"
+            className="absolute border-t border-slate-700/70"
             style={{
-              width: 'calc(100% + 15px)',
               left: '100%',
+              right: '-100%',
+              width: 'calc(100% + 15px)',
             }}
           />
         </div>
@@ -114,23 +115,36 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       </div>
       
       <div className={`bg-slate-800/60 p-4 rounded-xl shadow-sm border border-slate-700/50 ${isMobile ? 'px-2' : 'px-4'}`}>
-        <div className="flex relative" style={{ height: '180px' }}>
-          {/* Y-axis labels column - improved spacing and alignment */}
-          <div className="w-10 relative flex-none">
+        {/* Main chart container with fixed height */}
+        <div className="flex relative h-[180px]">
+          {/* Fixed-width Y-axis column */}
+          <div className="w-10 relative">
             {renderYAxisLabels()}
           </div>
           
-          {/* Dot plot columns with consistent spacing */}
-          <div className="flex flex-1 justify-between space-x-2 z-10">
+          {/* Chart columns container */}
+          <div className="grid grid-cols-4 gap-2 flex-1 relative">
+            {/* Unified grid lines that span all columns */}
+            <div className="absolute inset-0 pointer-events-none">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div 
+                  key={`grid-${index}`}
+                  className="absolute w-full border-t border-slate-700/70"
+                  style={{ bottom: `${index * 20}%` }}
+                />
+              ))}
+            </div>
+            
+            {/* Year columns */}
             {values.map((yearData) => (
               <DotPlotYear
                 key={yearData.year}
                 year={yearData.year}
                 value={yearData.value}
                 onChange={(value) => handleYearChange(yearData.year, value)}
-                minRate={0} // 0%
-                maxRate={0.05} // 5%
-                stepSize={0.00125} // 0.125%
+                minRate={0}
+                maxRate={0.05}
+                stepSize={0.00125}
                 sepMedian={showMedians ? getMedianForYear(yearData.year) : null}
                 isHovered={hoveredYear === yearData.year}
                 onHover={(hovered) => setHoveredYear(hovered ? yearData.year : null)}
