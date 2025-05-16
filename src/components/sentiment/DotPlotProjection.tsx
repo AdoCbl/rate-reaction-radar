@@ -49,21 +49,23 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   
   // Generate y-axis labels for the interest rate range (0-5%)
   const renderYAxisLabels = () => {
-    // Creating fewer labels to save space - just at 1% increments
+    // Creating labels at 1% increments
     const labels = [];
     for (let rate = 0; rate <= 0.05; rate += 0.01) {
       labels.push(
         <div 
           key={rate} 
-          className="text-xs text-slate-400 font-medium"
+          className="text-xs text-slate-400 font-medium flex items-center justify-end"
           style={{ 
             position: 'absolute', 
-            right: '8px', 
-            bottom: `${(rate / 0.05) * 100}%`,
-            transform: 'translateY(50%)'
+            right: '4px', 
+            top: `${(1 - rate / 0.05) * 100}%`,
+            transform: 'translateY(-50%)',
+            height: '1px', // Ensure label height aligns with grid lines
+            width: '100%'
           }}
         >
-          {(rate * 100).toFixed(0)}%
+          <span className="pr-1">{(rate * 100).toFixed(0)}%</span>
         </div>
       );
     }
@@ -101,26 +103,41 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       </div>
       
       <div className="bg-slate-800/60 p-2 rounded-md shadow-inner">
-        <div className="flex space-x-1 justify-between relative">
-          {/* Y-axis labels column */}
-          <div className="flex flex-col justify-between h-[140px] pr-1 w-5 relative">
-            {renderYAxisLabels()}
+        <div className="flex relative h-[200px]">
+          {/* Y-axis labels and grid lines container - positioned absolutely to span all years */}
+          <div className="absolute inset-0 pointer-events-none">
+            {/* Horizontal grid lines - These will span across all columns */}
+            {[0, 0.01, 0.02, 0.03, 0.04, 0.05].map(rate => (
+              <div 
+                key={rate}
+                className="absolute w-full border-t border-slate-700"
+                style={{ top: `${(1 - rate / 0.05) * 100}%` }}
+              />
+            ))}
+            
+            {/* Y-axis label container on the left */}
+            <div className="absolute left-0 top-0 h-full w-8">
+              {renderYAxisLabels()}
+            </div>
           </div>
           
-          {values.map((yearData) => (
-            <DotPlotYear
-              key={yearData.year}
-              year={yearData.year}
-              value={yearData.value}
-              onChange={(value) => handleYearChange(yearData.year, value)}
-              minRate={0} // 0%
-              maxRate={0.05} // 5%
-              stepSize={0.00125} // 0.125%
-              sepMedian={showMedians ? getMedianForYear(yearData.year) : null}
-              isHovered={hoveredYear === yearData.year}
-              onHover={(hovered) => setHoveredYear(hovered ? yearData.year : null)}
-            />
-          ))}
+          {/* Year columns - start these after the y-axis labels */}
+          <div className="pl-8 flex justify-between w-full">
+            {values.map((yearData) => (
+              <DotPlotYear
+                key={yearData.year}
+                year={yearData.year}
+                value={yearData.value}
+                onChange={(value) => handleYearChange(yearData.year, value)}
+                minRate={0} // 0%
+                maxRate={0.05} // 5%
+                stepSize={0.00125} // 0.125%
+                sepMedian={showMedians ? getMedianForYear(yearData.year) : null}
+                isHovered={hoveredYear === yearData.year}
+                onHover={(hovered) => setHoveredYear(hovered ? yearData.year : null)}
+              />
+            ))}
+          </div>
         </div>
       </div>
       
