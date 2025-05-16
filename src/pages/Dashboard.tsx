@@ -8,6 +8,7 @@ import { SubmitButton } from '@/components/sentiment/SubmitButton';
 import { Direction, YearProjection } from '@/components/sentiment/types';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
+import { RatePathChart } from '@/components/trends/RatePathChart';
 
 const Dashboard: React.FC = () => {
   // Current Fed Funds rate
@@ -81,13 +82,14 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full py-1 px-2">
+    <div className="h-full w-full p-3">
       <div className="fixed inset-0 bg-slate-950 -z-10 pointer-events-none" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(30,64,175,0.15),transparent_70%)] -z-10 pointer-events-none" />
       
-      <form onSubmit={handleSubmit} className="h-full flex flex-col">
-        {/* Top Row - Three Cards with consistent styling */}
-        <div className="grid grid-cols-3 gap-3 h-[calc(100vh-110px)]">
+      <form onSubmit={handleSubmit} className="h-full flex flex-col gap-3">
+        {/* Top Row - Two cards for input side by side */}
+        <div className="grid grid-cols-2 gap-3 h-[37vh]">
+          {/* Left card - FOMC Outlook */}
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -108,6 +110,7 @@ const Dashboard: React.FC = () => {
             </div>
           </motion.div>
 
+          {/* Right card - Rate Projections */}
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -124,7 +127,73 @@ const Dashboard: React.FC = () => {
               />
             </div>
           </motion.div>
+        </div>
 
+        {/* Middle Row - Comments and Submit */}
+        <div className="grid grid-cols-3 gap-3 h-[18vh]">
+          {/* Comment section - 2/3 width */}
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
+            className="col-span-2 bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md"
+          >
+            <CommentSection 
+              comment={comment}
+              setComment={setComment}
+              direction={direction}
+            />
+          </motion.div>
+          
+          {/* Submission preview and button */}
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
+            className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md flex flex-col"
+          >
+            <div className="grid grid-cols-1 gap-2 h-full">
+              {/* Projection values summary */}
+              <div className="bg-slate-800/60 rounded-md p-2 border border-slate-700/50 grid grid-cols-4 gap-2">
+                <div className="text-center">
+                  <span className="text-sm font-medium text-slate-300 block">2025</span>
+                  <span className="text-sm text-indigo-300 font-semibold block mt-1">
+                    {dotPlotValues[0].value !== null ? `${(dotPlotValues[0].value! * 100).toFixed(2)}%` : "—"}
+                  </span>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-slate-300 block">2026</span>
+                  <span className="text-sm text-indigo-300 font-semibold block mt-1">
+                    {dotPlotValues[1].value !== null ? `${(dotPlotValues[1].value! * 100).toFixed(2)}%` : "—"}
+                  </span>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-slate-300 block">2027</span>
+                  <span className="text-sm text-indigo-300 font-semibold block mt-1">
+                    {dotPlotValues[2].value !== null ? `${(dotPlotValues[2].value! * 100).toFixed(2)}%` : "—"}
+                  </span>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-slate-300 block">Long Run</span>
+                  <span className="text-sm text-indigo-300 font-semibold block mt-1">
+                    {dotPlotValues[3].value !== null ? `${(dotPlotValues[3].value! * 100).toFixed(2)}%` : "—"}
+                  </span>
+                </div>
+              </div>
+              
+              {/* Submit button */}
+              <div className="flex items-end justify-center h-full">
+                <SubmitButton 
+                  submitted={submitted}
+                  disabled={!direction}
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Bottom Row - Charts and Results */}
+        <div className="grid grid-cols-2 gap-3 h-[35vh]">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -171,68 +240,23 @@ const Dashboard: React.FC = () => {
               </p>
             </div>
           </motion.div>
-        </div>
 
-        {/* Bottom Row - Unified container with 3 sections */}
-        <div className="grid grid-cols-12 gap-3 h-[90px] mt-2">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.3 }}
-            className="col-span-7 bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md"
+            className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md flex flex-col"
           >
-            <CommentSection 
-              comment={comment}
-              setComment={setComment}
-              direction={direction}
-            />
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.3 }}
-            className="col-span-3 bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md"
-          >
-            <div className="grid grid-cols-4 gap-2 bg-slate-800/60 rounded-md p-2 border border-slate-700/50 h-full">
-              <div className="text-center">
-                <span className="text-sm font-medium text-slate-300 block">2025</span>
-                <span className="text-sm text-indigo-300 font-semibold block mt-1">
-                  {dotPlotValues[0].value !== null ? `${(dotPlotValues[0].value! * 100).toFixed(2)}%` : "—"}
-                </span>
-              </div>
-              <div className="text-center">
-                <span className="text-sm font-medium text-slate-300 block">2026</span>
-                <span className="text-sm text-indigo-300 font-semibold block mt-1">
-                  {dotPlotValues[1].value !== null ? `${(dotPlotValues[1].value! * 100).toFixed(2)}%` : "—"}
-                </span>
-              </div>
-              <div className="text-center">
-                <span className="text-sm font-medium text-slate-300 block">2027</span>
-                <span className="text-sm text-indigo-300 font-semibold block mt-1">
-                  {dotPlotValues[2].value !== null ? `${(dotPlotValues[2].value! * 100).toFixed(2)}%` : "—"}
-                </span>
-              </div>
-              <div className="text-center">
-                <span className="text-sm font-medium text-slate-300 block">Long Run</span>
-                <span className="text-sm text-indigo-300 font-semibold block mt-1">
-                  {dotPlotValues[3].value !== null ? `${(dotPlotValues[3].value! * 100).toFixed(2)}%` : "—"}
-                </span>
-              </div>
+            <h2 className="text-lg font-bold mb-2 text-white">
+              Client Rate Path Projections
+            </h2>
+            <div className="flex-grow">
+              <RatePathChart />
             </div>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.3 }}
-            className="col-span-2 bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl p-3 shadow-md flex items-center justify-center"
-          >
-            <div className="w-full">
-              <SubmitButton 
-                submitted={submitted}
-                disabled={!direction}
-              />
+            <div>
+              <p className="text-xs text-slate-400 pl-2 border-l-2 border-slate-600 ml-2 italic">
+                Average client projections show rate cuts accelerating through 2026.
+              </p>
             </div>
           </motion.div>
         </div>
