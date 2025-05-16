@@ -18,7 +18,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
   const isMobile = useIsMobile();
   
   return (
-    <div className="space-y-1">      
+    <div className="space-y-2">      
       <div className="relative">
         <motion.div
           className={cn(
@@ -40,7 +40,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
           {yieldEstimate > 0 ? '+' : ''}{yieldEstimate} bps
         </motion.div>
         
-        <div className="px-2">
+        <div className="px-1">
           <div className="relative">
             {/* Center marker */}
             <div className="absolute h-4 w-0.5 bg-white/30 top-[7px] left-1/2 transform -translate-x-1/2 z-10"></div>
@@ -79,12 +79,6 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
               </div>
             ))}
           </div>
-        </div>
-        
-        <div className="mt-1 text-center">
-          <p className="text-xs text-slate-400">
-            Drag the slider to estimate yield reaction
-          </p>
         </div>
       </div>
     </div>

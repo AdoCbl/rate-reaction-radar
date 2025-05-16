@@ -94,7 +94,7 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
               <div className={`font-semibold text-xl ${isFedDirectionCorrect ? 'text-emerald-400' : 'text-red-400'}`}>
                 {historicalScenario.fedResponse.charAt(0).toUpperCase() + historicalScenario.fedResponse.slice(1)}
                 {isFedDirectionCorrect ? 
-                  <span className="inline-block ml-2 text-emerald-400"><Check className="h-5 w-5 inline" /></span> : 
+                  <span className="inline-block ml-2 text-emerald-400"><Check size={16} /></span> : 
                   <span className="inline-block ml-2 text-red-400">✗</span>
                 }
               </div>
@@ -104,7 +104,7 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
               <div className={`font-semibold text-xl ${yieldDifference <= 10 ? 'text-emerald-400' : 'text-red-400'}`}>
                 {historicalScenario.yieldChange > 0 ? '+' : ''}{historicalScenario.yieldChange} bps
                 {yieldDifference <= 10 ? 
-                  <span className="inline-block ml-2 text-emerald-400"><Check className="h-5 w-5 inline" /></span> : 
+                  <span className="inline-block ml-2 text-emerald-400"><Check size={16} /></span> : 
                   <span className="inline-block ml-2 text-red-400">✗</span>
                 }
               </div>

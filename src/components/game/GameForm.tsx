@@ -3,11 +3,12 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { DirectionButton } from '@/components/sentiment/DirectionButton';
 import { ConfidenceSlider } from '@/components/sentiment/ConfidenceSlider';
-import { Info, ArrowRight } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Direction } from '@/components/sentiment/types';
 import YieldEstimateInput from './YieldEstimateInput';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { SubmitButton } from '@/components/sentiment/SubmitButton';
 
 interface GameFormProps {
   direction: Direction | null;
@@ -31,19 +32,18 @@ const GameForm: React.FC<GameFormProps> = ({
   onSubmit
 }) => {
   const isMobile = useIsMobile();
-  const spacing = isMobile ? "space-y-4" : "space-y-5";
   
   return (
-    <form onSubmit={onSubmit} className={spacing}>
+    <form onSubmit={onSubmit} className="space-y-6">
       {/* Question 1: Fed Response */}
       <motion.div 
-        className="space-y-2"
+        className="space-y-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <h3 className={`${isMobile ? 'text-lg' : 'text-xl'} font-semibold text-white`}>What do you think the Fed did in response?</h3>
-        <div className="grid grid-cols-3 gap-3 mt-2">
+        <h3 className="text-xl font-bold text-white">What do you think the Fed did in response?</h3>
+        <div className="grid grid-cols-3 gap-3 mt-1">
           <DirectionButton 
             direction="hike" 
             selected={direction === 'hike'} 
@@ -64,13 +64,13 @@ const GameForm: React.FC<GameFormProps> = ({
       
       {/* Question 2: Yield Estimate */}
       <motion.div 
-        className="space-y-2"
+        className="space-y-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h3 className={`${isMobile ? 'text-lg' : 'text-xl'} font-semibold text-white`}>How do you think the 2-Year Treasury Yield reacted?</h3>
-        <div className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-4">
+        <h3 className="text-xl font-bold text-white">How do you think the 2-Year Treasury Yield reacted?</h3>
+        <div className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-5">
           <YieldEstimateInput 
             yieldEstimate={yieldEstimate} 
             onYieldChange={onYieldChange} 
@@ -80,13 +80,13 @@ const GameForm: React.FC<GameFormProps> = ({
       
       {/* Confidence Section */}
       <motion.div 
-        className="space-y-2"
+        className="space-y-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <h3 className={`${isMobile ? 'text-lg' : 'text-xl'} font-semibold text-white`}>How confident are you in your prediction?</h3>
-        <div className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-4">
+        <h3 className="text-xl font-bold text-white">How confident are you in your prediction?</h3>
+        <div className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-5">
           <ConfidenceSlider value={confidence} onChange={onConfidenceChange} />
         </div>
       </motion.div>
@@ -117,45 +117,17 @@ const GameForm: React.FC<GameFormProps> = ({
         <span>Your responses will be scored based on accuracy and confidence level.</span>
       </motion.div>
       
-      {/* Submit Button */}
+      {/* Submit Button - using the SubmitButton component for consistency */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
         className="pt-2"
       >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="w-full h-full"
-          whileHover={!submitted && direction ? { scale: 1.02, y: -2 } : {}}
-        >
-          <Button 
-            type="submit" 
-            className={`w-full py-4 font-medium rounded-lg transition-all duration-300 shadow-lg text-base
-              ${submitted 
-                ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20' 
-                : !direction 
-                  ? 'bg-slate-700 text-slate-300 cursor-not-allowed opacity-70' 
-                  : 'bg-gradient-to-br from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white hover:shadow-sky-500/20 hover:shadow-xl'
-              }`}
-            disabled={!direction || submitted}
-          >
-            {submitted ? (
-              <motion.span 
-                className="flex items-center justify-center gap-2"
-                initial={{ opacity: 0.7 }}
-                animate={{ opacity: 1 }}
-                transition={{ repeat: Infinity, duration: 1, repeatType: "reverse" }}
-              >
-                Processing <ArrowRight className="ml-2" size={18} />
-              </motion.span>
-            ) : (
-              "Submit Your Prediction"
-            )}
-          </Button>
-        </motion.div>
+        <SubmitButton 
+          submitted={submitted} 
+          disabled={!direction} 
+        />
       </motion.div>
     </form>
   );
