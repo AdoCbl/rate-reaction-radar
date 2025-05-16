@@ -11,7 +11,7 @@ const HistoricalTrends: React.FC = () => {
   const [showFedMedians, setShowFedMedians] = useState(false);
 
   return (
-    <div className="space-y-6 animate-fade-in max-w-5xl mx-auto px-4 py-6">
+    <div className="container max-w-5xl mx-auto px-4 py-6 space-y-6">
       <motion.div 
         className="text-center mb-6"
         initial={{ opacity: 0, y: 10 }}
@@ -42,12 +42,13 @@ const HistoricalTrends: React.FC = () => {
         </Tabs>
       </div>
 
-      {/* Desktop Stacked View */}
-      <div className="hidden md:block space-y-6">
+      {/* Desktop Stacked View - Fixed to ensure both charts are visible */}
+      <div className="hidden md:flex md:flex-col md:space-y-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
+          className="w-full"
         >
           <OutlookCard />
         </motion.div>
@@ -56,6 +57,7 @@ const HistoricalTrends: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
+          className="w-full"
         >
           <ProjectionsCard showFedMedians={showFedMedians} setShowFedMedians={setShowFedMedians} />
         </motion.div>
@@ -68,7 +70,7 @@ const HistoricalTrends: React.FC = () => {
 const OutlookCard: React.FC = () => {
   return (
     <Card className="overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl">
-      <CardHeader>
+      <CardHeader className="p-6">
         <CardTitle className="text-xl font-semibold">
           FOMC Policy Expectations History
         </CardTitle>
@@ -76,11 +78,11 @@ const OutlookCard: React.FC = () => {
           See how client sentiment has evolved over time
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="h-72 md:h-80">
+      <CardContent className="p-6 pt-0">
+        <div className="h-64 md:h-72"> {/* Fixed height to prevent stretching */}
           <FomcOutlookChart />
         </div>
-        <p className="text-sm text-slate-400 mt-3">
+        <p className="text-sm text-slate-400 mt-4">
           Sentiment leaned heavily toward 'Hold' in the lead-up to the July FOMC.
         </p>
       </CardContent>
@@ -95,8 +97,8 @@ const ProjectionsCard: React.FC<{
 }> = ({ showFedMedians, setShowFedMedians }) => {
   return (
     <Card className="overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl">
-      <CardHeader>
-        <div className="flex flex-wrap items-center justify-between gap-2">
+      <CardHeader className="p-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <CardTitle className="text-xl font-semibold">
               Client Forecasted Rate Paths (Median Values)
@@ -115,11 +117,11 @@ const ProjectionsCard: React.FC<{
           </div>
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="h-72 md:h-80">
+      <CardContent className="p-6 pt-0">
+        <div className="h-64 md:h-72"> {/* Fixed height to match first chart */}
           <RatePathChart showFedMedians={showFedMedians} />
         </div>
-        <p className="text-sm text-slate-400 mt-3">
+        <p className="text-sm text-slate-400 mt-4">
           Median long-run rate forecasts have remained stable near 2.50%.
         </p>
       </CardContent>
