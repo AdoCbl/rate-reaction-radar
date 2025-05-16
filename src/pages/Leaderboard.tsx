@@ -160,174 +160,178 @@ const Leaderboard: React.FC = () => {
   
   return (
     <div className="container mx-auto p-0 sm:p-0 md:p-1 lg:p-2">
-      {/* Header: Title and Filters */}
-      <div className="flex justify-between items-center mb-4">
+      {/* Header: Title */}
+      <div className="flex items-center mb-4">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <Trophy size={24} className="text-primary" />
           Leaderboard
         </h1>
-        
-        <Tabs 
-          value={timeFrame} 
-          onValueChange={(value) => setTimeFrame(value as 'weekly' | 'monthly' | 'all-time')}
-          className="w-64"
-        >
-          <TabsList className="grid grid-cols-3 w-full">
-            <TabsTrigger value="weekly">Weekly</TabsTrigger>
-            <TabsTrigger value="monthly">Monthly</TabsTrigger>
-            <TabsTrigger value="all-time">All-time</TabsTrigger>
-          </TabsList>
-        </Tabs>
       </div>
 
-      {/* Main Content: Three Equal Columns */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Left Card: Personal Rank */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Card className="h-full bg-gradient-to-br from-slate-800/80 to-indigo-950/80 border border-indigo-900/50">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-md flex items-center gap-2 text-indigo-300">
-                <UserRound size={20} />
-                Your Rank
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col items-center justify-between h-[calc(100%-80px)]">
-              <div className="w-full flex flex-col items-center">
-                <div className="mb-4">
-                  <Avatar className="h-20 w-20 border-2 border-primary">
-                    {userData.avatarSrc ? (
-                      <AvatarImage src={userData.avatarSrc} alt={userData.username} />
-                    ) : (
-                      <AvatarFallback className="bg-primary/20 text-lg">
-                        {userData.username.substring(0, 2)}
-                      </AvatarFallback>
-                    )}
-                  </Avatar>
-                </div>
-                
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-white bg-primary">
-                    {userData.rank}
+      {/* Main Content: Two Column Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-[35%_65%] gap-4">
+        {/* Left Column - Stacked Cards */}
+        <div className="flex flex-col gap-4">
+          {/* Your Rank Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Card className="bg-gradient-to-br from-slate-800/80 to-indigo-950/80 border border-indigo-900/50">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-md flex items-center gap-2 text-indigo-300">
+                  <UserRound size={20} />
+                  Your Rank
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col items-center">
+                <div className="w-full flex flex-col items-center">
+                  <div className="mb-4">
+                    <Avatar className="h-20 w-20 border-2 border-primary">
+                      {userData.avatarSrc ? (
+                        <AvatarImage src={userData.avatarSrc} alt={userData.username} />
+                      ) : (
+                        <AvatarFallback className="bg-primary/20 text-lg">
+                          {userData.username.substring(0, 2)}
+                        </AvatarFallback>
+                      )}
+                    </Avatar>
                   </div>
-                  <h2 className="text-xl font-bold">{userData.username}</h2>
-                  <Badge variant="outline" className="bg-primary/20 text-primary">You</Badge>
-                </div>
-                
-                <div className="text-2xl font-bold text-primary mb-2">{userData.score}</div>
-                
-                <div className="grid grid-cols-2 gap-4 w-full px-2">
-                  <div className="flex flex-col items-center p-2 bg-slate-800/50 rounded-md">
-                    <span className="text-sm text-slate-400">Accuracy</span>
-                    <span className="text-lg font-bold">{userData.accuracy}%</span>
-                  </div>
-                  <div className="flex flex-col items-center p-2 bg-slate-800/50 rounded-md">
-                    <span className="text-sm text-slate-400">Games</span>
-                    <span className="text-lg font-bold">{userData.gamesPlayed}</span>
-                  </div>
-                </div>
-                
-                <div className="mt-4 py-2 px-3 bg-emerald-500/10 text-emerald-400 rounded-md font-medium">
-                  +{userData.weeklyProgress} this week
-                </div>
-              </div>
-              
-              <Button variant="outline" className="mt-4 w-full">
-                View Full Profile
-              </Button>
-            </CardContent>
-          </Card>
-        </motion.div>
-        
-        {/* Center Card: Podium (Top 3) */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-        >
-          <Card className="h-full bg-gradient-to-br from-slate-800/80 to-indigo-950/80 border border-indigo-900/50">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-md flex items-center gap-2 text-indigo-300">
-                <Award size={20} />
-                Top Players
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex justify-between items-center h-[calc(100%-80px)]">
-              <div className="grid grid-cols-3 gap-2 w-full h-full">
-                {leaderboardData.slice(0, 3).map((player, index) => {
-                  // Calculate the podium height - 2nd place is tallest, then 1st, then 3rd
-                  const podiumHeights = {
-                    0: 'mt-8 h-[calc(100%-32px)]', // 1st place, slightly shorter
-                    1: 'h-full', // 2nd place, tallest
-                    2: 'mt-16 h-[calc(100%-64px)]', // 3rd place, shortest
-                  };
                   
-                  const rank = index + 1;
-                  const medalColor = medalColors[rank as keyof typeof medalColors];
-                  
-                  return (
-                    <div key={player.id} className={`flex flex-col items-center ${podiumHeights[index as keyof typeof podiumHeights]}`}>
-                      <div className="flex flex-col items-center flex-grow justify-start bg-slate-800/60 rounded-t-lg px-2 pt-3 w-full">
-                        <div className="relative">
-                          <Avatar className={`h-16 w-16 border-2 ${rank === 1 ? 'border-yellow-400' : rank === 2 ? 'border-gray-400' : 'border-amber-600'}`}>
-                            {player.avatarSrc ? (
-                              <AvatarImage src={player.avatarSrc} alt={player.username} />
-                            ) : (
-                              <AvatarFallback className="text-md">
-                                {player.username.substring(0, 2)}
-                              </AvatarFallback>
-                            )}
-                          </Avatar>
-                          <div className={`absolute -top-2 -right-2 bg-slate-800 rounded-full p-1 ${medalColor}`}>
-                            <Medal size={14} />
-                          </div>
-                        </div>
-                        
-                        <div className="mt-2 text-sm font-medium text-center truncate w-full">
-                          {player.username}
-                        </div>
-                        
-                        <div className="mt-1 text-lg font-bold text-primary">
-                          {player.score}
-                        </div>
-                        
-                        {player.badges.length > 0 && (
-                          <Badge variant="outline" className="mt-1 text-xs bg-slate-700/30">
-                            {player.badges[0]}
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <div className={`w-full flex items-center justify-center p-1 ${
-                        rank === 1 ? 'bg-yellow-500/20 text-yellow-500' : 
-                        rank === 2 ? 'bg-gray-500/20 text-gray-300' : 
-                        'bg-amber-700/20 text-amber-500'
-                      } rounded-b-lg`}>
-                        #{rank}
-                      </div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-white bg-primary">
+                      {userData.rank}
                     </div>
-                  );
-                })}
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+                    <h2 className="text-xl font-bold">{userData.username}</h2>
+                    <Badge variant="outline" className="bg-primary/20 text-primary">You</Badge>
+                  </div>
+                  
+                  <div className="text-2xl font-bold text-primary mb-2">{userData.score}</div>
+                  
+                  <div className="grid grid-cols-2 gap-4 w-full px-2">
+                    <div className="flex flex-col items-center p-2 bg-slate-800/50 rounded-md">
+                      <span className="text-sm text-slate-400">Accuracy</span>
+                      <span className="text-lg font-bold">{userData.accuracy}%</span>
+                    </div>
+                    <div className="flex flex-col items-center p-2 bg-slate-800/50 rounded-md">
+                      <span className="text-sm text-slate-400">Games</span>
+                      <span className="text-lg font-bold">{userData.gamesPlayed}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 py-2 px-3 bg-emerald-500/10 text-emerald-400 rounded-md font-medium w-full text-center">
+                    +{userData.weeklyProgress} this week
+                  </div>
+                  
+                  <Button variant="outline" className="mt-4 w-full">
+                    View Full Profile
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+          
+          {/* Top Players Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
+            <Card className="bg-gradient-to-br from-slate-800/80 to-indigo-950/80 border border-indigo-900/50">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-md flex items-center gap-2 text-indigo-300">
+                  <Award size={20} />
+                  Top Players
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-4">
+                <div className="grid grid-cols-3 gap-2 w-full">
+                  {leaderboardData.slice(0, 3).map((player, index) => {
+                    // Calculate the podium height - 2nd place is tallest, then 1st, then 3rd
+                    const podiumHeights = {
+                      0: 'mt-8 h-[calc(100%-32px)]', // 1st place, slightly shorter
+                      1: 'h-full', // 2nd place, tallest
+                      2: 'mt-16 h-[calc(100%-64px)]', // 3rd place, shortest
+                    };
+                    
+                    const rank = index + 1;
+                    const medalColor = medalColors[rank as keyof typeof medalColors];
+                    
+                    return (
+                      <div key={player.id} className={`flex flex-col items-center ${podiumHeights[index as keyof typeof podiumHeights]}`}>
+                        <div className="flex flex-col items-center flex-grow justify-start bg-slate-800/60 rounded-t-lg px-2 pt-3 w-full">
+                          <div className="relative">
+                            <Avatar className={`h-14 w-14 border-2 ${rank === 1 ? 'border-yellow-400' : rank === 2 ? 'border-gray-400' : 'border-amber-600'}`}>
+                              {player.avatarSrc ? (
+                                <AvatarImage src={player.avatarSrc} alt={player.username} />
+                              ) : (
+                                <AvatarFallback className="text-md">
+                                  {player.username.substring(0, 2)}
+                                </AvatarFallback>
+                              )}
+                            </Avatar>
+                            <div className={`absolute -top-2 -right-2 bg-slate-800 rounded-full p-1 ${medalColor}`}>
+                              <Medal size={14} />
+                            </div>
+                          </div>
+                          
+                          <div className="mt-2 text-sm font-medium text-center truncate w-full">
+                            {player.username}
+                          </div>
+                          
+                          <div className="mt-1 text-lg font-bold text-primary">
+                            {player.score}
+                          </div>
+                          
+                          {player.badges.length > 0 && (
+                            <Badge variant="outline" className="mt-1 text-xs bg-slate-700/30">
+                              {player.badges[0]}
+                            </Badge>
+                          )}
+                        </div>
+                        
+                        <div className={`w-full flex items-center justify-center p-1 ${
+                          rank === 1 ? 'bg-yellow-500/20 text-yellow-500' : 
+                          rank === 2 ? 'bg-gray-500/20 text-gray-300' : 
+                          'bg-amber-700/20 text-amber-500'
+                        } rounded-b-lg`}>
+                          #{rank}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
         
-        {/* Right Card: All Players List */}
+        {/* Right Column - All Players List */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}
+          className="h-full"
         >
           <Card className="h-full bg-gradient-to-br from-slate-800/80 to-indigo-950/80 border border-indigo-900/50">
-            <CardHeader className="pb-2">
+            <CardHeader className="pb-2 flex flex-row items-center justify-between">
               <CardTitle className="text-md flex items-center gap-2 text-indigo-300">
                 <Users size={20} />
                 All Players
               </CardTitle>
+              
+              <Tabs 
+                value={timeFrame} 
+                onValueChange={(value) => setTimeFrame(value as 'weekly' | 'monthly' | 'all-time')}
+                className="w-64"
+              >
+                <TabsList className="grid grid-cols-3 w-full">
+                  <TabsTrigger value="weekly">Weekly</TabsTrigger>
+                  <TabsTrigger value="monthly">Monthly</TabsTrigger>
+                  <TabsTrigger value="all-time">All-time</TabsTrigger>
+                </TabsList>
+              </Tabs>
             </CardHeader>
             <CardContent className="p-2">
               <div className="space-y-1.5 overflow-auto max-h-[calc(100vh-180px)] pr-1">
