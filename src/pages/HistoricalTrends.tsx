@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -105,7 +104,7 @@ const HistoricalTrends: React.FC = () => {
 
       {/* Pagination - Now using up/down arrows instead of left/right */}
       {pageCount > 1 && (
-        <div className="flex justify-center items-center gap-4 mt-2">
+        <div className="flex justify-center items-center gap-4 mt-2 mb-2">
           <button 
             onClick={prevPage} 
             disabled={currentPage === 0}
