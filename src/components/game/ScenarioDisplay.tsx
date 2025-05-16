@@ -1,14 +1,15 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { historicalScenario } from './gameData';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { ScenarioData } from '@/types/game';
 
 interface ScenarioDisplayProps {
+  scenario: ScenarioData;
   hideMetadata?: boolean;
 }
 
-const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false }) => {
+const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ scenario, hideMetadata = false }) => {
   const isMobile = useIsMobile();
   
   return (
@@ -24,13 +25,13 @@ const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false 
         </h2>
         
         <p className={`${isMobile ? 'text-xs' : 'text-sm'} leading-snug text-gray-200`}>
-          {historicalScenario.scenario}
+          {scenario.scenario}
         </p>
         
         {!hideMetadata && (
           <div className="mt-1 flex items-center justify-between text-xs text-gray-400">
-            <span>{historicalScenario.date}</span>
-            <span>{historicalScenario.context}</span>
+            <span>{scenario.date}</span>
+            <span>{scenario.context}</span>
           </div>
         )}
       </div>

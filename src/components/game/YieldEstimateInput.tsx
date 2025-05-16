@@ -4,18 +4,26 @@ import { cn } from '@/lib/utils';
 import { Slider } from '@/components/ui/slider';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { YieldRangeConfig } from '@/types/game';
 
 interface YieldEstimateInputProps {
   yieldEstimate: number;
   onYieldChange: (value: number) => void;
+  config: YieldRangeConfig;
 }
 
 const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({ 
   yieldEstimate, 
-  onYieldChange 
+  onYieldChange,
+  config
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const isMobile = useIsMobile();
+  const { min, max, step } = config;
+  
+  // Generate tick marks based on the range
+  const tickInterval = (max - min) / 10;
+  const tickValues = Array.from({ length: 11 }, (_, i) => min + i * tickInterval);
   
   return (
     <div className="space-y-0.5">      
@@ -26,7 +34,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
             "bg-yellow-500/20 text-yellow-300 border border-yellow-500/50"
           )}
           animate={{
-            x: `calc(${((yieldEstimate + 50) / 100) * 100}% - 50%)`,
+            x: `calc(${((yieldEstimate - min) / (max - min)) * 100}% - 50%)`,
             opacity: isDragging ? 1 : 0.9,
             scale: isDragging ? 1.1 : 1
           }}
@@ -46,9 +54,9 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
             <div className="absolute h-3 w-0.5 bg-white/30 top-[6px] left-1/2 transform -translate-x-1/2 z-10"></div>
             
             <Slider
-              min={-50}
-              max={50}
-              step={1}
+              min={min}
+              max={max}
+              step={step}
               value={[yieldEstimate]}
               onValueChange={(value) => onYieldChange(value[0])}
               onValueCommit={() => setIsDragging(false)}
@@ -59,7 +67,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
           
           {/* Tick marks - more compact */}
           <div className="grid grid-cols-11 gap-0 px-1 -mt-1">
-            {[-50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50].map((tick) => (
+            {tickValues.map((tick) => (
               <div 
                 key={tick} 
                 className={cn(

@@ -4,14 +4,17 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { BarChart3, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { calculateScore, historicalScenario } from './gameData';
 import { Direction } from '@/components/sentiment/types';
 import ScenarioDisplay from './ScenarioDisplay';
+import { GamePredictionResult, ScenarioData } from '@/types/game';
+import { gameText, getYieldAccuracyText } from '@/data/mockGameData';
 
 interface GameResultDisplayProps {
   direction: Direction | null;
   yieldEstimate: number;
   confidence: number;
+  scenario: ScenarioData;
+  result: GamePredictionResult;
   onReset: () => void;
 }
 
@@ -19,23 +22,12 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
   direction,
   yieldEstimate,
   confidence,
+  scenario,
+  result,
   onReset
 }) => {
-  const score = calculateScore(direction, yieldEstimate);
+  const { score, isDirectionCorrect, yieldDifference } = result;
   const scoreClass = score >= 80 ? 'text-emerald-400' : score >= 50 ? 'text-indigo-300' : 'text-red-400';
-  
-  // Calculate accuracy metrics
-  const isFedDirectionCorrect = direction === historicalScenario.fedResponse;
-  const yieldDifference = Math.abs(yieldEstimate - historicalScenario.yieldChange);
-  const getYieldAccuracyText = () => {
-    if (yieldDifference <= 5) return "Perfect!";
-    if (yieldDifference <= 10) return "Very close";
-    if (yieldDifference <= 20) return "Close";
-    return "Missed";
-  };
-
-  // Explanation line based on scenario
-  const explanationLine = "The Fed responded to inflation concerns with a rate hike. Markets priced in more aggressive tightening ahead.";
   
   return (
     <div className="space-y-8">
@@ -44,8 +36,8 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-2xl font-bold text-indigo-300 mb-4">How the Fed Actually Responded</h2>
-        <ScenarioDisplay hideMetadata={false} />
+        <h2 className="text-2xl font-bold text-indigo-300 mb-4">{gameText.outcomeHeader}</h2>
+        <ScenarioDisplay scenario={scenario} hideMetadata={false} />
       </motion.div>
       
       <motion.div 
@@ -85,15 +77,15 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
           <div className="flex justify-between items-center">
             <div className="text-sm text-slate-400">Actual Outcome</div>
             <Badge className="bg-slate-600/20 text-slate-300 border-slate-600/50">
-              {historicalScenario.date}
+              {scenario.date}
             </Badge>
           </div>
           
           <div className="flex justify-between items-center">
             <div>
-              <div className={`font-semibold text-xl ${isFedDirectionCorrect ? 'text-emerald-400' : 'text-red-400'}`}>
-                {historicalScenario.fedResponse.charAt(0).toUpperCase() + historicalScenario.fedResponse.slice(1)}
-                {isFedDirectionCorrect ? 
+              <div className={`font-semibold text-xl ${isDirectionCorrect ? 'text-emerald-400' : 'text-red-400'}`}>
+                {scenario.fedResponse.charAt(0).toUpperCase() + scenario.fedResponse.slice(1)}
+                {isDirectionCorrect ? 
                   <span className="inline-block ml-2 text-emerald-400"><Check size={16} /></span> : 
                   <span className="inline-block ml-2 text-red-400">✗</span>
                 }
@@ -102,7 +94,7 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
             </div>
             <div>
               <div className={`font-semibold text-xl ${yieldDifference <= 10 ? 'text-emerald-400' : 'text-red-400'}`}>
-                {historicalScenario.yieldChange > 0 ? '+' : ''}{historicalScenario.yieldChange} bps
+                {scenario.yieldChange > 0 ? '+' : ''}{scenario.yieldChange} bps
                 {yieldDifference <= 10 ? 
                   <span className="inline-block ml-2 text-emerald-400"><Check size={16} /></span> : 
                   <span className="inline-block ml-2 text-red-400">✗</span>
@@ -121,8 +113,8 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
         transition={{ delay: 0.3, duration: 0.4 }}
       >
         <div className="text-sm text-slate-400 mb-2">Historical Context</div>
-        <p className="text-white">{explanationLine}</p>
-        <p className="text-white mt-2">{historicalScenario.context}</p>
+        <p className="text-white">{gameText.explanationLine}</p>
+        <p className="text-white mt-2">{scenario.context}</p>
       </motion.div>
       
       <motion.div 
@@ -145,16 +137,16 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
         
         <div className="mt-6 text-center">
           <div className="flex items-center justify-center gap-2 text-sm mb-2">
-            <span className={isFedDirectionCorrect ? "text-emerald-400" : "text-red-400"}>
-              Fed Direction: {isFedDirectionCorrect ? "Correct" : "Incorrect"}
+            <span className={isDirectionCorrect ? "text-emerald-400" : "text-red-400"}>
+              Fed Direction: {isDirectionCorrect ? "Correct" : "Incorrect"}
             </span>
             <span className="text-slate-500">•</span>
             <span className={`text-${yieldDifference <= 10 ? "emerald" : "red"}-400`}>
-              Yield Estimate: {getYieldAccuracyText()}
+              Yield Estimate: {getYieldAccuracyText(yieldDifference)}
             </span>
           </div>
           <p className="text-sm text-slate-400">
-            {isFedDirectionCorrect 
+            {isDirectionCorrect 
               ? "You correctly predicted the Fed's response! " 
               : "You missed the Fed's actual response. "}
             {yieldDifference <= 10 
@@ -170,7 +162,7 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
           variant="outline" 
           className="w-full border-slate-700 bg-slate-800/30 hover:bg-slate-700 text-white py-6"
         >
-          Try Another Scenario
+          {gameText.tryAgain}
         </Button>
         <Button 
           variant="default" 
@@ -178,7 +170,7 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
           onClick={() => window.location.href = '/leaderboard'}
         >
           <BarChart3 className="mr-2 h-4 w-4" />
-          View Leaderboard
+          {gameText.viewLeaderboard}
         </Button>
       </div>
     </div>

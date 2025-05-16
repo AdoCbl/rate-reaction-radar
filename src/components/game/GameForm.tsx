@@ -8,12 +8,15 @@ import { motion } from 'framer-motion';
 import { Direction } from '@/components/sentiment/types';
 import YieldEstimateInput from './YieldEstimateInput';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { gameText } from '@/data/mockGameData';
+import { GamePredictionInput, YieldRangeConfig } from '@/types/game';
 
 interface GameFormProps {
   direction: Direction | null;
   yieldEstimate: number;
   confidence: number;
   submitted: boolean;
+  yieldConfig: YieldRangeConfig;
   onDirectionChange: (direction: Direction) => void;
   onYieldChange: (value: number) => void;
   onConfidenceChange: (value: number) => void;
@@ -25,6 +28,7 @@ const GameForm: React.FC<GameFormProps> = ({
   yieldEstimate,
   confidence,
   submitted,
+  yieldConfig,
   onDirectionChange,
   onYieldChange,
   onConfidenceChange,
@@ -41,7 +45,7 @@ const GameForm: React.FC<GameFormProps> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <h3 className="text-xl font-bold text-white">What do you think the Fed did in response?</h3>
+        <h3 className="text-xl font-bold text-white">{gameText.directions.question}</h3>
         <div className="grid grid-cols-3 gap-3 mt-1">
           <DirectionButton 
             direction="hike" 
@@ -68,11 +72,12 @@ const GameForm: React.FC<GameFormProps> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h3 className="text-xl font-bold text-white">How do you think the 2-Year Treasury Yield reacted?</h3>
+        <h3 className="text-xl font-bold text-white">{gameText.yield.question}</h3>
         <div className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-4">
           <YieldEstimateInput 
             yieldEstimate={yieldEstimate} 
-            onYieldChange={onYieldChange} 
+            onYieldChange={onYieldChange}
+            config={yieldConfig}
           />
         </div>
       </motion.div>
@@ -84,7 +89,7 @@ const GameForm: React.FC<GameFormProps> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <h3 className="text-xl font-bold text-white">How confident are you in your prediction?</h3>
+        <h3 className="text-xl font-bold text-white">{gameText.confidence.question}</h3>
         <div className="bg-slate-800/40 rounded-xl border border-slate-700/50 p-4">
           <ConfidenceSlider value={confidence} onChange={onConfidenceChange} />
         </div>
@@ -139,10 +144,10 @@ const GameForm: React.FC<GameFormProps> = ({
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
-              Submitted!
+              {gameText.submitted}
             </span>
           ) : (
-            "Submit Your Prediction"
+            gameText.submit
           )}
         </Button>
       </motion.div>
