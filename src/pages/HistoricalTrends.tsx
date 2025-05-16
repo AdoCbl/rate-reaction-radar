@@ -6,6 +6,7 @@ import { MeetingDotPlotComparison } from '@/components/trends/MeetingDotPlotComp
 import { ChevronUp, ChevronDown, CircleDot, Circle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { ForecastAccuracyChart } from '@/components/trends/ForecastAccuracyChart';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // FOMC meetings with SEP releases (most recent first)
 const fomcMeetings = [
@@ -32,6 +33,7 @@ const fomcMeetings = [
 ];
 
 const HistoricalTrends: React.FC = () => {
+  const isMobile = useIsMobile();
   const [currentPage, setCurrentPage] = useState(0);
   const meetingsPerPage = 2; // Number of meetings to show per page
   const pageCount = Math.ceil(fomcMeetings.length / meetingsPerPage);
@@ -74,7 +76,7 @@ const HistoricalTrends: React.FC = () => {
       {/* Fixed legend at the top */}
       <Card className="bg-slate-800/90 border border-slate-700 mb-6 p-4">
         <div className="flex flex-wrap items-center gap-6">
-          <h2 className="text-lg font-medium text-white mr-auto">Forecast Accuracy</h2>
+          <h2 className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300 mr-auto`}>Forecast Accuracy</h2>
           
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
