@@ -18,11 +18,11 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
   const isMobile = useIsMobile();
   
   return (
-    <div className="space-y-2">      
+    <div className="space-y-1">      
       <div className="relative">
         <motion.div
           className={cn(
-            "absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded-full text-base font-semibold",
+            "absolute -top-6 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded-full text-sm font-semibold",
             "bg-yellow-500/20 text-yellow-300 border border-yellow-500/50"
           )}
           animate={{
@@ -52,7 +52,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
               value={[yieldEstimate]}
               onValueChange={(value) => onYieldChange(value[0])}
               onValueCommit={() => setIsDragging(false)}
-              className="mb-6 z-20"
+              className="mb-4 z-20"
               onPointerDown={() => setIsDragging(true)}
             />
           </div>
@@ -73,7 +73,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
                     tick === 0 ? "bg-white" : "bg-slate-500"
                   )}
                 ></div>
-                <span className="text-xs text-slate-400 mt-1">
+                <span className={`${isMobile ? 'text-[10px]' : 'text-xs'} text-slate-400 mt-1`}>
                   {tick > 0 ? `+${tick}` : tick}
                 </span>
               </div>
@@ -81,7 +81,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
           </div>
         </div>
         
-        <div className="mt-2 text-center">
+        <div className="mt-1 text-center">
           <p className="text-xs text-slate-400">
             Drag the slider to estimate yield reaction
           </p>

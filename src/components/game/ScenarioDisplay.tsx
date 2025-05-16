@@ -24,30 +24,30 @@ const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false 
 
   return (
     <motion.div 
-      className={`${isMobile ? 'p-4' : 'p-5'} bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md`}
+      className={`${isMobile ? 'p-3' : 'p-4'} bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md`}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="flex justify-between items-center mb-3">
-        <h2 className={`${isMobile ? 'text-lg' : 'text-xl'} font-bold text-blue-300 flex items-center`}>
-          <Info className="mr-2 text-blue-400" size={isMobile ? 18 : 20} />
+      <div className="flex justify-between items-center mb-2">
+        <h2 className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-blue-300 flex items-center`}>
+          <Info className="mr-2 text-blue-400" size={isMobile ? 16 : 18} />
           Historical Market Scenario
         </h2>
         {!hideMetadata && (
           <Badge 
             variant="outline" 
-            className={`px-3 py-1 text-xs ${getDifficultyColor()}`}
+            className={`px-2 py-0.5 text-xs ${getDifficultyColor()}`}
           >
             {historicalScenario.difficultyLevel}
           </Badge>
         )}
       </div>
       
-      <p className={`${isMobile ? 'text-base' : 'text-lg'} leading-relaxed text-gray-200`}>{historicalScenario.scenario}</p>
+      <p className={`${isMobile ? 'text-sm' : 'text-base'} leading-relaxed text-gray-200`}>{historicalScenario.scenario}</p>
       
       {!hideMetadata && (
-        <div className="mt-3 flex items-center justify-between text-xs text-gray-400">
+        <div className="mt-2 flex items-center justify-between text-xs text-gray-400">
           <span>{historicalScenario.date}</span>
           <span>{historicalScenario.context}</span>
         </div>
