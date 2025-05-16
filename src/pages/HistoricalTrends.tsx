@@ -72,6 +72,9 @@ const OutlookCard: React.FC = () => {
         <CardTitle className="text-xl font-semibold">
           Clients' Predictions for the Next Fed Move (History)
         </CardTitle>
+        <CardDescription className="text-slate-400">
+          See how client sentiment has evolved over time
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="h-72 md:h-80">
@@ -94,9 +97,14 @@ const ProjectionsCard: React.FC<{
     <Card className="overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl">
       <CardHeader>
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <CardTitle className="text-xl font-semibold">
-            Client Rate Projections Over Time
-          </CardTitle>
+          <div>
+            <CardTitle className="text-xl font-semibold">
+              Client Rate Projections Over Time
+            </CardTitle>
+            <CardDescription className="text-slate-400">
+              Track how rate expectations for future years have evolved
+            </CardDescription>
+          </div>
           <div className="flex items-center gap-2">
             <span className="text-xs text-slate-400">Show Fed SEP Medians</span>
             <Switch

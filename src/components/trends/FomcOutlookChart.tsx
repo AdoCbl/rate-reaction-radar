@@ -165,11 +165,11 @@ export const FomcOutlookChart: React.FC = () => {
           
           <Tooltip content={<CustomTooltip />} />
           
-          {/* FOMC meeting reference lines */}
+          {/* FOMC meeting reference lines - Converting Date to timestamp for compatibility */}
           {fomcMeetings.map((date, index) => (
             <ReferenceLine
               key={index}
-              x={date}
+              x={date.getTime()} // Convert Date to number timestamp
               stroke="#475569"
               strokeDasharray="3 3"
               label={{
