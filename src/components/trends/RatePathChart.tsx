@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Line, 
@@ -88,25 +87,29 @@ const chartConfig = {
   y2025: {
     label: "2025",
     theme: {
-      dark: "#60a5fa", // Blue
+      light: "#60a5fa", // Blue for light mode
+      dark: "#60a5fa"   // Blue for dark mode
     }
   },
   y2026: {
     label: "2026",
     theme: {
-      dark: "#a78bfa", // Purple
+      light: "#a78bfa", // Purple for light mode
+      dark: "#a78bfa"   // Purple for dark mode
     }
   },
   y2027: {
     label: "2027",
     theme: {
-      dark: "#2dd4bf", // Teal
+      light: "#2dd4bf", // Teal for light mode
+      dark: "#2dd4bf"   // Teal for dark mode
     }
   },
   longRun: {
     label: "Long Run",
     theme: {
-      dark: "#fb923c", // Orange
+      light: "#fb923c", // Orange for light mode
+      dark: "#fb923c"   // Orange for dark mode
     }
   },
 };

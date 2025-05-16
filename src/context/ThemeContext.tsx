@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 type Theme = "dark";
 
@@ -10,10 +10,11 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const theme: Theme = "dark";
+  const [theme] = useState<Theme>("dark");
 
-  useEffect(() => {
-    // Always set dark mode
+  // Instead of useEffect to force dark mode, we'll use React's state properly
+  // This avoids the hook usage issue that was causing the runtime error
+  React.useLayoutEffect(() => {
     document.documentElement.classList.remove("light");
     document.documentElement.classList.add("dark");
     localStorage.setItem("theme", "dark");

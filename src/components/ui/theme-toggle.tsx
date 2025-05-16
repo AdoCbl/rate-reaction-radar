@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Button } from "@/components/ui/button";
 import { useTheme } from "@/context/ThemeContext";
 
 export function ThemeToggle() {
