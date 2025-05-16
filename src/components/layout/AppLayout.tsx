@@ -11,6 +11,7 @@ type AppLayoutProps = {
 
 export const AppLayout = ({ children }: AppLayoutProps) => {
   const location = useLocation();
+  const isDashboard = location.pathname === "/";
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-indigo-950 text-gray-800 dark:text-gray-100">
@@ -26,7 +27,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
             key={location.pathname}
-            className="flex-grow"
+            className={`flex-grow ${isDashboard ? 'pb-16' : 'p-4'}`}
           >
             {children}
           </motion.div>

@@ -8,9 +8,10 @@ import { Check } from 'lucide-react';
 type SubmitButtonProps = {
   submitted: boolean;
   disabled: boolean;
+  text?: string;
 };
 
-export const SubmitButton: React.FC<SubmitButtonProps> = ({ submitted, disabled }) => {
+export const SubmitButton: React.FC<SubmitButtonProps> = ({ submitted, disabled, text = "Submit" }) => {
   const buttonContent = () => {
     if (submitted) {
       return (
@@ -20,7 +21,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({ submitted, disabled 
         </span>
       );
     }
-    return "Submit Your Forecast";
+    return text;
   };
 
   const button = (
@@ -53,7 +54,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({ submitted, disabled 
         <Tooltip>
           <TooltipTrigger asChild>{button}</TooltipTrigger>
           <TooltipContent side="top" className="bg-slate-800 border-slate-700 text-white">
-            <p>Please select a rate direction and add at least one projection point</p>
+            <p>Please select a rate direction and add at least one projection</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
