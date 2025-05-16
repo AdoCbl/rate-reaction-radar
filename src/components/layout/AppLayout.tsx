@@ -13,11 +13,11 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
   const location = useLocation();
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-indigo-950 text-gray-800 dark:text-gray-100">
-      <main className="flex-grow overflow-auto px-4">
-        <div className="container max-w-5xl mx-auto h-[calc(100vh-48px)] flex flex-col">
+    <div className="h-screen flex flex-col overflow-hidden bg-gradient-to-br from-slate-900 to-indigo-950 text-gray-100">
+      <main className="flex-grow overflow-auto pt-2 px-4">
+        <div className="container max-w-7xl mx-auto h-[calc(100vh-56px)] flex flex-col">
           {/* Theme Toggle positioned in the top right with minimal spacing */}
-          <div className="flex justify-end h-8 items-center">
+          <div className="flex justify-end h-6 items-center">
             <ThemeToggle />
           </div>
           

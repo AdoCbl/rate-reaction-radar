@@ -64,12 +64,70 @@
     @apply text-sm font-medium;
   }
 
-  .glass-card {
-    @apply bg-slate-800/90 backdrop-blur-sm border border-white/10 shadow-xl;
+  /* Unified card styling */
+  .app-card {
+    @apply bg-slate-800/90 backdrop-blur-sm border border-slate-700/50 shadow-md rounded-xl overflow-hidden;
   }
   
-  .card-container {
-    @apply shadow-xl;
+  .card-header {
+    @apply p-4;
+  }
+  
+  .card-title {
+    @apply text-md font-medium text-indigo-300 flex items-center gap-2;
+  }
+  
+  .card-description {
+    @apply text-xs text-slate-400;
+  }
+  
+  .card-content {
+    @apply p-4 pt-0;
+  }
+
+  /* Consistent grid layouts */
+  .grid-layout {
+    @apply grid gap-4;
+  }
+  
+  .two-column-grid {
+    @apply grid-layout grid-cols-1 md:grid-cols-2;
+  }
+  
+  .three-column-grid {
+    @apply grid-layout grid-cols-1 md:grid-cols-3;
+  }
+  
+  /* Unified data display components */
+  .data-item {
+    @apply bg-slate-800/50 rounded-lg p-2 flex items-center;
+  }
+  
+  .data-icon {
+    @apply bg-primary/10 p-1.5 rounded-full mr-2;
+  }
+  
+  .data-label {
+    @apply text-xs font-medium text-slate-400;
+  }
+  
+  .data-value {
+    @apply text-base font-bold;
+  }
+  
+  /* Unified container styles */
+  .app-container {
+    @apply container mx-auto p-2 max-w-7xl;
+  }
+  
+  /* Consistent badge styles */
+  .badge-outline {
+    @apply bg-slate-800/50 text-slate-300 text-xs py-1 px-2 rounded-full;
+  }
+  
+  /* Uniform separator */
+  .content-divider {
+    @apply my-3 bg-slate-700/50 h-px w-full;
   }
 }
 
@@ -98,6 +156,6 @@
 /* Direction color variables */
 :root {
   --cut-color: #f43f5e;    /* Rose-500 for cut */
-  --hold-color: #0ea5e9;   /* Sky-500 for hold */
+  --hold-color: #94a3b8;   /* Slate-400 for hold */
   --hike-color: #10b981;   /* Emerald-500 for hike */
 }
