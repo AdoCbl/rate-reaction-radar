@@ -28,6 +28,11 @@ const fomcMeetings = [
     title: 'June 2023 FOMC Meeting',
     summary: 'Client projections were more dovish than the Fed\'s outlook, particularly for 2023-2024.'
   },
+  {
+    date: new Date('2023-03-22'),
+    title: 'March 2023 FOMC Meeting',
+    summary: 'Clients anticipated a more aggressive hiking path than the Fed projected, especially for 2023 and 2024.'
+  },
 ];
 
 const HistoricalTrends: React.FC = () => {
@@ -90,7 +95,11 @@ const HistoricalTrends: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <MeetingDotPlotComparison meetingDate={meeting.date} />
+                <MeetingDotPlotComparison 
+                  meetingDate={meeting.date} 
+                  showFullFedDots={true} 
+                  showRealizedRates={true}
+                />
                 
                 <Separator className="my-4 bg-slate-700/50" />
                 

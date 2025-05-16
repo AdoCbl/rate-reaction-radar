@@ -14,5 +14,11 @@ export type MeetingForecast = {
   fedProjections: {
     year: string;
     median: number;
+    dots?: number[]; // Added dots for individual Fed projections
   }[];
+  realizedRates?: {
+    year: string;
+    rate: number;
+  }[]; // Added realized rates for past years
 };
+
