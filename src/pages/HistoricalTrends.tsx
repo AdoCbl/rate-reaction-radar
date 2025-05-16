@@ -11,9 +11,9 @@ const HistoricalTrends: React.FC = () => {
   const [showFedMedians, setShowFedMedians] = useState(false);
 
   return (
-    <div className="container max-w-5xl mx-auto px-4 py-6 space-y-6">
+    <div className="container mx-auto px-4 py-6">
       <motion.div 
-        className="text-center mb-6"
+        className="text-center mb-8"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
@@ -43,7 +43,7 @@ const HistoricalTrends: React.FC = () => {
       </div>
 
       {/* Desktop Stacked View - Fixed to ensure both charts are visible */}
-      <div className="hidden md:flex md:flex-col md:space-y-8">
+      <div className="hidden md:flex md:flex-col md:gap-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ const OutlookCard: React.FC = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="p-6 pt-0">
-        <div className="h-64 md:h-72"> {/* Fixed height to prevent stretching */}
+        <div className="h-80 md:h-96"> 
           <FomcOutlookChart />
         </div>
         <p className="text-sm text-slate-400 mt-4">
@@ -118,7 +118,7 @@ const ProjectionsCard: React.FC<{
         </div>
       </CardHeader>
       <CardContent className="p-6 pt-0">
-        <div className="h-64 md:h-72"> {/* Fixed height to match first chart */}
+        <div className="h-80 md:h-96"> 
           <RatePathChart showFedMedians={showFedMedians} />
         </div>
         <p className="text-sm text-slate-400 mt-4">
