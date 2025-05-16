@@ -4,7 +4,6 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/com
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { FomcOutlookChart } from '@/components/trends/FomcOutlookChart';
-import { RatePathChart } from '@/components/trends/RatePathChart';
 import { motion } from 'framer-motion';
 
 const HistoricalTrends: React.FC = () => {
@@ -20,7 +19,7 @@ const HistoricalTrends: React.FC = () => {
       >
         <h1 className="text-3xl font-bold text-indigo-300">Historical Trends</h1>
         <p className="text-slate-400 mt-2">
-          Explore how client expectations have shifted over time for both FOMC actions and rate path projections.
+          Explore how client expectations have shifted over time for Federal Reserve policy actions.
         </p>
       </motion.div>
 
@@ -28,16 +27,20 @@ const HistoricalTrends: React.FC = () => {
       <div className="md:hidden">
         <Tabs defaultValue="outlook" className="w-full">
           <TabsList className="grid grid-cols-2 mb-4 w-full">
-            <TabsTrigger value="outlook">Policy Trends</TabsTrigger>
-            <TabsTrigger value="projections">Rate Path Trends</TabsTrigger>
+            <TabsTrigger value="outlook">Short-term Policy</TabsTrigger>
+            <TabsTrigger value="projections">Long-term Outlook</TabsTrigger>
           </TabsList>
           
           <TabsContent value="outlook" className="mt-0">
-            <OutlookCard />
+            <OutlookCard title="FOMC Policy Expectations History" 
+                        description="See how client sentiment has evolved over time"
+                        footer="Sentiment leaned heavily toward 'Hold' in the lead-up to the July FOMC." />
           </TabsContent>
           
           <TabsContent value="projections" className="mt-0">
-            <ProjectionsCard showFedMedians={showFedMedians} setShowFedMedians={setShowFedMedians} />
+            <OutlookCard title="Client Federal Reserve Expectations" 
+                        description="Track historical sentiment for future Fed policy"
+                        footer="Rate cut expectations increased significantly in recent months." />
           </TabsContent>
         </Tabs>
       </div>
@@ -50,7 +53,9 @@ const HistoricalTrends: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="w-full"
         >
-          <OutlookCard />
+          <OutlookCard title="FOMC Policy Expectations History" 
+                      description="See how client sentiment has evolved over time"
+                      footer="Sentiment leaned heavily toward 'Hold' in the lead-up to the July FOMC." />
         </motion.div>
 
         <motion.div
@@ -59,7 +64,9 @@ const HistoricalTrends: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="w-full"
         >
-          <ProjectionsCard showFedMedians={showFedMedians} setShowFedMedians={setShowFedMedians} />
+          <OutlookCard title="Client Federal Reserve Expectations" 
+                      description="Track historical sentiment for future Fed policy"
+                      footer="Rate cut expectations increased significantly in recent months." />
         </motion.div>
       </div>
     </div>
@@ -67,15 +74,19 @@ const HistoricalTrends: React.FC = () => {
 };
 
 // Card for FOMC Outlook Over Time
-const OutlookCard: React.FC = () => {
+const OutlookCard: React.FC<{
+  title: string;
+  description: string;
+  footer: string;
+}> = ({ title, description, footer }) => {
   return (
     <Card className="overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl">
       <CardHeader className="p-6">
         <CardTitle className="text-xl font-semibold">
-          FOMC Policy Expectations History
+          {title}
         </CardTitle>
         <CardDescription className="text-slate-400">
-          See how client sentiment has evolved over time
+          {description}
         </CardDescription>
       </CardHeader>
       <CardContent className="p-6 pt-0">
@@ -83,46 +94,7 @@ const OutlookCard: React.FC = () => {
           <FomcOutlookChart />
         </div>
         <p className="text-sm text-slate-400 mt-4">
-          Sentiment leaned heavily toward 'Hold' in the lead-up to the July FOMC.
-        </p>
-      </CardContent>
-    </Card>
-  );
-};
-
-// Card for Rate Path Projection History
-const ProjectionsCard: React.FC<{
-  showFedMedians: boolean;
-  setShowFedMedians: (value: boolean) => void;
-}> = ({ showFedMedians, setShowFedMedians }) => {
-  return (
-    <Card className="overflow-hidden bg-slate-800/90 border border-slate-700 shadow-lg rounded-xl">
-      <CardHeader className="p-6">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <CardTitle className="text-xl font-semibold">
-              Client Forecasted Rate Paths (Median Values)
-            </CardTitle>
-            <CardDescription className="text-slate-400">
-              Track how rate expectations for future years have evolved
-            </CardDescription>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-400">Compare with SEP</span>
-            <Switch
-              checked={showFedMedians}
-              onCheckedChange={setShowFedMedians}
-              className="data-[state=checked]:bg-indigo-600"
-            />
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="p-6 pt-0">
-        <div className="h-80 md:h-96"> 
-          <RatePathChart showFedMedians={showFedMedians} />
-        </div>
-        <p className="text-sm text-slate-400 mt-4">
-          Median long-run rate forecasts have remained stable near 2.50%.
+          {footer}
         </p>
       </CardContent>
     </Card>
