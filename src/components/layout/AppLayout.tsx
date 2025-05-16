@@ -56,16 +56,18 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
         </div>
       </header>
       
-      <main className="flex-grow container max-w-5xl mx-auto px-4 py-2 overflow-hidden flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          key={location.pathname}
-          className="h-full w-full"
-        >
-          {children}
-        </motion.div>
+      <main className="flex-grow overflow-auto py-4 px-4">
+        <div className="container max-w-5xl mx-auto h-[calc(100vh-130px)]">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            key={location.pathname}
+            className="h-full"
+          >
+            {children}
+          </motion.div>
+        </div>
       </main>
       
       <NavBar />

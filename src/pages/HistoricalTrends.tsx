@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { MeetingDotPlotComparison } from '@/components/trends/MeetingDotPlotComparison';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -17,22 +17,7 @@ const fomcMeetings = [
     date: new Date('2023-12-13'),
     title: 'December 2023 FOMC Meeting',
     summary: 'Client projections underestimated the Fed\'s pivot to a more dovish tone for 2024-2025.'
-  },
-  { 
-    date: new Date('2023-09-20'),
-    title: 'September 2023 FOMC Meeting',
-    summary: 'Clients correctly forecasted the hold decision but underestimated the hawkish dot plot revisions.'
-  },
-  { 
-    date: new Date('2023-06-14'),
-    title: 'June 2023 FOMC Meeting',
-    summary: 'Client projections were more dovish than the Fed\'s outlook, particularly for 2023-2024.'
-  },
-  {
-    date: new Date('2023-03-22'),
-    title: 'March 2023 FOMC Meeting',
-    summary: 'Clients anticipated a more aggressive hiking path than the Fed projected, especially for 2023 and 2024.'
-  },
+  }
 ];
 
 const HistoricalTrends: React.FC = () => {
@@ -65,21 +50,21 @@ const HistoricalTrends: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="h-full flex flex-col">
       <motion.div 
-        className="text-center mb-8"
+        className="text-center mb-2"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-3xl font-bold text-indigo-300">Forecast Accuracy: Client Projections vs Fed Dot Plots</h1>
-        <p className="text-slate-400 mt-2">
-          Compare how client forecasts aligned with the actual FOMC SEP medians across previous meetings.
+        <h1 className="text-xl font-bold text-indigo-300">Forecast Accuracy: Client vs Fed</h1>
+        <p className="text-slate-400 text-sm">
+          Compare how client forecasts aligned with the actual FOMC SEP medians.
         </p>
       </motion.div>
 
       {/* Meeting Dot Plot Comparisons */}
-      <div className="space-y-10">
+      <div className="flex flex-col gap-4 flex-grow overflow-auto">
         {currentMeetings.map((meeting, index) => (
           <motion.div 
             key={meeting.date.toISOString()}
@@ -87,30 +72,32 @@ const HistoricalTrends: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
-            <Card className="bg-slate-800/90 border border-slate-700 shadow-lg">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xl text-indigo-200">{meeting.title}</CardTitle>
-                <CardDescription className="text-slate-400">
+            <Card className="bg-slate-800/90 border border-slate-700 shadow-md">
+              <CardHeader className="p-4 pb-2">
+                <h2 className="text-lg font-medium text-indigo-200">{meeting.title}</h2>
+                <p className="text-xs text-slate-400">
                   Forecast submitted prior to: {formatMeetingDate(meeting.date)}
-                </CardDescription>
+                </p>
               </CardHeader>
-              <CardContent>
-                <MeetingDotPlotComparison 
-                  meetingDate={meeting.date} 
-                  showFullFedDots={true} 
-                  showRealizedRates={true}
-                />
+              <CardContent className="p-4 pt-0">
+                <div className="h-64">
+                  <MeetingDotPlotComparison 
+                    meetingDate={meeting.date} 
+                    showFullFedDots={true} 
+                    showRealizedRates={true}
+                  />
+                </div>
                 
-                <Separator className="my-4 bg-slate-700/50" />
+                <Separator className="my-3 bg-slate-700/50" />
                 
                 <div className="space-y-2">
-                  <p className="text-sm text-slate-300 italic">
+                  <p className="text-xs text-slate-300 italic">
                     {meeting.summary}
                   </p>
                   
                   {/* Accuracy tag */}
                   <div className="flex items-center justify-between">
-                    <div className="text-xs inline-flex items-center px-2.5 py-0.5 rounded-full bg-slate-700 text-slate-300">
+                    <div className="text-xs inline-flex items-center px-2 py-0.5 rounded-full bg-slate-700 text-slate-300">
                       <span className="font-medium mr-1 text-indigo-300">Accuracy:</span>
                       {Math.random() > 0.5 ? 
                         <span>Within 25bps (2025, 2026); Diverged &gt;50bps (2024)</span> :
@@ -131,33 +118,33 @@ const HistoricalTrends: React.FC = () => {
 
       {/* Pagination */}
       {pageCount > 1 && (
-        <div className="flex justify-center items-center gap-4 mt-8">
+        <div className="flex justify-center items-center gap-4 mt-3 mb-1">
           <button 
             onClick={prevPage} 
             disabled={currentPage === 0}
-            className={`p-2 rounded-full ${
+            className={`p-1 rounded-full ${
               currentPage === 0 
                 ? 'bg-slate-800/50 text-slate-600' 
                 : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
             } transition-colors`}
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={18} />
           </button>
           
-          <span className="text-slate-400">
+          <span className="text-xs text-slate-400">
             Page {currentPage + 1} of {pageCount}
           </span>
           
           <button 
             onClick={nextPage} 
             disabled={currentPage === pageCount - 1}
-            className={`p-2 rounded-full ${
+            className={`p-1 rounded-full ${
               currentPage === pageCount - 1 
                 ? 'bg-slate-800/50 text-slate-600' 
                 : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
             } transition-colors`}
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={18} />
           </button>
         </div>
       )}

@@ -57,20 +57,19 @@ const RateReactionGame: React.FC = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-170px)] flex flex-col items-center justify-center py-2 px-3 overflow-auto">
-      {/* Enhanced dark background with gradient - matching SentimentPoll page */}
+    <div className="h-full flex items-center justify-center">
+      {/* Enhanced dark background with gradient */}
       <div className="fixed inset-0 bg-slate-950 -z-10 pointer-events-none" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(30,64,175,0.15),transparent_70%)] -z-10 pointer-events-none" />
       
       <motion.div 
-        className="w-full max-w-5xl mx-auto my-2"
+        className="w-full max-w-2xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
         <div className="text-center mb-2">
-          <h1 className="text-2xl font-bold text-indigo-300">Rate Reaction Game</h1>
-          <p className="text-slate-400 mt-1 text-sm">
+          <p className="text-slate-400 text-sm">
             Based on a real historical macro event, predict how the Fed and the market responded.
           </p>
         </div>
@@ -85,8 +84,8 @@ const RateReactionGame: React.FC = () => {
               transition={{ duration: 0.3 }}
               className="w-full"
             >
-              <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-xl overflow-hidden">
-                <CardContent className="p-3 space-y-3">
+              <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md overflow-hidden">
+                <CardContent className="p-4 space-y-3">
                   <ScenarioDisplay hideMetadata={true} />
                   
                   <GameForm 
@@ -110,7 +109,7 @@ const RateReactionGame: React.FC = () => {
               transition={{ duration: 0.3, delay: 0.2 }}
               className="w-full"
             >
-              <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-xl overflow-hidden">
+              <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md overflow-hidden">
                 <CardContent className={`${isMobile ? 'p-3' : 'p-4'}`}>
                   <GameResultDisplay 
                     direction={direction}
