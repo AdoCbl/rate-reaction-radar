@@ -82,7 +82,7 @@ export const PollForm: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left column: FOMC Decision - Top Priority */}
           <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50">
-            <CardTitle className="mb-4 text-indigo-300 font-bold">
+            <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300 mb-4`}>
               Your FOMC Outlook
             </CardTitle>
             <FomcOutlookSection 
@@ -96,7 +96,7 @@ export const PollForm: React.FC = () => {
           
           {/* Right column: Dot Plot - Second Priority */}
           <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50">
-            <CardTitle className="mb-4 text-indigo-300 font-bold">
+            <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300 mb-4`}>
               Rate Projections
             </CardTitle>
             <DotPlotProjection 

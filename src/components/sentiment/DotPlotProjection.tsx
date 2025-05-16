@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { DotPlotYear } from './DotPlotYear';
 import { Switch } from '@/components/ui/switch';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { YearProjection } from './types';
 import { HelpCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -51,21 +51,30 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
   
   // Generate y-axis labels for the interest rate range (0-5%)
   const renderYAxisLabels = () => {
-    // Creating fewer labels to save space - just at 1% increments
+    // Creating labels at whole percentage points
     const labels = [];
     for (let rate = 0; rate <= 0.05; rate += 0.01) {
       labels.push(
         <div 
           key={rate} 
-          className="text-xs text-slate-400 font-medium"
+          className="flex items-center justify-end relative w-full"
           style={{ 
             position: 'absolute', 
-            right: '12px', // Increased right padding for better alignment
             bottom: `${(rate / 0.05) * 100}%`,
-            transform: 'translateY(50%)'
+            transform: 'translateY(50%)',
+            height: '20px' // Fixed height for consistent alignment
           }}
         >
-          {(rate * 100).toFixed(0)}%
+          <span className="text-xs text-slate-400 font-medium pr-2">
+            {(rate * 100).toFixed(0)}%
+          </span>
+          <div 
+            className="absolute left-0 right-0 border-t border-slate-700/70 -z-10"
+            style={{
+              width: 'calc(100% + 15px)',
+              left: '100%',
+            }}
+          />
         </div>
       );
     }
@@ -79,11 +88,11 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
     >      
-      <div className="flex items-center justify-between mb-4"> {/* Increased vertical spacing */}
+      <div className="flex items-center justify-between mb-4">
         <span className="text-sm font-medium text-slate-400 hover:text-slate-300 transition-colors">
           Click to set your projections
         </span>
-        <div className="flex items-center gap-2 pr-1"> {/* Added right padding */}
+        <div className="flex items-center gap-2 pr-2">
           <span className="text-sm text-slate-400">SEP Medians</span>
           <Switch 
             checked={showMedians}
@@ -105,13 +114,14 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
       </div>
       
       <div className={`bg-slate-800/60 p-4 rounded-xl shadow-sm border border-slate-700/50 ${isMobile ? 'px-2' : 'px-4'}`}>
-        <div className="flex space-x-2 justify-between relative">
-          {/* Y-axis labels column - increased width for better spacing */}
-          <div className="flex flex-col justify-between h-[180px] pr-2 w-8 relative">
+        <div className="flex relative" style={{ height: '180px' }}>
+          {/* Y-axis labels column - improved spacing and alignment */}
+          <div className="w-10 relative flex-none">
             {renderYAxisLabels()}
           </div>
           
-          <div className="flex flex-1 justify-between space-x-2">
+          {/* Dot plot columns with consistent spacing */}
+          <div className="flex flex-1 justify-between space-x-2 z-10">
             {values.map((yearData) => (
               <DotPlotYear
                 key={yearData.year}
@@ -130,7 +140,7 @@ export const DotPlotProjection: React.FC<DotPlotProjectionProps> = ({
         </div>
       </div>
       
-      <div className="flex justify-end mt-3"> {/* Increased spacing */}
+      <div className="flex justify-end mt-3">
         <button
           type="button"
           onClick={handleReset}
