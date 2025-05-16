@@ -68,7 +68,7 @@ const RateReactionGame: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="text-center mb-6">
+        <div className="text-center mb-4">
           <h1 className="text-3xl font-bold text-indigo-300">Rate Reaction Game</h1>
           <p className="text-slate-400 mt-2">
             Based on a real historical macro event, predict how the Fed and the market responded.
@@ -86,7 +86,7 @@ const RateReactionGame: React.FC = () => {
               className="w-full"
             >
               <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-xl overflow-hidden">
-                <CardContent className="p-6 space-y-6">
+                <CardContent className="p-4 space-y-4">
                   <ScenarioDisplay hideMetadata={true} />
                   
                   <GameForm 
@@ -111,7 +111,7 @@ const RateReactionGame: React.FC = () => {
               className="w-full"
             >
               <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-xl overflow-hidden">
-                <CardContent className={`${isMobile ? 'p-4' : 'p-6'}`}>
+                <CardContent className={`${isMobile ? 'p-4' : 'p-5'}`}>
                   <GameResultDisplay 
                     direction={direction}
                     yieldEstimate={yieldEstimate}

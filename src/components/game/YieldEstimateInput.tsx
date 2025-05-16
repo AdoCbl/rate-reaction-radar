@@ -18,7 +18,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
   const isMobile = useIsMobile();
   
   return (
-    <div className="space-y-2">      
+    <div className="space-y-1">      
       <div className="relative">
         <motion.div
           className={cn(
@@ -52,13 +52,13 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
               value={[yieldEstimate]}
               onValueChange={(value) => onYieldChange(value[0])}
               onValueCommit={() => setIsDragging(false)}
-              className="mb-4 z-20"
+              className="mb-3 z-20"
               onPointerDown={() => setIsDragging(true)}
             />
           </div>
           
-          {/* Tick marks */}
-          <div className="grid grid-cols-11 gap-0 px-1 -mt-2">
+          {/* Tick marks - made more compact */}
+          <div className="grid grid-cols-11 gap-0 px-1 -mt-1">
             {[-50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50].map((tick) => (
               <div 
                 key={tick} 
@@ -73,7 +73,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
                     tick === 0 ? "bg-white" : "bg-slate-500"
                   )}
                 ></div>
-                <span className={`${isMobile ? 'text-[10px]' : 'text-xs'} text-slate-400 mt-1`}>
+                <span className={`${isMobile ? 'text-[9px]' : 'text-xs'} text-slate-400 mt-0.5`}>
                   {tick > 0 ? `+${tick}` : tick}
                 </span>
               </div>

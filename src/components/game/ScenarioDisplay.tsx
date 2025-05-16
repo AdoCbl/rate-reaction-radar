@@ -13,12 +13,12 @@ const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false 
   
   return (
     <motion.div 
-      className={`bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md overflow-hidden`}
+      className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md overflow-hidden"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className={`p-5 ${isMobile ? 'space-y-2' : 'space-y-3'}`}>
+      <div className={`p-4 ${isMobile ? 'space-y-2' : 'space-y-3'}`}>
         <h2 className={`${isMobile ? 'text-lg' : 'text-xl'} font-bold text-indigo-300`}>
           Historical Market Scenario
         </h2>
