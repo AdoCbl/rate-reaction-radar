@@ -7,6 +7,7 @@ import ScenarioDisplay from '@/components/game/ScenarioDisplay';
 import GameForm from '@/components/game/GameForm';
 import GameResultDisplay from '@/components/game/GameResultDisplay';
 import { calculateScore } from '@/components/game/gameData';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const RateReactionGame: React.FC = () => {
   // State for the game
@@ -54,36 +55,55 @@ const RateReactionGame: React.FC = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-170px)] flex items-center justify-center">
-      <Card className="border-gray-800 bg-gray-900/80 backdrop-blur-sm shadow-xl overflow-hidden w-full max-w-md">
+    <div className="flex items-center justify-center py-6 px-4 min-h-[calc(100vh-170px)]">
+      <AnimatePresence mode="wait">
         {!showResult ? (
-          <>
-            <CardHeader className="pb-2 border-b border-gray-800">
-              <ScenarioDisplay />
-            </CardHeader>
-            <CardContent className="space-y-4 py-4">
-              <GameForm 
-                direction={direction}
-                yieldEstimate={yieldEstimate}
-                confidence={confidence}
-                submitted={submitted}
-                onDirectionChange={setDirection}
-                onYieldChange={setYieldEstimate}
-                onConfidenceChange={setConfidence}
-                onSubmit={handleSubmit}
-              />
-            </CardContent>
-          </>
+          <motion.div
+            key="game-form"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="w-full max-w-md"
+          >
+            <Card className="border-gray-800 bg-gray-900/80 backdrop-blur-sm shadow-xl overflow-hidden">
+              <CardHeader className="pb-5 border-b border-gray-800">
+                <ScenarioDisplay />
+              </CardHeader>
+              <CardContent className="space-y-6 py-6">
+                <GameForm 
+                  direction={direction}
+                  yieldEstimate={yieldEstimate}
+                  confidence={confidence}
+                  submitted={submitted}
+                  onDirectionChange={setDirection}
+                  onYieldChange={setYieldEstimate}
+                  onConfidenceChange={setConfidence}
+                  onSubmit={handleSubmit}
+                />
+              </CardContent>
+            </Card>
+          </motion.div>
         ) : (
-          <CardContent className="py-4">
-            <GameResultDisplay 
-              direction={direction}
-              yieldEstimate={yieldEstimate}
-              onReset={handleReset}
-            />
-          </CardContent>
+          <motion.div
+            key="game-result"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+            className="w-full max-w-md"
+          >
+            <Card className="border-gray-800 bg-gray-900/80 backdrop-blur-sm shadow-xl overflow-hidden">
+              <CardContent className="py-6">
+                <GameResultDisplay 
+                  direction={direction}
+                  yieldEstimate={yieldEstimate}
+                  onReset={handleReset}
+                />
+              </CardContent>
+            </Card>
+          </motion.div>
         )}
-      </Card>
+      </AnimatePresence>
     </div>
   );
 };
