@@ -61,7 +61,7 @@ const HistoricalTrends: React.FC = () => {
           >
             <Card className="bg-slate-800/90 border border-slate-700 shadow-md h-full p-2">
               <div className="p-2 pb-0">
-                <h2 className="text-lg font-medium text-indigo-300">{meeting.title}</h2>
+                <h2 className="text-sm font-medium text-indigo-300">{meeting.title}</h2>
                 <p className="text-xs text-slate-400">
                   Forecast submitted prior to: {formatMeetingDate(meeting.date)}
                 </p>

@@ -51,7 +51,7 @@ const ResultsDashboard: React.FC = () => {
       >
         <Card className="p-2 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col w-full">
           <div className="p-2 pb-0">
-            <h2 className="text-lg font-medium text-indigo-300 tracking-tight">FOMC Policy Expectations History</h2>
+            <h2 className="text-sm font-medium text-indigo-300 tracking-tight">FOMC Policy Expectations History</h2>
             <p className="text-xs text-slate-400">See how client sentiment has evolved over time</p>
           </div>
           
@@ -104,7 +104,7 @@ const ResultsDashboard: React.FC = () => {
       >
         <Card className="p-2 overflow-hidden bg-slate-800/90 border border-slate-700 shadow-md rounded-xl flex flex-col w-full">
           <div className="p-2 pb-0">
-            <h2 className="text-lg font-medium text-indigo-300 tracking-tight">Aggregated Dot Plot</h2>
+            <h2 className="text-sm font-medium text-indigo-300 tracking-tight">Aggregated Dot Plot</h2>
             <p className="text-xs text-slate-400">Client projections vs. FOMC median</p>
           </div>
           

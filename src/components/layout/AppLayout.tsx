@@ -21,7 +21,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
       </header>
       
       <main className="flex-grow overflow-auto py-0 px-4">
-        <div className="container max-w-5xl mx-auto h-[calc(100vh-80px)] pt-4">
+        <div className="container max-w-5xl mx-auto h-[calc(100vh-80px)]">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

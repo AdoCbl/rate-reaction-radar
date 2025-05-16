@@ -95,19 +95,19 @@ const Leaderboard: React.FC = () => {
       >
         <Card className="w-full h-full shadow-md bg-slate-800/90 border border-slate-700 p-2">
           <div className="p-2 pb-0">
-            <h2 className="text-lg font-medium flex items-center gap-2">
-              <Trophy size={18} className="text-yellow-500" />
+            <h2 className="text-sm font-medium flex items-center gap-2">
+              <Trophy size={16} className="text-yellow-500" />
               <span>Top Player</span>
             </h2>
           </div>
           <CardContent className="p-2 flex flex-col items-center justify-center">
             <div className="flex flex-col items-center">
-              <div className="w-14 h-14 rounded-full bg-slate-700 flex items-center justify-center mb-2 border-2 border-primary">
-                <Trophy size={24} className="text-primary" />
+              <div className="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center mb-2 border-2 border-primary">
+                <Trophy size={20} className="text-primary" />
               </div>
               <Badge className="mb-1">1st Place</Badge>
-              <p className="text-lg font-bold">{leaderboardData[0].username}</p>
-              <p className="text-2xl font-bold text-primary mt-1">{leaderboardData[0].score}</p>
+              <p className="text-base font-bold">{leaderboardData[0].username}</p>
+              <p className="text-xl font-bold text-primary mt-1">{leaderboardData[0].score}</p>
               <div className="mt-1 text-xs text-muted-foreground text-center">
                 <div>Accuracy: {leaderboardData[0].accuracy}%</div>
                 <div>Games: {leaderboardData[0].gamesPlayed}</div>
@@ -126,8 +126,8 @@ const Leaderboard: React.FC = () => {
       >
         <Card className="shadow-md h-full p-2">
           <div className="p-2 pb-0">
-            <h2 className="text-lg font-medium flex items-center gap-2">
-              <Award size={18} />
+            <h2 className="text-sm font-medium flex items-center gap-2">
+              <Award size={16} />
               <span>Leaderboard</span>
             </h2>
           </div>
