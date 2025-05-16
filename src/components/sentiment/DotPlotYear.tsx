@@ -159,14 +159,14 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
             drag="y"
             dragConstraints={{ 
               top: 0, 
-              bottom: 200 // Using a fixed pixel value for constraints
+              bottom: 200 
             }}
             onDragStart={() => setIsDragging(true)}
-            onDragEnd={(_, info) => {
+            onDragEnd={(e, info) => {
               setIsDragging(false);
-              // Get current element and its position
-              const element = info.target as HTMLElement;
-              const rect = element.getBoundingClientRect();
+              
+              // Get the parent element directly
+              const element = e.currentTarget;
               const parentRect = element.parentElement?.getBoundingClientRect();
               
               if (parentRect) {
