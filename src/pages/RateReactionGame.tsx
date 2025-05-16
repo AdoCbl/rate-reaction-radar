@@ -8,6 +8,7 @@ import GameForm from '@/components/game/GameForm';
 import GameResultDisplay from '@/components/game/GameResultDisplay';
 import { calculateScore } from '@/components/game/gameData';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const RateReactionGame: React.FC = () => {
   // State for the game
@@ -16,6 +17,7 @@ const RateReactionGame: React.FC = () => {
   const [confidence, setConfidence] = useState<number>(50);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [showResult, setShowResult] = useState<boolean>(false);
+  const isMobile = useIsMobile();
   
   // Handle form submission
   const handleSubmit = (event: React.FormEvent) => {
@@ -55,16 +57,16 @@ const RateReactionGame: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-170px)] flex flex-col items-center justify-center py-8 px-4">
+    <div className="min-h-[calc(100vh-170px)] flex flex-col items-center justify-center py-4 px-3">
       <motion.div 
-        className="w-full max-w-5xl mx-auto"
+        className="w-full max-w-4xl mx-auto"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-indigo-300">Rate Reaction Game</h1>
-          <p className="text-slate-400 mt-2">
+        <div className="text-center mb-3">
+          <h1 className="text-2xl font-bold text-indigo-300">Rate Reaction Game</h1>
+          <p className="text-slate-400 text-sm">
             Based on a real historical macro event, predict how the Fed and the market responded.
           </p>
         </div>
@@ -80,7 +82,7 @@ const RateReactionGame: React.FC = () => {
               className="w-full"
             >
               <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-xl overflow-hidden">
-                <CardContent className="space-y-8 p-6">
+                <CardContent className={`space-y-5 ${isMobile ? 'p-4' : 'p-5'}`}>
                   <ScenarioDisplay hideMetadata={true} />
                   
                   <GameForm 
@@ -105,7 +107,7 @@ const RateReactionGame: React.FC = () => {
               className="w-full"
             >
               <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-xl overflow-hidden">
-                <CardContent className="p-6">
+                <CardContent className={`${isMobile ? 'p-4' : 'p-5'}`}>
                   <GameResultDisplay 
                     direction={direction}
                     yieldEstimate={yieldEstimate}

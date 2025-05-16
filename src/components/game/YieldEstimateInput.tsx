@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Slider } from '@/components/ui/slider';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface YieldEstimateInputProps {
   yieldEstimate: number;
@@ -14,13 +15,14 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
   onYieldChange 
 }) => {
   const [isDragging, setIsDragging] = useState(false);
+  const isMobile = useIsMobile();
   
   return (
-    <div className="space-y-4">      
-      <div className="mt-2 relative">
+    <div className="space-y-2">      
+      <div className="relative">
         <motion.div
           className={cn(
-            "absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-lg font-semibold",
+            "absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded-full text-base font-semibold",
             "bg-yellow-500/20 text-yellow-300 border border-yellow-500/50"
           )}
           animate={{
@@ -41,7 +43,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
         <div className="px-2">
           <div className="relative">
             {/* Center marker */}
-            <div className="absolute h-5 w-0.5 bg-white/30 top-[7px] left-1/2 transform -translate-x-1/2 z-10"></div>
+            <div className="absolute h-4 w-0.5 bg-white/30 top-[7px] left-1/2 transform -translate-x-1/2 z-10"></div>
             
             <Slider
               min={-50}
@@ -50,7 +52,7 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
               value={[yieldEstimate]}
               onValueChange={(value) => onYieldChange(value[0])}
               onValueCommit={() => setIsDragging(false)}
-              className="mb-8 z-20"
+              className="mb-6 z-20"
               onPointerDown={() => setIsDragging(true)}
             />
           </div>
@@ -79,9 +81,9 @@ const YieldEstimateInput: React.FC<YieldEstimateInputProps> = ({
           </div>
         </div>
         
-        <div className="mt-4 pt-2 text-center">
-          <p className="text-sm text-slate-400">
-            Drag the slider to estimate how 2-year Treasury yields reacted to the Fed decision
+        <div className="mt-2 text-center">
+          <p className="text-xs text-slate-400">
+            Drag the slider to estimate yield reaction
           </p>
         </div>
       </div>

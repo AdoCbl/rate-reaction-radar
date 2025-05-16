@@ -4,12 +4,15 @@ import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { historicalScenario } from './gameData';
 import { Info } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ScenarioDisplayProps {
   hideMetadata?: boolean;
 }
 
 const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false }) => {
+  const isMobile = useIsMobile();
+  
   const getDifficultyColor = () => {
     switch (historicalScenario.difficultyLevel) {
       case 'Easy': return 'bg-blue-500/20 text-blue-300 border-blue-500/50';
@@ -21,27 +24,27 @@ const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false 
 
   return (
     <motion.div 
-      className="p-6 bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md"
+      className={`${isMobile ? 'p-4' : 'p-5'} bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md`}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-blue-300 flex items-center">
-          <Info className="mr-2 text-blue-400" size={20} />
+      <div className="flex justify-between items-center mb-3">
+        <h2 className={`${isMobile ? 'text-lg' : 'text-xl'} font-bold text-blue-300 flex items-center`}>
+          <Info className="mr-2 text-blue-400" size={isMobile ? 18 : 20} />
           Historical Market Scenario
         </h2>
         {!hideMetadata && (
           <Badge 
             variant="outline" 
-            className={`px-3 py-1 text-sm ${getDifficultyColor()}`}
+            className={`px-3 py-1 text-xs ${getDifficultyColor()}`}
           >
             {historicalScenario.difficultyLevel}
           </Badge>
         )}
       </div>
       
-      <p className="text-lg leading-relaxed text-gray-200">{historicalScenario.scenario}</p>
+      <p className={`${isMobile ? 'text-base' : 'text-lg'} leading-relaxed text-gray-200`}>{historicalScenario.scenario}</p>
       
       {!hideMetadata && (
         <div className="mt-3 flex items-center justify-between text-xs text-gray-400">
