@@ -7,11 +7,8 @@ import { SubmitButton } from './SubmitButton';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 import { FomcOutlookSection } from './FomcOutlookSection';
-import { CardTitle } from '@/components/ui/card';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 export const PollForm: React.FC = () => {
-  const isMobile = useIsMobile();
   // Current Fed Funds rate
   const currentRate = 5.33;
   
@@ -77,14 +74,14 @@ export const PollForm: React.FC = () => {
   };
 
   return (
-    <div className={`p-6 ${isMobile ? 'p-4' : ''}`}>
-      <form onSubmit={handleSubmit} className="space-y-6"> 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="p-3">
+      <form onSubmit={handleSubmit} className="space-y-3"> 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
           {/* Left column: FOMC Decision - Top Priority */}
-          <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50">
-            <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300 mb-4`}>
+          <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
+            <h2 className="text-lg font-bold mb-2 text-white">
               Your FOMC Outlook
-            </CardTitle>
+            </h2>
             <FomcOutlookSection 
               direction={direction}
               confidence={confidence}
@@ -95,10 +92,10 @@ export const PollForm: React.FC = () => {
           </div>
           
           {/* Right column: Dot Plot - Second Priority */}
-          <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50">
-            <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300 mb-4`}>
+          <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
+            <h2 className="text-lg font-bold mb-2 text-white">
               Rate Projections
-            </CardTitle>
+            </h2>
             <DotPlotProjection 
               values={dotPlotValues}
               onChange={setDotPlotValues}
@@ -106,9 +103,9 @@ export const PollForm: React.FC = () => {
           </div>
         </div>
         
-        <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50">
+        <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
           {/* Comments Box - Last Priority */}
-          <div className="mb-6">
+          <div className="mb-3">
             <CommentSection 
               comment={comment}
               setComment={setComment}

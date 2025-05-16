@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { motion, PanInfo } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 type DotPlotYearProps = {
   year: string;
@@ -34,21 +34,29 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   const cellHeight = 5; // Further reduced for more compact display with 0.125% increments
   const totalHeight = totalSteps * cellHeight;
   
-  // Convert rate value to grid position (inverted since we draw from bottom to top)
+  // Convert rate value to grid position (inverted since we draw from top to bottom)
   const valueToPosition = (rate: number | null): number => {
     if (rate === null) return -1;
-    const percentage = (maxRate - rate) / (maxRate - minRate);
-    return percentage * 100; // Return as percentage of container height
+    const steps = Math.round((maxRate - rate) / stepSize);
+    return steps * cellHeight + cellHeight / 2;
   };
   
-  // Convert grid position to rate value
-  const positionToValue = (posPercentage: number): number => {
-    // Convert percentage to a rate value
-    const rate = maxRate - ((posPercentage / 100) * (maxRate - minRate));
+  // Convert grid position to rate value, ensuring it's exactly a multiple of 0.00125 (0.125%)
+  const positionToValue = (posY: number): number => {
+    const steps = Math.round(posY / cellHeight);
     
-    // Snap to the nearest valid step
-    const validSteps = Math.round(rate / stepSize);
-    const validRate = validSteps * stepSize;
+    // Calculate raw rate value based on steps
+    const rate = maxRate - (steps * stepSize);
+    
+    // Validate the rate is exactly a multiple of 0.125%
+    // Fixed increments of 0.125% = 0.00125 in decimal
+    // We'll calculate this by determining how many 0.125% steps fit in the value
+    
+    // Get the number of 0.125% increments (round to nearest to enforce proper spacing)
+    const validSteps = Math.round(rate / 0.00125);
+    
+    // Convert back to proper decimal rate with exact precision
+    const validRate = validSteps * 0.00125;
     
     // Clamp the value to ensure it's within range
     return Math.min(Math.max(validRate, minRate), maxRate);
@@ -57,10 +65,8 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
   // Handle click on the grid
   const handleGridClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const clientY = e.clientY;
-    const posY = clientY - rect.top;
-    const posPercentage = (posY / rect.height) * 100;
-    const newValue = positionToValue(posPercentage);
+    const posY = e.clientY - rect.top;
+    const newValue = positionToValue(posY);
     
     // Add a small animation delay
     setTimeout(() => {
@@ -73,6 +79,44 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     // Format to exactly 2 decimal places for display
     return `${(rate * 100).toFixed(2)}%`;
   };
+  
+  // Generate grid lines for the rate steps with emphasis on full percentage points
+  const renderGridLines = () => {
+    return Array.from({ length: totalSteps }).map((_, index) => {
+      const value = maxRate - (index * stepSize);
+      const isFullPercent = Math.abs(Math.round(value * 100) - value * 100) < 0.01;
+      const isHalfPercent = Math.abs(Math.round(value * 100 * 2) / 2 - value * 100) < 0.01;
+      const isQuarterPercent = Math.abs(Math.round(value * 100 * 4) / 4 - value * 100) < 0.01;
+      
+      // Only render lines that matter for clarity
+      if (!isFullPercent && !isHalfPercent && !isQuarterPercent && index % 4 !== 0) {
+        return null;
+      }
+      
+      return (
+        <motion.div 
+          key={index}
+          className={`absolute w-full border-t ${
+            isFullPercent 
+              ? 'border-slate-600' 
+              : isHalfPercent 
+                ? 'border-slate-700' 
+                : 'border-slate-800'
+          } flex items-center`}
+          animate={{
+            borderColor: isHovered
+              ? isFullPercent 
+                ? 'rgb(100 116 139)' // slate-500
+                : isHalfPercent 
+                  ? 'rgb(71 85 105)' // slate-600
+                  : 'rgb(51 65 85)' // slate-700
+              : undefined
+          }}
+          style={{ top: index * cellHeight }}
+        />
+      );
+    }).filter(Boolean);
+  };
 
   // Generate placeholder dots to hint at interactivity
   const renderPlaceholderDots = () => {
@@ -80,9 +124,10 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
     
     const placeholders = [];
     const numDots = 5; // Number of placeholder dots
+    const interval = totalHeight / (numDots + 1);
     
     for (let i = 1; i <= numDots; i++) {
-      const position = 100 * i / (numDots + 1);
+      const position = interval * i;
       const rateValue = positionToValue(position);
       
       // Only show placeholder dots at whole or half percentages
@@ -94,8 +139,9 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
           key={`placeholder-${i}`}
           className="absolute left-1/2 w-3 h-3 rounded-full bg-slate-700/30 border border-slate-600/30"
           style={{ 
-            top: `${position}%`,
-            transform: 'translate(-50%, -50%)'
+            top: position,
+            x: '-50%', 
+            y: '-50%' 
           }}
           animate={{
             opacity: isHovered ? 0.8 : 0.3,
@@ -115,34 +161,44 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
 
   return (
     <div 
-      className="flex flex-col items-center h-full"
+      className="flex flex-col items-center"
       onMouseEnter={() => onHover?.(true)}
       onMouseLeave={() => onHover?.(false)}
     >
       <motion.span 
-        className={`text-sm font-medium ${isHovered ? 'text-white' : 'text-slate-300'} mb-2 transition-colors`}
+        className={`text-base font-medium ${isHovered ? 'text-white' : 'text-slate-300'} mb-1 transition-colors`}
         animate={{ scale: isHovered ? 1.05 : 1 }}
       >
         {year}
       </motion.span>
       
       <motion.div 
-        className="relative flex-1 w-full bg-transparent rounded-lg overflow-hidden cursor-pointer"
+        className="relative h-[200px] w-14 bg-slate-900/80 border border-slate-800 rounded-lg overflow-hidden transition-colors"
         animate={{ 
+          borderColor: isHovered ? 'rgb(71 85 105)' : undefined,
           backgroundColor: isHovered ? 'rgba(15, 23, 42, 0.9)' : undefined
         }}
-        onClick={handleGridClick}
       >
+        {/* Grid lines */}
+        {renderGridLines()}
+        
         {/* Placeholder dots to suggest interactivity */}
         {renderPlaceholderDots()}
+        
+        {/* Interactive area for clicking/dragging */}
+        <div 
+          className="absolute inset-0 cursor-pointer"
+          onClick={handleGridClick}
+        />
         
         {/* SEP median dot */}
         {sepMedian !== null && (
           <motion.div
             className="absolute left-1/2 w-3 h-3 bg-purple-400/70 ring-2 ring-purple-300/30 rounded-full"
             style={{ 
-              top: `${valueToPosition(sepMedian)}%`, 
-              transform: 'translate(-50%, -50%)' 
+              top: valueToPosition(sepMedian), 
+              x: '-50%', 
+              y: '-50%' 
             }}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -155,41 +211,32 @@ export const DotPlotYear: React.FC<DotPlotYearProps> = ({
           <motion.div
             className="absolute left-1/2 w-5 h-5 bg-blue-500 rounded-full shadow-lg shadow-blue-500/20 cursor-grab active:cursor-grabbing z-10"
             style={{ 
-              top: `${valueToPosition(value)}%`, 
-              transform: 'translate(-50%, -50%)' 
+              top: valueToPosition(value), 
+              x: '-50%', 
+              y: '-50%' 
             }}
             initial={{ scale: 0 }}
             animate={{ 
               scale: 1,
-              boxShadow: isDragging ? '0 0 0 6px rgba(59, 130, 246, 0.2)' : '0 0 0 0px rgba(59, 130, 246, 0)'
+              boxShadow: isDragging ? '0 0 0 6px rgba(59, 130, 246, 0.2)' : '0 0 0 0px rgba(59,, 130, 246, 0)'
             }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             drag="y"
-            dragConstraints={{ top: 0, bottom: 0 }}
+            dragConstraints={{ top: 0, bottom: totalHeight }}
             onDragStart={() => setIsDragging(true)}
-            onDragEnd={(_, info: PanInfo) => {
+            onDragEnd={(_, info) => {
               setIsDragging(false);
-              const element = document.getElementById(`year-${year}`);
-              const rect = element?.getBoundingClientRect();
-              if (!rect) return;
-              
-              // Calculate position as percentage of parent height
-              const offsetY = info.offset.y;
-              const parentHeight = rect.height;
-              const currentTop = valueToPosition(value);
-              const newPosPercentage = currentTop + (offsetY / parentHeight * 100);
-              
-              // Calculate new value based on position
-              const newValue = positionToValue(newPosPercentage);
+              // Calculate new value based on position, ensuring it's a multiple of 0.125%
+              const newValue = positionToValue(valueToPosition(value) + info.offset.y);
               onChange(newValue);
             }}
           />
         )}
       </motion.div>
       
-      {/* Value display with consistent height */}
-      <div className="mt-2 h-6 flex items-center justify-center"> 
+      {/* Show selected value below with more spacing to prevent overlap */}
+      <div className="mt-2 h-6 text-center">
         {value !== null ? (
           <motion.span 
             className="text-sm font-medium text-blue-400 inline-block px-2 py-0.5 bg-blue-900/30 rounded border border-blue-800/50"
