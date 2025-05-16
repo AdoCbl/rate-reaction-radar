@@ -2,11 +2,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
+  BarChart3, 
   LineChart, 
   Activity, 
   Award, 
-  UserCircle,
-  LayoutDashboard 
+  UserCircle 
 } from 'lucide-react';
 
 export const NavBar = () => {
@@ -14,10 +14,11 @@ export const NavBar = () => {
     <nav className="fixed bottom-0 left-0 right-0 border-t border-blue-200 dark:border-blue-900 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md py-2 px-4 z-10 shadow-lg">
       <div className="max-w-5xl mx-auto">
         <ul className="flex justify-between items-center">
-          <NavItem to="/" icon={<LayoutDashboard size={20} />} label="Dashboard" />
+          <NavItem to="/" icon={<BarChart3 size={20} />} label="Poll" />
+          <NavItem to="/results" icon={<Activity size={20} />} label="Results" />
           <NavItem to="/trends" icon={<LineChart size={20} />} label="Trends" />
           <NavItem to="/game" icon={<Award size={20} />} label="Game" />
-          <NavItem to="/leaderboard" icon={<Activity size={20} />} label="Leaderboard" />
+          <NavItem to="/leaderboard" icon={<BarChart3 size={20} />} label="Leaderboard" />
           <NavItem to="/profile" icon={<UserCircle size={20} />} label="Profile" />
         </ul>
       </div>

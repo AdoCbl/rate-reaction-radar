@@ -11,14 +11,13 @@ type AppLayoutProps = {
 
 export const AppLayout = ({ children }: AppLayoutProps) => {
   const location = useLocation();
-  const isDashboard = location.pathname === "/";
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-indigo-950 text-gray-800 dark:text-gray-100">
-      <main className="flex-grow overflow-auto">
-        <div className="h-full flex flex-col relative">
-          {/* Theme toggle in top-right corner */}
-          <div className="absolute top-2 right-3 z-10">
+      <main className="flex-grow overflow-auto px-4">
+        <div className="container max-w-5xl mx-auto h-[calc(100vh-48px)] flex flex-col">
+          {/* Theme Toggle positioned in the top right with minimal spacing */}
+          <div className="flex justify-end h-10 items-center">
             <ThemeToggle />
           </div>
           
@@ -27,7 +26,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
             key={location.pathname}
-            className={`flex-grow ${isDashboard ? 'pb-16' : 'p-4'}`}
+            className="flex-grow"
           >
             {children}
           </motion.div>
