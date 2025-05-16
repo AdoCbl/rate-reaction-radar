@@ -1,9 +1,8 @@
 
 import React, { useState } from 'react';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Direction } from '@/components/sentiment/types';
-import { Badge } from '@/components/ui/badge';
 import ScenarioDisplay from '@/components/game/ScenarioDisplay';
 import GameForm from '@/components/game/GameForm';
 import GameResultDisplay from '@/components/game/GameResultDisplay';
@@ -81,7 +80,7 @@ const RateReactionGame: React.FC = () => {
               className="w-full"
             >
               <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-xl overflow-hidden">
-                <CardContent className="space-y-8 py-6">
+                <CardContent className="space-y-8 p-6">
                   <ScenarioDisplay hideMetadata={true} />
                   
                   <GameForm 
@@ -106,7 +105,7 @@ const RateReactionGame: React.FC = () => {
               className="w-full"
             >
               <Card className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-xl overflow-hidden">
-                <CardContent className="py-8">
+                <CardContent className="p-6">
                   <GameResultDisplay 
                     direction={direction}
                     yieldEstimate={yieldEstimate}

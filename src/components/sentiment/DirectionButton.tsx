@@ -41,63 +41,28 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
     }
   };
 
-  const getGradient = () => {
-    switch (direction) {
-      case 'hike':
-        return selected
-          ? 'from-indigo-600/90 to-indigo-800/90'
-          : 'from-slate-700/70 to-slate-800/70 hover:from-indigo-800/30 hover:to-indigo-900/30';
-      case 'hold':
-        return selected
-          ? 'from-indigo-600/90 to-indigo-800/90'
-          : 'from-slate-700/70 to-slate-800/70 hover:from-indigo-800/30 hover:to-indigo-900/30';
-      case 'cut':
-        return selected
-          ? 'from-indigo-600/90 to-indigo-800/90'
-          : 'from-slate-700/70 to-slate-800/70 hover:from-indigo-800/30 hover:to-indigo-900/30';
-      default:
-        return '';
-    }
+  const getBgGradient = () => {
+    return selected
+      ? 'from-indigo-600/90 to-indigo-800/90'
+      : 'from-slate-700/70 to-slate-800/70 hover:from-indigo-800/30 hover:to-indigo-900/30';
   };
 
   const getBorderColor = () => {
-    switch (direction) {
-      case 'hike':
-        return selected
-          ? 'border-indigo-400'
-          : 'border-slate-600 hover:border-indigo-500';
-      case 'hold':
-        return selected
-          ? 'border-indigo-400'
-          : 'border-slate-600 hover:border-indigo-500';
-      case 'cut':
-        return selected
-          ? 'border-indigo-400'
-          : 'border-slate-600 hover:border-indigo-500';
-      default:
-        return 'border-slate-600';
-    }
+    return selected
+      ? 'border-indigo-400 ring-2 ring-indigo-500/40'
+      : 'border-slate-600 hover:border-indigo-500';
   };
 
   const getTextColor = () => {
-    switch (direction) {
-      case 'hike':
-        return selected ? 'text-indigo-300' : 'text-slate-300 hover:text-indigo-300';
-      case 'hold':
-        return selected ? 'text-indigo-300' : 'text-slate-300 hover:text-indigo-300';
-      case 'cut':
-        return selected ? 'text-indigo-300' : 'text-slate-300 hover:text-indigo-300';
-      default:
-        return 'text-slate-300';
-    }
+    return selected ? 'text-indigo-200' : 'text-slate-300 hover:text-indigo-300';
   };
 
   return (
     <motion.button
       className={`
-        flex flex-col items-center justify-center py-2 px-2 rounded-lg 
+        flex flex-col items-center justify-center py-3 px-2 rounded-lg 
         border-2 transition-all duration-300 w-full font-medium
-        bg-gradient-to-br ${getGradient()} ${getBorderColor()} ${getTextColor()}
+        bg-gradient-to-br ${getBgGradient()} ${getBorderColor()} ${getTextColor()}
         ${selected ? 'shadow-lg shadow-indigo-500/20' : ''}
       `}
       onClick={() => onClick(direction)}
@@ -109,7 +74,7 @@ export const DirectionButton: React.FC<DirectionButtonProps> = ({
       animate={{ 
         opacity: 1,
         y: selected ? -3 : 0,
-        boxShadow: selected ? '0 10px 25px -5px rgba(79, 70, 229, 0.3)' : '0 0 0 rgba(0, 0, 0, 0)'
+        boxShadow: selected ? '0 10px 25px -5px rgba(99, 102, 241, 0.3)' : '0 0 0 rgba(0, 0, 0, 0)'
       }}
       transition={{ duration: 0.2 }}
     >

@@ -109,7 +109,7 @@ const GameForm: React.FC<GameFormProps> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
       >
-        <Info size={18} className="mr-2 text-sky-400 flex-shrink-0" />
+        <Info size={18} className="mr-2 text-indigo-400 flex-shrink-0" />
         <span>Your responses will be scored based on accuracy and confidence level. Higher confidence increases potential score but also risks.</span>
       </motion.div>
       

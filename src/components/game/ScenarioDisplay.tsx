@@ -12,23 +12,23 @@ interface ScenarioDisplayProps {
 const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ hideMetadata = false }) => {
   const getDifficultyColor = () => {
     switch (historicalScenario.difficultyLevel) {
-      case 'Easy': return 'bg-emerald-500/20 text-emerald-400 border-emerald-500';
-      case 'Medium': return 'bg-amber-500/20 text-amber-400 border-amber-500';
-      case 'Hard': return 'bg-red-500/20 text-red-400 border-red-500';
-      default: return 'bg-sky-500/20 text-sky-400 border-sky-500';
+      case 'Easy': return 'bg-indigo-500/20 text-indigo-300 border-indigo-500/50';
+      case 'Medium': return 'bg-amber-500/20 text-amber-300 border-amber-500/50';
+      case 'Hard': return 'bg-red-500/20 text-red-300 border-red-500/50';
+      default: return 'bg-sky-500/20 text-sky-300 border-sky-500/50';
     }
   };
 
   return (
     <motion.div 
-      className="p-6 bg-slate-800/80 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-inner"
+      className="p-6 bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-inner"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-white flex items-center">
-          <Info className="mr-2 text-sky-400" size={20} />
+        <h2 className="text-xl font-bold text-indigo-300 flex items-center">
+          <Info className="mr-2 text-indigo-400" size={20} />
           Historical Market Scenario
         </h2>
         {!hideMetadata && (

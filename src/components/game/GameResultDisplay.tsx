@@ -2,7 +2,7 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { BarChart3, ChevronRight, AlertTriangle } from 'lucide-react';
+import { BarChart3, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { calculateScore, historicalScenario } from './gameData';
 import { Direction } from '@/components/sentiment/types';
@@ -22,7 +22,7 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
   onReset
 }) => {
   const score = calculateScore(direction, yieldEstimate);
-  const scoreClass = score >= 80 ? 'text-emerald-400' : score >= 50 ? 'text-sky-400' : 'text-red-400';
+  const scoreClass = score >= 80 ? 'text-emerald-400' : score >= 50 ? 'text-indigo-300' : 'text-red-400';
   
   // Calculate accuracy metrics
   const isFedDirectionCorrect = direction === historicalScenario.fedResponse;
@@ -132,11 +132,11 @@ const GameResultDisplay: React.FC<GameResultDisplayProps> = ({
         <div className="text-sm text-slate-400 mb-4">out of 100</div>
         
         {score >= 80 ? (
-          <Badge className="px-3 py-1 bg-emerald-500/20 text-emerald-400 border-emerald-600/30">Excellent</Badge>
+          <Badge className="px-3 py-1 bg-emerald-500/20 text-emerald-300 border-emerald-500/50">Excellent</Badge>
         ) : score >= 50 ? (
-          <Badge className="px-3 py-1 bg-sky-500/20 text-sky-400 border-sky-600/30">Good</Badge>
+          <Badge className="px-3 py-1 bg-indigo-500/20 text-indigo-300 border-indigo-500/50">Good</Badge>
         ) : (
-          <Badge className="px-3 py-1 bg-red-500/20 text-red-400 border-red-600/30">Try Again</Badge>
+          <Badge className="px-3 py-1 bg-red-500/20 text-red-300 border-red-500/50">Try Again</Badge>
         )}
         
         <div className="mt-6 text-center">
