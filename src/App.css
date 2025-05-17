@@ -1,1 +1,16 @@
-/* This file has been simplified to avoid conflicts with our Tailwind setup */
+
+/* This file has been simplified and updated for our light theme with blue/pink palette */
+
+:root {
+  --color-primary: #2563EB;          /* Blue - for buttons, highlights */
+  --color-secondary: #EC4899;        /* Pink - for accents and badges */
+  --color-background: #FFFFFF;       /* Pure white - for page background */
+  --color-surface: #F9FAFB;          /* Light soft white - for cards and containers */
+  --color-text: #1F2937;             /* Dark blue-gray - for main text */
+  --color-text-muted: #6B7280;       /* Medium blue-gray - for less important text */
+  --color-muted: #D1D5DB;            /* Optional light blue-gray - for subtle dividers or placeholders */
+  --color-border: #CBD5E1;           /* Light cool tone border, not dull gray */
+  --color-hover: #DBEAFE;            /* Very light blue for hover/focus backgrounds */
+}
+
+/* Additional utility classes can be added here if needed */

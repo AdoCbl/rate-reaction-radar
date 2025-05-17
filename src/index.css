@@ -4,8 +4,19 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light mode - blue/pink palette */
+  /* Light mode with blue/pink palette */
   :root {
+    --color-primary: #2563EB;          /* Blue - for buttons, highlights */
+    --color-secondary: #EC4899;        /* Pink - for accents and badges */
+    --color-background: #FFFFFF;       /* Pure white - for page background */
+    --color-surface: #F9FAFB;          /* Light soft white - for cards and containers */
+    --color-text: #1F2937;             /* Dark blue-gray - for main text */
+    --color-text-muted: #6B7280;       /* Medium blue-gray - for less important text */
+    --color-muted: #D1D5DB;            /* Optional light blue-gray - for subtle dividers or placeholders */
+    --color-border: #CBD5E1;           /* Light cool tone border, not dull gray */
+    --color-hover: #DBEAFE;            /* Very light blue for hover/focus backgrounds */
+
+    /* Keep HSL variables for backward compatibility */
     --background: 0 0% 100%;
     --foreground: 222 47% 11%;
 
@@ -15,7 +26,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 221 83% 53%;
+    --primary: 217 91% 53%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 326 73% 62%;
@@ -51,7 +62,7 @@
   }
 
   body {
-    @apply bg-white text-foreground font-sans overflow-x-hidden;
+    @apply bg-background text-foreground font-sans overflow-x-hidden;
   }
   
   html {
@@ -104,7 +115,7 @@
   
   /* Unified data display components */
   .data-item {
-    @apply bg-gray-50 rounded-lg p-2 flex items-center;
+    @apply bg-[var(--color-surface)] rounded-lg p-2 flex items-center;
   }
   
   .data-icon {
@@ -112,11 +123,11 @@
   }
   
   .data-label {
-    @apply text-xs font-medium text-gray-500;
+    @apply text-xs font-medium text-[var(--color-text-muted)];
   }
   
   .data-value {
-    @apply text-sm sm:text-base font-bold;
+    @apply text-sm sm:text-base font-bold text-[var(--color-text)];
   }
   
   /* Unified container styles */
@@ -126,12 +137,12 @@
   
   /* Consistent badge styles */
   .badge-outline {
-    @apply bg-gray-50 text-gray-600 text-xs py-1 px-2 rounded-full;
+    @apply bg-[var(--color-surface)] text-[var(--color-text-muted)] text-xs py-1 px-2 rounded-full;
   }
   
   /* Uniform separator */
   .content-divider {
-    @apply my-2 sm:my-3 bg-gray-200 h-px w-full;
+    @apply my-2 sm:my-3 bg-[var(--color-muted)] h-px w-full;
   }
   
   /* Responsive card grid */
@@ -151,11 +162,11 @@
   
   /* Responsive typography */
   .responsive-title {
-    @apply text-base sm:text-lg md:text-xl font-bold;
+    @apply text-base sm:text-lg md:text-xl font-bold text-[var(--color-text)];
   }
   
   .responsive-text {
-    @apply text-xs sm:text-sm md:text-base;
+    @apply text-xs sm:text-sm md:text-base text-[var(--color-text)];
   }
   
   /* Responsive charts container */
@@ -179,11 +190,11 @@
 
 /* Card styles for both themes */
 .card-light {
-  @apply bg-white border border-gray-200 shadow-sm;
+  @apply bg-white border border-[var(--color-border)] shadow-sm;
 }
 
 .card-accent {
-  @apply bg-gradient-to-br from-white to-blue-50 border border-blue-100;
+  @apply bg-gradient-to-br from-white to-[var(--color-hover)] border border-[var(--color-primary)]/10;
 }
 
 /* Direction color variables */

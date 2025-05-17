@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -74,7 +75,17 @@ export default {
 					lightblue: '#3b82f6',
 					gray: '#64748b',
 					lightgray: '#e2e8f0'
-				}
+				},
+				// Direct CSS variable access
+				'cs-primary': 'var(--color-primary)',
+				'cs-secondary': 'var(--color-secondary)',
+				'cs-background': 'var(--color-background)',
+				'cs-surface': 'var(--color-surface)',
+				'cs-text': 'var(--color-text)',
+				'cs-text-muted': 'var(--color-text-muted)',
+				'cs-muted': 'var(--color-muted)',
+				'cs-border': 'var(--color-border)',
+				'cs-hover': 'var(--color-hover)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

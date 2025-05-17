@@ -24,9 +24,9 @@ export const CommentSection: React.FC<CommentSectionProps> = ({
       transition={{ duration: 0.3 }}
     >
       <div className="flex items-center gap-2">
-        <MessageSquare className="h-3 w-3 text-sky-400" />
-        <label className="block text-sm font-medium text-slate-300">Add Comments (Optional)</label>
-        <span className={`text-xs ${comment.length > 180 ? 'text-amber-400' : 'text-slate-500'} ml-auto transition-colors duration-200`}>
+        <MessageSquare className="h-3 w-3 text-[var(--color-secondary)]" />
+        <label className="block text-sm font-medium text-[var(--color-text)]">Add Comments (Optional)</label>
+        <span className={`text-xs ${comment.length > 180 ? 'text-amber-400' : 'text-[var(--color-text-muted)]'} ml-auto transition-colors duration-200`}>
           {comment.length}/200
         </span>
       </div>
@@ -40,9 +40,9 @@ export const CommentSection: React.FC<CommentSectionProps> = ({
           }
         }}
         rows={2}
-        className="resize-none bg-slate-800/50 border-slate-700/50 focus:border-sky-600 
-                  focus:ring-sky-600/20 text-sm py-2 px-3 w-full rounded-md shadow-inner transition-all 
-                  duration-200 focus:shadow-sky-500/10 placeholder:text-slate-500"
+        className="resize-none bg-[var(--color-surface)] border-[var(--color-border)] focus:border-[var(--color-primary)] 
+                  focus:ring-[var(--color-primary)]/20 text-sm py-2 px-3 w-full rounded-md shadow-inner transition-all 
+                  duration-200 focus:shadow-[var(--color-primary)]/10 placeholder:text-[var(--color-text-muted)]/50"
         maxLength={200}
       />
     </motion.div>
