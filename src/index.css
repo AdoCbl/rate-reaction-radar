@@ -4,44 +4,44 @@
 @tailwind utilities;
 
 @layer base {
-  /* Dark mode - refined navy/indigo palette */
+  /* Light mode - blue/pink palette */
   :root {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
 
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 210 100% 52%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 222.2 47.4% 11.2%;
+    --secondary: 326 73% 62%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 223 47% 11%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 43 96% 64%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 326 73% 62%;
+    --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-    --ring: 224 76% 48%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
 
-    --sidebar-background: 224 71% 4%;
-    --sidebar-foreground: 213 31% 91%;
-    --sidebar-primary: 210 100% 52%;
-    --sidebar-primary-foreground: 222.2 47.4% 11.2%;
-    --sidebar-accent: 43 96% 64%;
-    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
-    --sidebar-border: 216 34% 17%;
-    --sidebar-ring: 224 76% 48%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 326 73% 62%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 221 83% 53%;
   }
 }
 
@@ -51,7 +51,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-slate-900 to-indigo-950 text-foreground font-sans overflow-x-hidden;
+    @apply bg-white text-foreground font-sans overflow-x-hidden;
   }
   
   html {
@@ -70,7 +70,7 @@
 
   /* Unified card styling */
   .app-card {
-    @apply bg-slate-800/90 backdrop-blur-sm border border-slate-700/50 shadow-md rounded-xl overflow-hidden w-full;
+    @apply bg-white border border-border shadow-sm rounded-xl overflow-hidden w-full;
   }
   
   .card-header {
@@ -78,11 +78,11 @@
   }
   
   .card-title {
-    @apply text-base sm:text-lg font-medium text-indigo-300 flex items-center gap-2;
+    @apply text-base sm:text-lg font-medium text-primary flex items-center gap-2;
   }
   
   .card-description {
-    @apply text-xs sm:text-sm text-slate-400;
+    @apply text-xs sm:text-sm text-muted-foreground;
   }
   
   .card-content {
@@ -104,7 +104,7 @@
   
   /* Unified data display components */
   .data-item {
-    @apply bg-slate-800/50 rounded-lg p-2 flex items-center;
+    @apply bg-gray-50 rounded-lg p-2 flex items-center;
   }
   
   .data-icon {
@@ -112,7 +112,7 @@
   }
   
   .data-label {
-    @apply text-xs font-medium text-slate-400;
+    @apply text-xs font-medium text-gray-500;
   }
   
   .data-value {
@@ -126,12 +126,12 @@
   
   /* Consistent badge styles */
   .badge-outline {
-    @apply bg-slate-800/50 text-slate-300 text-xs py-1 px-2 rounded-full;
+    @apply bg-gray-50 text-gray-600 text-xs py-1 px-2 rounded-full;
   }
   
   /* Uniform separator */
   .content-divider {
-    @apply my-2 sm:my-3 bg-slate-700/50 h-px w-full;
+    @apply my-2 sm:my-3 bg-gray-200 h-px w-full;
   }
   
   /* Responsive card grid */
@@ -166,10 +166,10 @@
 
 @keyframes pulseGlow {
   0%, 100% {
-    filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0));
+    filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0));
   }
   50% {
-    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.6));
+    filter: drop-shadow(0 0 15px rgba(37, 99, 235, 0.3));
   }
 }
 
@@ -178,17 +178,17 @@
 }
 
 /* Card styles for both themes */
-.card-dark {
-  @apply bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 shadow-md;
+.card-light {
+  @apply bg-white border border-gray-200 shadow-sm;
 }
 
 .card-accent {
-  @apply bg-gradient-to-br from-slate-800 to-indigo-950 border border-indigo-900;
+  @apply bg-gradient-to-br from-white to-blue-50 border border-blue-100;
 }
 
 /* Direction color variables */
 :root {
   --cut-color: #10b981;    /* Emerald-500 for cut */
-  --hold-color: #94a3b8;   /* Slate-400 for hold */
-  --hike-color: #f43f5e;   /* Rose-500 for hike */
+  --hold-color: #6b7280;   /* Gray-500 for hold */
+  --hike-color: #ef4444;   /* Red-500 for hike */
 }

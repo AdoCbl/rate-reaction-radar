@@ -52,14 +52,14 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
   return (
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-end mb-2">
-        <div className="flex items-center space-x-2 bg-slate-700/30 px-3 py-1 rounded-md border border-slate-600/50">
-          <span className="text-sm text-slate-300 font-medium">SEP</span>
+        <div className="flex items-center space-x-2 bg-gray-50 px-3 py-1 rounded-md border border-gray-200">
+          <span className="text-sm text-gray-700 font-medium">SEP</span>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <span><Info size={14} className="text-slate-400 inline-block mr-1" /></span>
+                <span><Info size={14} className="text-gray-500 inline-block mr-1" /></span>
               </TooltipTrigger>
-              <TooltipContent side="top" className="bg-slate-800 border-slate-700 text-white text-xs max-w-[200px]">
+              <TooltipContent side="top" className="bg-white border-gray-200 text-gray-800 text-xs max-w-[200px]">
                 <p>Summary of Economic Projections — median forecast from FOMC participants.</p>
               </TooltipContent>
             </Tooltip>
@@ -67,12 +67,12 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
           <Switch 
             checked={showSepMedians}
             onCheckedChange={setShowSepMedians}
-            className="data-[state=checked]:bg-indigo-600"
+            className="data-[state=checked]:bg-blue-600"
           />
         </div>
       </div>
       
-      <div className="flex-grow relative bg-slate-800/40 rounded-md border border-slate-700/50">
+      <div className="flex-grow relative bg-gray-50 rounded-md border border-gray-200">
         {/* Fixed height container to prevent layout shifts */}
         <div className="h-[240px] relative">
           {/* Y-axis labels - more detailed with 0.25% increments */}
@@ -88,10 +88,10 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                   transform: 'translateY(-50%)' 
                 }}
               >
-                <span className="text-xs text-slate-400 w-8 text-right pr-2">
+                <span className="text-xs text-gray-500 w-8 text-right pr-2">
                   {value}%
                 </span>
-                <div className="absolute border-t border-slate-700" 
+                <div className="absolute border-t border-gray-200" 
                     style={{left: '8px', width: 'calc(100vw - 16px)'}}></div>
               </div>
             ))}
@@ -106,11 +106,11 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                 onMouseEnter={() => setHoveredYear(year)}
                 onMouseLeave={() => setHoveredYear(null)}
               >
-                <span className={`text-sm font-medium ${hoveredYear === year ? 'text-white' : 'text-slate-300'} mb-1 transition-colors`}>
+                <span className={`text-sm font-medium ${hoveredYear === year ? 'text-gray-900' : 'text-gray-700'} mb-1 transition-colors`}>
                   {year}
                 </span>
                 
-                <div className={`relative h-full w-full max-w-16 ${hoveredYear === year ? 'bg-slate-700/40' : 'bg-slate-800/40'} transition-all duration-200`}>
+                <div className={`relative h-full w-full max-w-16 ${hoveredYear === year ? 'bg-gray-100' : 'bg-gray-50'} transition-all duration-200`}>
                   {/* Client dots */}
                   {projections[year].map((value, index) => {
                     const position = getPositionFromRate(value);
@@ -124,7 +124,7 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                             <motion.div
                               className={`absolute rounded-full ${isUserDot ? 
                                 'w-4 h-4 bg-blue-500 ring-2 ring-blue-300/30 shadow-lg shadow-blue-500/30 z-10 pulse-glow' : 
-                                'w-2 h-2 bg-sky-400/70'
+                                'w-2 h-2 bg-blue-400/70'
                               }`}
                               style={{ 
                                 left: `calc(50% + ${jitterX}px)`,
@@ -139,12 +139,12 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                               }}
                             />
                           </TooltipTrigger>
-                          <TooltipContent side="top" className="bg-slate-800 border-slate-700 text-white">
+                          <TooltipContent side="top" className="bg-white border-gray-200 text-gray-800">
                             <div className="text-xs">
                               {isUserDot ? (
-                                <span className="font-medium text-blue-300">Your projection: </span>
+                                <span className="font-medium text-blue-600">Your projection: </span>
                               ) : (
-                                <span className="font-medium text-sky-400">Client projection: </span>
+                                <span className="font-medium text-blue-500">Client projection: </span>
                               )}
                               <span>{formatRateValue(value)}</span>
                             </div>
@@ -158,7 +158,7 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
                   <AnimatePresence initial={false}>
                     {showSepMedians && sepMedians[year as keyof typeof sepMedians] && (
                       <motion.div
-                        className="absolute w-10 h-[2px] bg-purple-400 left-1/2 transform -translate-x-1/2"
+                        className="absolute w-10 h-[2px] bg-secondary left-1/2 transform -translate-x-1/2"
                         style={{ 
                           top: `${getPositionFromRate(sepMedians[year as keyof typeof sepMedians])}%`
                         }}
@@ -179,13 +179,13 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
       {/* Client Median Projections */}
       <div className="mt-4">
         <div className="flex items-center gap-2 mb-2">
-          <h3 className="text-sm font-medium text-indigo-300">Client Median Projections</h3>
+          <h3 className="text-sm font-medium text-primary">Client Median Projections</h3>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Info size={14} className="text-slate-400" />
+                <Info size={14} className="text-gray-500" />
               </TooltipTrigger>
-              <TooltipContent side="top" className="bg-slate-800 border-slate-700 text-white text-xs">
+              <TooltipContent side="top" className="bg-white border-gray-200 text-gray-800 text-xs">
                 <p>Median rate projection values from all client forecasts</p>
               </TooltipContent>
             </Tooltip>
@@ -194,11 +194,11 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
         
         <Separator className="mb-3" />
         
-        <div className="grid grid-cols-4 gap-3 bg-slate-800/60 rounded-md p-2 border border-slate-700/50">
+        <div className="grid grid-cols-4 gap-3 bg-gray-50 rounded-md p-2 border border-gray-200">
           {years.map((year) => (
             <div key={year} className="text-center">
-              <span className="text-sm font-medium text-slate-300 block">{year}</span>
-              <span className="text-base text-blue-400 font-semibold block mt-1">
+              <span className="text-sm font-medium text-gray-700 block">{year}</span>
+              <span className="text-base text-blue-600 font-semibold block mt-1">
                 {formatRateValue(medians[year])}
               </span>
             </div>
@@ -211,13 +211,13 @@ export const AggregatedDotPlot: React.FC<AggregatedDotPlotProps> = ({
         <AnimatePresence initial={false} mode="wait">
           {showSepMedians && (
             <motion.div 
-              className="text-xs text-slate-400 bg-slate-800/70 p-2 rounded-md border border-slate-700"
+              className="text-xs text-gray-600 bg-gray-50 p-2 rounded-md border border-gray-200"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <p>Latest FOMC SEP median values shown in purple.</p>
+              <p>Latest FOMC SEP median values shown in pink.</p>
             </motion.div>
           )}
         </AnimatePresence>
