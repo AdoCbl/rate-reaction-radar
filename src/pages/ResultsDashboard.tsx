@@ -48,12 +48,12 @@ const ResultsDashboard: React.FC = () => {
     <div className="h-full flex flex-col gap-3">
       <div className="grid grid-cols-2 gap-3 flex-grow">
         {/* Left Panel: FOMC Policy Expectations History */}
-        <Card className="flex flex-col overflow-hidden bg-white border border-gray-200 rounded-xl shadow-sm">
+        <Card className="flex flex-col overflow-hidden bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md">
           <CardHeader className={`${isMobile ? 'p-3' : 'p-3'} pb-2`}>
-            <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-primary`}>
+            <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300`}>
               FOMC Policy Expectations History
             </CardTitle>
-            <CardDescription className={`${isMobile ? 'text-xs' : 'text-sm'} leading-snug text-gray-600`}>
+            <CardDescription className={`${isMobile ? 'text-xs' : 'text-sm'} leading-snug text-gray-200`}>
               See how client sentiment has evolved over time
             </CardDescription>
           </CardHeader>
@@ -64,9 +64,9 @@ const ResultsDashboard: React.FC = () => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.3 }}
-                className="px-2 py-1 rounded-full text-xs font-medium shadow-sm flex items-center gap-1.5 bg-gray-50 border border-gray-200"
+                className="px-2 py-1 rounded-full text-xs font-medium shadow-md flex items-center gap-1.5 bg-slate-700/50 border border-slate-600/50"
               >
-                <span className="text-gray-700">Your prediction:</span>
+                <span className="text-slate-300">Your prediction:</span>
                 <Badge
                   variant={
                     userVote.direction === 'cut' ? 'success' : 
@@ -87,7 +87,7 @@ const ResultsDashboard: React.FC = () => {
             </div>
             
             <div>
-              <p className="text-xs text-gray-600 pl-2 border-l-2 border-gray-300 ml-2 italic">
+              <p className="text-xs text-slate-400 pl-2 border-l-2 border-slate-600 ml-2 italic">
                 Client sentiment shifted toward 'Hold' after the June CPI release.
               </p>
             </div>
@@ -95,12 +95,12 @@ const ResultsDashboard: React.FC = () => {
         </Card>
 
         {/* Right Panel: Aggregated Dot Plot with Client Median Projections */}
-        <Card className="flex flex-col overflow-hidden bg-white border border-gray-200 rounded-xl shadow-sm">
+        <Card className="flex flex-col overflow-hidden bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md">
           <CardHeader className={`${isMobile ? 'p-3' : 'p-3'} pb-2`}>
-            <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-primary`}>
+            <CardTitle className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300`}>
               Aggregated Dot Plot
             </CardTitle>
-            <CardDescription className={`${isMobile ? 'text-xs' : 'text-sm'} leading-snug text-gray-600`}>
+            <CardDescription className={`${isMobile ? 'text-xs' : 'text-sm'} leading-snug text-gray-200`}>
               Client projections vs. FOMC median
             </CardDescription>
           </CardHeader>

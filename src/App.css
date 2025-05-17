@@ -1,16 +1,42 @@
-
-/* This file has been simplified and updated for our light theme with blue/pink palette */
-
-:root {
-  --color-primary: #2563EB;          /* Blue - for buttons, highlights */
-  --color-secondary: #EC4899;        /* Pink - for accents and badges */
-  --color-background: #FFFFFF;       /* Pure white - for page background */
-  --color-surface: #F9FAFB;          /* Light soft white - for cards and containers */
-  --color-text: #1F2937;             /* Dark blue-gray - for main text */
-  --color-text-muted: #6B7280;       /* Medium blue-gray - for less important text */
-  --color-muted: #D1D5DB;            /* Optional light blue-gray - for subtle dividers or placeholders */
-  --color-border: #CBD5E1;           /* Light cool tone border, not dull gray */
-  --color-hover: #DBEAFE;            /* Very light blue for hover/focus backgrounds */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-/* Additional utility classes can be added here if needed */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

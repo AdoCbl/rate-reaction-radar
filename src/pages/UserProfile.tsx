@@ -50,17 +50,17 @@ const UserProfile: React.FC = () => {
     <div className="container mx-auto px-6 py-4 max-w-7xl">
       <div className="grid grid-cols-12 gap-6">
         {/* Profile Card - 1/3 width */}
-        <Card className="col-span-12 md:col-span-4 bg-white border-[var(--color-border)] rounded-2xl shadow-sm">
+        <Card className="col-span-12 md:col-span-4 bg-slate-800/90 border border-slate-700 rounded-2xl shadow-md">
           <CardContent className="p-5">
             <div className="flex flex-col items-center text-center mb-6">
-              <Avatar className="h-20 w-20 border-2 border-[var(--color-primary)]/20 mb-4 bg-[var(--color-hover)]">
-                <AvatarFallback className="bg-[var(--color-hover)] text-[var(--color-primary)] text-xl font-semibold">
+              <Avatar className="h-20 w-20 border-2 border-primary/20 mb-4">
+                <AvatarFallback className="bg-primary/10 text-primary text-xl font-semibold">
                   {getInitials(userData.fullName)}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <h2 className="text-xl font-bold mb-1 text-[var(--color-text)]">{userData.fullName}</h2>
-                <p className="text-sm text-[var(--color-text-muted)] mb-4">{userData.title}</p>
+                <h2 className="text-xl font-bold mb-1">{userData.fullName}</h2>
+                <p className="text-sm text-[#AAB4C5] mb-4">{userData.title}</p>
                 <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-1">
                   <Edit size={14} />
                   Edit Profile
@@ -68,71 +68,71 @@ const UserProfile: React.FC = () => {
               </div>
             </div>
             
-            <Separator className="my-5 bg-[var(--color-border)]" />
+            <Separator className="my-5 bg-slate-700/50" />
             
             <div>
-              <h3 className="text-[20px] font-bold text-[var(--color-primary)] mb-4 text-left">Performance Overview</h3>
+              <h3 className="text-[20px] font-bold text-[#C2D1FF] mb-4 text-left">Performance Overview</h3>
               <div className="grid grid-cols-2 gap-5">
                 <motion.div 
-                  className="bg-[var(--color-surface)] rounded-xl p-4 hover:bg-[var(--color-hover)] transition-colors border border-[var(--color-border)]"
+                  className="bg-slate-800/70 rounded-xl p-4 hover:bg-slate-800 transition-colors"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
                   <div className="flex items-center">
-                    <div className="bg-[var(--color-primary)]/10 p-2 rounded-full mr-3">
-                      <TrendingUp size={16} className="text-[var(--color-primary)]" />
+                    <div className="bg-primary/10 p-2 rounded-full mr-3">
+                      <TrendingUp size={16} className="text-primary" />
                     </div>
                     <div>
-                      <p className="text-[14px] font-medium text-[var(--color-text-muted)]">Forecast Accuracy</p>
-                      <p className="text-lg font-bold text-[var(--color-text)]">{userData.accuracy}%</p>
+                      <p className="text-[14px] font-medium text-[#AAB4C5]">Forecast Accuracy</p>
+                      <p className="text-lg font-bold">{userData.accuracy}%</p>
                     </div>
                   </div>
                 </motion.div>
                 
                 <motion.div 
-                  className="bg-[var(--color-surface)] rounded-xl p-4 hover:bg-[var(--color-hover)] transition-colors border border-[var(--color-border)]"
+                  className="bg-slate-800/70 rounded-xl p-4 hover:bg-slate-800 transition-colors"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
                   <div className="flex items-center">
-                    <div className="bg-[var(--color-primary)]/10 p-2 rounded-full mr-3">
-                      <Shield size={16} className="text-[var(--color-primary)]" />
+                    <div className="bg-primary/10 p-2 rounded-full mr-3">
+                      <Shield size={16} className="text-primary" />
                     </div>
                     <div>
-                      <p className="text-[14px] font-medium text-[var(--color-text-muted)]">Avg. Confidence</p>
-                      <p className="text-lg font-bold text-[var(--color-text)]">{userData.confidence}%</p>
+                      <p className="text-[14px] font-medium text-[#AAB4C5]">Avg. Confidence</p>
+                      <p className="text-lg font-bold">{userData.confidence}%</p>
                     </div>
                   </div>
                 </motion.div>
                 
                 <motion.div 
-                  className="bg-[var(--color-surface)] rounded-xl p-4 hover:bg-[var(--color-hover)] transition-colors border border-[var(--color-border)]"
+                  className="bg-slate-800/70 rounded-xl p-4 hover:bg-slate-800 transition-colors"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
                   <div className="flex items-center">
-                    <div className="bg-[var(--color-primary)]/10 p-2 rounded-full mr-3">
-                      <Check size={16} className="text-[var(--color-primary)]" />
+                    <div className="bg-primary/10 p-2 rounded-full mr-3">
+                      <Check size={16} className="text-primary" />
                     </div>
                     <div>
-                      <p className="text-[14px] font-medium text-[var(--color-text-muted)]">Submissions</p>
-                      <p className="text-lg font-bold text-[var(--color-text)]">{userData.submissions}</p>
+                      <p className="text-[14px] font-medium text-[#AAB4C5]">Submissions</p>
+                      <p className="text-lg font-bold">{userData.submissions}</p>
                     </div>
                   </div>
                 </motion.div>
                 
                 <motion.div 
-                  className="bg-[var(--color-surface)] rounded-xl p-4 hover:bg-[var(--color-hover)] transition-colors border border-[var(--color-border)]"
+                  className="bg-slate-800/70 rounded-xl p-4 hover:bg-slate-800 transition-colors"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
                   <div className="flex items-center">
-                    <div className="bg-[var(--color-primary)]/10 p-2 rounded-full mr-3">
-                      <Trophy size={16} className="text-[var(--color-primary)]" />
+                    <div className="bg-primary/10 p-2 rounded-full mr-3">
+                      <Trophy size={16} className="text-primary" />
                     </div>
                     <div>
-                      <p className="text-[14px] font-medium text-[var(--color-text-muted)]">Game Score</p>
-                      <p className="text-lg font-bold text-[var(--color-text)]">{userData.gameScore}</p>
+                      <p className="text-[14px] font-medium text-[#AAB4C5]">Game Score</p>
+                      <p className="text-lg font-bold">{userData.gameScore}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -142,23 +142,22 @@ const UserProfile: React.FC = () => {
         </Card>
         
         {/* Badges & Achievements Card - 2/3 width */}
-        <Card className="col-span-12 md:col-span-8 bg-white border-[var(--color-border)] rounded-2xl shadow-sm">
+        <Card className="col-span-12 md:col-span-8 bg-slate-800/90 border border-slate-700 rounded-2xl shadow-md">
           <CardContent className="p-5">
             <div>
               <div className="flex items-center mb-5">
-                <Award size={20} className="mr-3 text-[var(--color-primary)]" />
-                <h3 className="text-[20px] font-bold text-[var(--color-primary)]">Badges & Achievements</h3>
+                <Award size={20} className="mr-3 text-[#C2D1FF]" />
+                <h3 className="text-[20px] font-bold text-[#C2D1FF]">Badges & Achievements</h3>
               </div>
               
               {/* Top row: badges */}
-              <div className="bg-[var(--color-surface)] rounded-xl p-4 mb-5 border border-[var(--color-border)]">
-                <h4 className="text-[16px] font-medium text-[var(--color-text)] mb-3">Your Badges</h4>
+              <div className="bg-slate-800/60 rounded-xl p-4 mb-5">
+                <h4 className="text-[16px] font-medium text-white mb-3">Your Badges</h4>
                 <div className="flex flex-wrap gap-2">
                   {userData.badges.map((badge) => (
                     <Badge 
                       key={badge.id} 
-                      variant="secondary"
-                      className="px-3 py-1.5 text-[14px] bg-[var(--color-hover)] text-[var(--color-text)] hover:bg-[var(--color-secondary)]/10 border border-[var(--color-border)] transition-colors" 
+                      className="px-3 py-1.5 text-[14px] bg-slate-800 text-white hover:bg-slate-700 transition-colors" 
                       title={badge.description}
                     >
                       {badge.name}
@@ -169,52 +168,52 @@ const UserProfile: React.FC = () => {
               
               {/* Middle row: two columns */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div className="bg-[var(--color-surface)] rounded-xl p-4 border border-[var(--color-border)]">
-                  <h4 className="text-[16px] font-medium text-[var(--color-text)] mb-3">Recent Stats</h4>
+                <div className="bg-slate-800/60 rounded-xl p-4">
+                  <h4 className="text-[16px] font-medium text-white mb-3">Recent Stats</h4>
                   <ul className="space-y-3">
                     <li className="flex justify-between text-[16px]">
-                      <span className="text-[var(--color-text-muted)]">Accuracy (last 5):</span>
-                      <span className="font-medium text-[var(--color-text)]">83%</span>
+                      <span className="text-[#AAB4C5]">Accuracy (last 5):</span>
+                      <span className="font-medium">83%</span>
                     </li>
                     <li className="flex justify-between text-[16px]">
-                      <span className="text-[var(--color-text-muted)]">Weekly rank:</span>
-                      <span className="font-medium text-[var(--color-text)]">#5</span>
+                      <span className="text-[#AAB4C5]">Weekly rank:</span>
+                      <span className="font-medium">#5</span>
                     </li>
                     <li className="flex justify-between text-[16px]">
-                      <span className="text-[var(--color-text-muted)]">Best score:</span>
-                      <span className="font-medium text-[var(--color-text)]">92 (Apr 15)</span>
+                      <span className="text-[#AAB4C5]">Best score:</span>
+                      <span className="font-medium">92 (Apr 15)</span>
                     </li>
                   </ul>
                 </div>
                 
-                <div className="bg-[var(--color-surface)] rounded-xl p-4 border border-[var(--color-border)]">
-                  <h4 className="text-[16px] font-medium text-[var(--color-text)] mb-3">Next Milestones</h4>
+                <div className="bg-slate-800/60 rounded-xl p-4">
+                  <h4 className="text-[16px] font-medium text-white mb-3">Next Milestones</h4>
                   <ul className="space-y-3">
                     <li className="flex justify-between text-[16px]">
-                      <span className="text-[var(--color-text-muted)]">Expert Forecaster:</span>
-                      <span className="font-medium text-[var(--color-text)]">2 more weeks</span>
+                      <span className="text-[#AAB4C5]">Expert Forecaster:</span>
+                      <span className="font-medium">2 more weeks</span>
                     </li>
                     <li className="flex justify-between text-[16px]">
-                      <span className="text-[var(--color-text-muted)]">Perfect Streak:</span>
-                      <span className="font-medium text-[var(--color-text)]">1 more accurate</span>
+                      <span className="text-[#AAB4C5]">Perfect Streak:</span>
+                      <span className="font-medium">1 more accurate</span>
                     </li>
                     <li className="flex justify-between text-[16px]">
-                      <span className="text-[var(--color-text-muted)]">Top 3 Position:</span>
-                      <span className="font-medium text-[var(--color-text)]">8 points needed</span>
+                      <span className="text-[#AAB4C5]">Top 3 Position:</span>
+                      <span className="font-medium">8 points needed</span>
                     </li>
                   </ul>
                 </div>
               </div>
               
               {/* Bottom: challenge section */}
-              <div className="bg-[var(--color-hover)] border border-[var(--color-primary)]/20 rounded-xl p-5">
-                <h4 className="text-[16px] font-medium text-[var(--color-text)] mb-3">This Week's Challenge</h4>
-                <p className="text-[16px] text-[var(--color-text)] mb-5">
+              <div className="bg-slate-800 border border-slate-700/50 rounded-xl p-5">
+                <h4 className="text-[16px] font-medium text-white mb-3">This Week's Challenge</h4>
+                <p className="text-[16px] text-slate-300 mb-5">
                   Predict the impact of next Tuesday's employment report on the Fed's rate decision.
                   Boost your accuracy score by 15 points with a correct prediction!
                 </p>
                 <div className="flex justify-end">
-                  <Button variant="default" className="bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90">
+                  <Button size="default">
                     Participate
                   </Button>
                 </div>

@@ -29,7 +29,7 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
       case 'cut':
         return <ChevronDown className="text-emerald-500" />;
       case 'hold':
-        return <ChevronRight className="text-gray-400" />;
+        return <ChevronRight className="text-slate-400" />;
       case 'hike':
         return <ChevronUp className="text-rose-500" />;
       default:
@@ -43,9 +43,9 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
       case 'cut':
         return "#10b981"; // Emerald-500 for Cut (green)
       case 'hold':
-        return "#6b7280"; // Gray-500 for Hold (neutral gray)
+        return "#94a3b8"; // Slate-400 for Hold (neutral gray)
       case 'hike':
-        return "#ef4444"; // Red-500 for Hike (red)
+        return "#f43f5e"; // Rose-500 for Hike (red)
       default:
         return "#64748b"; // Slate-500
     }
@@ -66,15 +66,15 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      <h2 className="text-xl font-bold text-primary mb-4 tracking-tight">Clients' Predictions for the Next Fed Move</h2>
+      <h2 className="text-xl font-bold text-indigo-300 mb-4 tracking-tight">Clients' Predictions for the Next Fed Move</h2>
       
       <div className="flex-grow mt-4">
         <ChartContainer
           className="w-full h-64"
           config={{
-            cut: { theme: { light: "#10b981", dark: "#10b981" } },
-            hold: { theme: { light: "#6b7280", dark: "#6b7280" } }, 
-            hike: { theme: { light: "#ef4444", dark: "#ef4444" } },
+            cut: { theme: { dark: "#10b981", light: "#10b981" } },
+            hold: { theme: { dark: "#94a3b8", light: "#94a3b8" } }, 
+            hike: { theme: { dark: "#f43f5e", light: "#f43f5e" } },
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
@@ -83,14 +83,14 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
                 dataKey="name"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: '#6b7280', fontSize: 12 }}
+                tick={{ fill: '#94a3b8', fontSize: 12 }}
               />
               <YAxis 
                 hide={false} 
-                tick={{ fill: '#6b7280', fontSize: 11 }}
+                tick={{ fill: '#94a3b8', fontSize: 11 }}
                 tickLine={false}
                 axisLine={false}
-                label={{ value: '%', angle: -90, position: 'insideLeft', fill: '#6b7280', fontSize: 12 }}
+                label={{ value: '%', angle: -90, position: 'insideLeft', fill: '#94a3b8', fontSize: 12 }}
                 ticks={[0, 20, 40, 60, 80, 100]} // Improved spacing
               />
               <Bar
@@ -99,7 +99,7 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
                 fill="fill"
                 label={{
                   position: 'top',
-                  fill: '#4b5563',
+                  fill: '#cbd5e1',
                   fontSize: 12,
                   fontWeight: 'bold',
                   offset: 10
@@ -110,7 +110,7 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
                 animationEasing="ease-out"
               />
               <ChartTooltip
-                cursor={{ fill: 'rgba(243, 244, 246, 0.5)' }}
+                cursor={{ fill: 'rgba(15, 23, 42, 0.3)' }}
                 content={
                   <ChartTooltipContent
                     formatter={(value: number, name: string) => [
@@ -125,9 +125,9 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
         </ChartContainer>
       </div>
 
-      <div className="mt-8 space-y-4 border-t border-gray-200 pt-4">
+      <div className="mt-8 space-y-4 border-t border-slate-700/50 pt-4">
         <div className="flex flex-col items-center justify-center space-y-2">
-          <span className="text-gray-500 text-sm">You predicted:</span>
+          <span className="text-slate-400 text-sm">You predicted:</span>
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -136,9 +136,9 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
             <Badge 
               className={`flex items-center space-x-1 py-2 px-4 text-base ${
                 userVote === 'cut' ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700' : 
-                userVote === 'hold' ? 'bg-gradient-to-r from-gray-400 to-gray-500 hover:from-gray-500 hover:to-gray-600' : 
+                userVote === 'hold' ? 'bg-gradient-to-r from-slate-400 to-slate-500 hover:from-slate-500 hover:to-slate-600' : 
                 'bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700'
-              } text-white font-medium shadow-sm`}
+              } text-white font-medium shadow-lg`}
             >
               {getDirectionIcon(userVote)}
               <span className="ml-1">{formatDirection(userVote)}</span>
@@ -147,8 +147,8 @@ export const FomcRateOutlook: React.FC<FomcRateOutlookProps> = ({
         </div>
         
         <div className="text-center mt-4">
-          <span className="text-gray-500 text-sm">Client average expected target rate:</span>{" "}
-          <span className="text-primary font-semibold">{averageRate.toFixed(2)}%</span>
+          <span className="text-slate-400 text-sm">Client average expected target rate:</span>{" "}
+          <span className="text-indigo-300 font-semibold">{averageRate.toFixed(2)}%</span>
         </div>
       </div>
     </div>

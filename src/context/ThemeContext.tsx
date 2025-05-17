@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 
-type Theme = "light";
+type Theme = "dark";
 
 type ThemeContextType = {
   theme: Theme;
@@ -10,18 +10,19 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme] = useState<Theme>("light");
+  const [theme] = useState<Theme>("dark");
 
-  // Use useLayoutEffect to set light mode by default
+  // Instead of useEffect to force dark mode, we'll use React's state properly
+  // This avoids the hook usage issue that was causing the runtime error
   React.useLayoutEffect(() => {
-    document.documentElement.classList.remove("dark");
-    document.documentElement.classList.add("light");
-    localStorage.setItem("theme", "light");
+    document.documentElement.classList.remove("light");
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
   }, []);
 
   const toggleTheme = () => {
-    // Keep light mode, this is a no-op function now
-    console.log("Theme toggle disabled - using light mode only");
+    // Keep dark mode, this is a no-op function now
+    console.log("Theme toggle disabled - using dark mode only");
   };
 
   return (
