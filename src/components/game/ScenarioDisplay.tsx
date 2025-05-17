@@ -14,23 +14,23 @@ const ScenarioDisplay: React.FC<ScenarioDisplayProps> = ({ scenario, hideMetadat
   
   return (
     <motion.div 
-      className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md overflow-hidden w-full"
+      className="bg-slate-800/90 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-md overflow-hidden"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="p-3 sm:p-4">
-        <h2 className="text-base sm:text-lg font-bold text-indigo-300 truncate">
+      <div className={`p-3 ${isMobile ? 'space-y-1' : 'space-y-2'}`}>
+        <h2 className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-indigo-300`}>
           Historical Market Scenario
         </h2>
         
-        <p className="text-xs sm:text-sm leading-snug text-gray-200 mt-1 sm:mt-2">
+        <p className={`${isMobile ? 'text-xs' : 'text-sm'} leading-snug text-gray-200`}>
           {scenario.scenario}
         </p>
         
         {!hideMetadata && (
-          <div className="mt-1 sm:mt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-gray-400">
-            <span className="mb-1 sm:mb-0">{scenario.date}</span>
+          <div className="mt-1 flex items-center justify-between text-xs text-gray-400">
+            <span>{scenario.date}</span>
             <span>{scenario.context}</span>
           </div>
         )}

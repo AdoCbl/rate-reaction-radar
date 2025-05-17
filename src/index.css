@@ -51,11 +51,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-slate-900 to-indigo-950 text-foreground font-sans overflow-x-hidden;
-  }
-  
-  html {
-    @apply overflow-x-hidden;
+    @apply bg-gradient-to-br from-slate-900 to-indigo-950 text-foreground font-sans;
   }
 }
 
@@ -70,28 +66,28 @@
 
   /* Unified card styling */
   .app-card {
-    @apply bg-slate-800/90 backdrop-blur-sm border border-slate-700/50 shadow-md rounded-xl overflow-hidden w-full;
+    @apply bg-slate-800/90 backdrop-blur-sm border border-slate-700/50 shadow-md rounded-xl overflow-hidden;
   }
   
   .card-header {
-    @apply p-3 sm:p-4;
+    @apply p-4;
   }
   
   .card-title {
-    @apply text-base sm:text-lg font-medium text-indigo-300 flex items-center gap-2;
+    @apply text-md font-medium text-indigo-300 flex items-center gap-2;
   }
   
   .card-description {
-    @apply text-xs sm:text-sm text-slate-400;
+    @apply text-xs text-slate-400;
   }
   
   .card-content {
-    @apply p-3 sm:p-4 pt-0;
+    @apply p-4 pt-0;
   }
 
   /* Consistent grid layouts */
   .grid-layout {
-    @apply grid gap-3 sm:gap-4;
+    @apply grid gap-4;
   }
   
   .two-column-grid {
@@ -116,7 +112,7 @@
   }
   
   .data-value {
-    @apply text-sm sm:text-base font-bold;
+    @apply text-base font-bold;
   }
   
   /* Unified container styles */
@@ -131,36 +127,7 @@
   
   /* Uniform separator */
   .content-divider {
-    @apply my-2 sm:my-3 bg-slate-700/50 h-px w-full;
-  }
-  
-  /* Responsive card grid */
-  .responsive-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4;
-  }
-  
-  /* Touch-friendly elements */
-  .touch-target {
-    @apply min-h-[48px] min-w-[44px] flex items-center justify-center;
-  }
-  
-  /* Responsive padding */
-  .responsive-padding {
-    @apply p-2 sm:p-3 md:p-4;
-  }
-  
-  /* Responsive typography */
-  .responsive-title {
-    @apply text-base sm:text-lg md:text-xl font-bold;
-  }
-  
-  .responsive-text {
-    @apply text-xs sm:text-sm md:text-base;
-  }
-  
-  /* Responsive charts container */
-  .chart-container {
-    @apply w-full h-auto min-h-[200px] md:min-h-[250px];
+    @apply my-3 bg-slate-700/50 h-px w-full;
   }
 }
 
@@ -188,7 +155,7 @@
 
 /* Direction color variables */
 :root {
-  --cut-color: #10b981;    /* Emerald-500 for cut */
+  --cut-color: #f43f5e;    /* Rose-500 for cut */
   --hold-color: #94a3b8;   /* Slate-400 for hold */
-  --hike-color: #f43f5e;   /* Rose-500 for hike */
+  --hike-color: #10b981;   /* Emerald-500 for hike */
 }
