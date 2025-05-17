@@ -15,6 +15,7 @@
     --color-muted: #D1D5DB;            /* Optional light blue-gray - for subtle dividers or placeholders */
     --color-border: #CBD5E1;           /* Light cool tone border, not dull gray */
     --color-hover: #DBEAFE;            /* Very light blue for hover/focus backgrounds */
+    --color-primary-10: rgba(37, 99, 235, 0.1); /* Primary color with 10% opacity */
 
     /* Keep HSL variables for backward compatibility */
     --background: 0 0% 100%;
@@ -194,7 +195,7 @@
 }
 
 .card-accent {
-  @apply bg-gradient-to-br from-white to-[var(--color-hover)] border border-[var(--color-primary)]/10;
+  @apply bg-gradient-to-br from-white to-[var(--color-hover)] border border-[var(--color-primary-10)];
 }
 
 /* Direction color variables */
